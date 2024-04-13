@@ -1,0 +1,8 @@
+Comandos de instalação dos pacotes para o desenvolvimento do projeto.
+
+npm i react-router-dom
+npm i react-icons
+npm install firebase
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm i @fontsource/quicksand

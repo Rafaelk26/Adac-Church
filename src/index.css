@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    background-color: rgb(0, 0, 0);
+}
+
+/* Estilizando a barra de rolagem */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Estilizando o rastreamento da barra de rolagem */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Estilizando o botão superior e inferior */
+  ::-webkit-scrollbar-button {
+    background: transparent;
+    width: 1px;
+  }
+  
+  /* Estilizando o botão superior da barra de rolagem quando pressionado */
+  ::-webkit-scrollbar-button:vertical:start:decrement,
+  ::-webkit-scrollbar-button:vertical:end:increment {
+    background-color: transparent;
+  }
+  
+  /* Estilizando o rastreamento da barra de rolagem quando o mouse está sobre ele */
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff99; /* Cor do rastreamento quando o mouse está sobre ele */
+    border-radius: 10px; 
+    cursor: pointer;
+  }
+  
+  /* Estilizando a barra de rolagem quando arrastada */
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #ffffff; /* Cor da barra de rolagem quando não está ativa */
+  }
+  

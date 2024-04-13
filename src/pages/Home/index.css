@@ -1,0 +1,37 @@
+/* CSS Background */
+
+#imagem_capa{
+    height: 32rem;
+}
+
+/* Small devices */
+@media (min-width: 640px){
+    #imagem_capa{
+        height: 35rem;
+    }
+}
+
+/* Medium devices */
+@media (min-width: 768px){
+    #imagem_capa{
+        height: 37rem;
+    }
+}
+
+/* Large devices */
+@media (min-width: 1024px){
+    #imagem_capa{
+        height: 38rem;
+    }
+}
+
+
+/* CSS Header */
+@media (max-width: 450px){
+    #header_home{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
