@@ -22,7 +22,7 @@ export function Church(){
 
     return(
         <>
-            <main className="bg-transparent flex flex-col justify-center items-center mb-52 mt-16">
+            <main className="bg-transparent flex flex-col justify-center items-center mt-16">
                 {/* Title A Igreja */}
                 <div className='w-1/2 flex flex-col items-center transition-all hover:scale-105 hover:cursor-default'>
                     <h1 className='quicksand text-5xl text-center text-white w-full'>A Igreja</h1>
@@ -40,7 +40,7 @@ export function Church(){
                     <>
                         {/* Aside ADAC Topics */}
                         <aside 
-                        className='w-1/4 h-min max-h-min bg-gray-200 rounded-xl'>
+                        className='w-1/4 h-full max-h-2/5 bg-gray-200 rounded-xl'>
                             <div className='w-full p-6 pt-8 pb-24 bg-transparent'>
                                 <h1 className='bg-transparent quicksand text-5xl text-black'>ADAC</h1>
                                 <ul className='bg-transparent w-full flex flex-col gap-7 justify-center items-center mt-6'>
@@ -79,12 +79,12 @@ export function Church(){
 
 
                     {/* Section Photo more Informations */}
-                    <section className='bg-transparent w-full'>
+                    <section className='bg-transparent w-full h-1/3'>
                         {/* Photo */}
-                        <div className='bg-transparent w-full h-1/2 max-h-max rounded-2xl font-normal'>
+                        <div className='bg-transparent w-full h-2/5 max-h-1/2 rounded-2xl font-normal'>
                             <a href="/adac/igreja">
                                 <img 
-                                className='w-full h-full object-cover rounded-xl transition-all cursor-pointer
+                                className='w-full h-96 object-cover rounded-xl transition-all cursor-pointer
                                 sm:h-full
                                 hover:scale-105'
                                 src="https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA" 
@@ -92,8 +92,8 @@ export function Church(){
                             </a>
                         </div>
                         {/* Resume and Informations */}
-                        <div className=''>
-                            <p className='text-white text-xl flex justify-center md:justify-start '>
+                        <div>
+                            <p className='text-white text-xl flex justify-center mt-2 md:justify-start '>
                             Nossa igreja, fundada em [ano de fundação], tem sido um farol de fé e serviço em nossa comunidade. 
                             Desde suas origens como pequenas células até a fundação da ADAC Church, nossa jornada reflete a dedicação 
                             aos ensinamentos de Cristo. Unidos pelo amor a Deus e ao próximo, cultivamos comunidades vibrantes através 
@@ -105,7 +105,7 @@ export function Church(){
                         </div>
                         {/* Button */}
                         <div 
-                        className="w-full bg-transparent mt-3 flex justify-center 
+                        className="w-full bg-transparent mt-5 flex justify-center 
                         sm:justify-start
                         md:justify-start
                         lg:justify-start">

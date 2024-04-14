@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
 import { Church } from '../../components/Pages/Home/Church';
+import { Event } from '../../components/Pages/Home/Event';
+import { Cards } from '../../components/Pages/Home/Cards';
 
 // Background Logo
 import backgroundLogo from '../../assets/Logo/logo-background.png';
@@ -66,7 +68,15 @@ export function Home(){
             {/* Main Settings */}
             <ContainerMain>
                 <Church />
-            </ContainerMain>    
+                <div 
+                className='flex justify-center flex-col items-center gap-4 mt-16
+                md:flex-row'>
+                    <Cards nome='Jesus'/>
+                    <Cards nome='Alegria'/>
+                    <Cards nome='Fé'/>
+                </div>
+                <Event />
+            </ContainerMain>  
             
         </>
     )
