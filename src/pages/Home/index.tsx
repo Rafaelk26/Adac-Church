@@ -11,6 +11,7 @@ import { Church } from '../../components/Pages/Home/Church';
 import { Event } from '../../components/Pages/Home/Event';
 import { Cards } from '../../components/Pages/Home/Cards';
 import { Cell } from '../../components/Pages/Home/Cell';
+import { Footer } from '../../components/Pages/Home/Footer';
 
 // Background Logo
 import backgroundLogo from '../../assets/Logo/logo-background.png';
@@ -79,6 +80,8 @@ export function Home(){
                 <Event />
                 <Cell />
             </ContainerMain>  
+            <Footer />  
+            
             
         </>
     )
