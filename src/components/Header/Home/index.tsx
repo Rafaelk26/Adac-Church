@@ -5,7 +5,7 @@ import { BiMenu } from 'react-icons/bi';
 import logoAdac from '../../../assets/Logo/logo-adac.png';
 
 // Componentes
-import { Links } from '../../../components/Button/Links';
+import { Links } from '../../../components/Button/Home/Links';
 
 // Font Quicksand
 import "@fontsource/quicksand/600.css";

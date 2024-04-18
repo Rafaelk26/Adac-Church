@@ -81,8 +81,6 @@ export function Home(){
                 <Cell />
             </ContainerMain>  
             <Footer />  
-            
-            
         </>
     )
 }

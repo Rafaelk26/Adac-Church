@@ -1,5 +1,5 @@
 // Button
-import { Button } from '../../../../components/Button/index';
+import { Button } from '../../../../components/Button/Home';
 
 import { useState, useEffect } from 'react';
 

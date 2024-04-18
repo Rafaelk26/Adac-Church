@@ -1,5 +1,5 @@
 // Components
-import { Button } from '../../../Button/index';
+import { Button } from '../../../../components/Button/Home';
 import { CellCards } from '../CellCards';
 
 export function Cell(){
