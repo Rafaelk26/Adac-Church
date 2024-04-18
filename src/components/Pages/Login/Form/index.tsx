@@ -12,7 +12,10 @@ export function Form() {
     }
 
     return (
-        <form className='w-full bg-transparent outline outline-2 outline-white flex flex-col items-center pt-4 rounded-xl px-4 gap-6' method='post'>
+        <form 
+        method='post'
+        className='w-full bg-transparent relative z-10 outline outline-2 outline-white 
+        flex flex-col items-center pt-4 rounded-xl px-4 gap-6'>
             <h1 className='bg-transparent font-medium quicksand text-white text-5xl mt-4'>Login</h1>
 
             <Input 

@@ -12,13 +12,17 @@ export function Login(){
         <>  
             <img 
             src={leaoLogo}
-            className="absolute object-cover top-0 w-screen h-screen overflow-hidden opacity-35" />
+            className="fixed z-0 object-cover top-0 flex items-center w-full h-screen overflow-hidden opacity-35" />
             <ContainerHeader>
                 <HeaderLogin />
             </ContainerHeader>
             <ContainerMain>
-                <div className='bg-transparent absolute z-10 right-6 mt-36 w-full h-full flex justify-end'>
-                    <div className='w-1/4 h-full bg-transparent'>
+                <div className='bg-transparent mt-32 items-center 
+                w-full h-max flex justify-center
+                sm:justify-center
+                md:me-4 md:justify-end md:right-6 md:top-2 
+                '>
+                    <div className='w-full max-w-80 h-4/5 bg-transparent'>
                         <Form />
                     </div>
                 </div>
