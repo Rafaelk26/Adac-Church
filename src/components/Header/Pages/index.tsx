@@ -13,10 +13,10 @@ export function HeaderPages({ name }: headerProps){
             <header
             id="header_home" 
             className="
-            w-full h-24 flex flex-row
-            sm:flex sm:justify-between sm:items-end
-            md:flex md:justify-between md:items-end
-            lg:flex lg:justify-between lg:items-end
+            w-full h-24 flex flex-col-reverse justify-center items-center mt-10
+            sm:justify-between sm:items-center 
+            md:justify-between md:items-end md:flex-row md:mt-0
+            lg:justify-between lg:items-end lg:flex-row
             ">
                 {/* Title */}
                 <div className='w-max h-max flex items-center'>

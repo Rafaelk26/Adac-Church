@@ -20,7 +20,8 @@ export function Cell({id_cell , name_cell, name_leader, neighborhood, photo_cell
             <Link 
             className='m-0'
             to={`/adac/celulas/detalhes/${id_cell}`}>
-                <div id={id_cell} className="w-104 h-36 bg-white rounded-xl flex gap-5 pe-3">
+                <div id={id_cell} className="w-72 h-36 bg-white rounded-xl flex gap-5 pe-3 
+                md:w-96">
                     {/* Foto */}
                     <div className="w-2/5 h-5/6 my-auto ms-3 bg-white">
                         <img 
