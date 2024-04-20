@@ -6,3 +6,4 @@ npm install firebase
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm i @fontsource/quicksand
+npm i @fontsource/inter

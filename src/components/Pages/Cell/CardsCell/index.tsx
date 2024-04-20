@@ -1,4 +1,4 @@
-import { BiMap } from 'react-icons/bi';
+import { MdLocationPin } from "react-icons/md";
 
 // CSS
 import './index.css';
@@ -20,7 +20,8 @@ export function Cell({id_cell , name_cell, name_leader, neighborhood, photo_cell
             <Link 
             className='m-0'
             to={`/adac/celulas/detalhes/${id_cell}`}>
-                <div id={id_cell} className="w-72 h-36 bg-white rounded-xl flex gap-5 pe-3 
+                <div id={id_cell} className="w-72 h-36 bg-white rounded-xl flex gap-5 pe-3 transition-all
+                hover:scale-105
                 md:w-96">
                     {/* Foto */}
                     <div className="w-2/5 h-5/6 my-auto ms-3 bg-white">
@@ -33,13 +34,18 @@ export function Cell({id_cell , name_cell, name_leader, neighborhood, photo_cell
                     <div className='w-3/5 h-full flex justify-start items-start flex-col gap-2 bg-white'>
                         {/* Name Cell */}
                         <h1 className='mt-2 w-max font-bold quicksand bg-white
-                        text-xl ms-1 max-w-56 overflow-x-hidden text-black'>{name_cell}</h1>
+                        text-sm ms-1 text-black
+                        sm:text-sm
+                        md:text-xl'>{name_cell}</h1>
                         {/* Local Cell */}
                         <div className='flex items-center bg-white'>
-                            <BiMap
-                            className='bg-black' 
-                            size={35} />
-                            <p className='text-md font-bold inter text-black bg-white'>{neighborhood}</p>
+                            <MdLocationPin
+                            className='bg-transparent' 
+                            size={35}
+                            fill="#000" />
+                            <p className='text-xs font-bold inter text-black bg-white
+                            sm:text-xs
+                            md:text-lg'>{neighborhood}</p>
                         </div>
                         {/* Leader Cell */}
                         <div className='flex items-center gap-2 bg-white'>
@@ -51,7 +57,9 @@ export function Cell({id_cell , name_cell, name_leader, neighborhood, photo_cell
                                 alt="Líder" />
                             </div>
                             {/* Name Leader */}
-                            <p className='text-lg font-bold inter text-black bg-white'>{name_leader}</p>
+                            <p className='text-xs font-bold inter text-black bg-white
+                            sm:text-xs
+                            md:text-lg'>{name_leader}</p>
                         </div>
                     </div>
                 </div>
