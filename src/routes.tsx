@@ -5,6 +5,7 @@
 import { Home } from './pages/Home';
 // Página de Exibição dos Eventos
 import { Eventos } from './pages/Eventos';
+import { ViewsEventos } from './pages/Eventos/Events';
 // Página de Detalhe dos Eventos
 import { DetalhesEvento } from './pages/Eventos/Detail';
 // Página de Exibição das Células
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 element: <Eventos />,
                 path: "/adac/eventos"
+            },
+            {
+                element: <ViewsEventos />,
+                path: "/adac/eventos/show"
             },
             {
                 element: <DetalhesEvento />,

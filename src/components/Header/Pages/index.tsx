@@ -21,7 +21,7 @@ export function HeaderPages({ name }: headerProps){
                 {/* Title */}
                 <div className='w-max h-max flex items-center'>
                     <h1 
-                    className='font-bold quicksand text-5xl'>{name}</h1>
+                    className='font-bold quicksand text-2xl sm:text-3xl md:text-5xl'>{name}</h1>
                 </div>
                 {/* Logo ADAC */}
                 <a 

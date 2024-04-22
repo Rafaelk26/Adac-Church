@@ -7,3 +7,4 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm i @fontsource/quicksand
 npm i @fontsource/inter
+npm install react-slick slick-carousel
