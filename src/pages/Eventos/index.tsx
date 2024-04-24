@@ -24,8 +24,8 @@ export function Eventos() {
                     <div className='w-full h-max ps-0 flex justify-start
                     md:w-1/2 '>
                         {/* Parágrafo com texto sobre os eventos */}
-                        <p className='px-2 text-xl text-center mt-2
-                        md:text-3xl md:w-3/5 md:text-start'>
+                        <p className='px-2 text-xl text-center mt-2 
+                        md:text-3xl md:w-full md:text-start md:max-w-xl'>
                             Participe de nossos eventos e descubra oportunidades 
                             emocionantes para se conectar com Deus nessa comunhão 
                             incrível. Junte-se a nós para crescer na fé e no amor. 
