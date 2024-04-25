@@ -1,0 +1,29 @@
+/* CSS Background */
+#imagem_capa_celula{
+    height: 14rem;
+}
+
+/* Small devices */
+@media (min-width: 640px){
+    #imagem_capa_celula{
+        height: 14rem;
+    }
+}
+
+/* Medium devices */
+@media (min-width: 768px){
+    #imagem_capa_celula{
+        height: 16rem;
+    }
+}
+
+/* Large devices */
+@media (min-width: 1024px){
+    #imagem_capa_celula{
+        height: 18rem;
+    }
+}
+
+.card-cell{
+    width: 24rem;
+}

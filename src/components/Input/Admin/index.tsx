@@ -1,20 +1,24 @@
+// Import for development
+import { RegisterOptions, UseFormRegister } from 'react-hook-form';
+
 // CSS
-import './index.module.css'
-
-
+import '../index.module.css'
 
 interface inputProps extends React.InputHTMLAttributes<HTMLInputElement>{
     type: string;
     name: string;
     name_label: string;
+    register?: UseFormRegister<any>;
+    error?: string;
+    rules?: RegisterOptions;
 }
 
-export function Input({type, name, name_label, ...rest}:inputProps){
+export function Input({type, name, name_label, error, rules, ...rest}:inputProps){
     return(
         <>
-            <div className="bg-transparent grid w-full max-w-xs items-center gap-1.5">
+            <div className="bg-transparent grid w-full max-w-sm items-center gap-1.5">
                 <label
-                className="bg-transparent w-max text-md font-medium inter leading-none 
+                className="bg-transparent w-max text-md font-bold inter leading-none 
                 peer-disabled:cursor-not-allowed 
                 peer-disabled:opacity-70">{name_label}</label>
                 
@@ -36,6 +40,7 @@ export function Input({type, name, name_label, ...rest}:inputProps){
                 disabled:cursor-not-allowed 
                 disabled:opacity-50"
                 />
+                {error && <p className='my-1 text-red-500'>{error}</p>}
             </div>
         </>
     )

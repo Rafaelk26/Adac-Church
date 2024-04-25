@@ -5,7 +5,7 @@
 // Components
 import { ContainerHeader } from '../../../components/Container/Header';
 import { ContainerMainDetails } from '../../../components/Container/MainDetails';
-import { HeaderDetails } from '../../../components/Header/Details';
+import { HeaderDetails } from '../../../components/Header/Details/Event';
 
 // Image
 import imgEx  from '../../../assets/leao.png';
@@ -25,7 +25,6 @@ export function DetalhesEvento(){
             <div className="relative z-20 inset-0">
                 {/* Aplica o gradiente linear */}
                 <div className="absolute z-30 w-full h-full bg-transparent bg-gradient-to-b from-transparent via-transparent to-black"></div>
-                
                 <img 
                 src={imgEx}
                 id='imagem_capa_detalhes' 

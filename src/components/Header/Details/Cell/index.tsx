@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 
 // Importando imagem do diretório
-import logoAdac from '../../../assets/Logo/logo-adac.png';
+import logoAdac from '../../../../assets/Logo/logo-adac.png';
 
 // Icon
 import { BiArrowBack } from 'react-icons/bi';
@@ -21,7 +21,7 @@ export function HeaderDetails(){
                 {/* Arrow back */}
                 <div className='w-max h-max flex justify-center items-center bg-transparent'>
                     {/* Arrow back page */}
-                    <Link className='bg-transparent' to={'/adac/eventos/'}>
+                    <Link className='bg-transparent' to={'/adac/celulas/'}>
                         <BiArrowBack className='bg-transparent' size={35}/>
                     </Link>
                 </div>

@@ -16,17 +16,18 @@ import { DetalhesCelula } from './pages/Células/Detail';
 import { Igreja } from './pages/Igreja';
 // Página de Login
 import { Login } from './pages/Login';
+// Página principal de Admin
+import { Administration } from './pages/Administrador/Home/index';
 // Administrador - Criar
 import { CriarCelulas } from './pages/Administrador/Create/Células/index';
 import { CriarEventos } from './pages/Administrador/Create/Eventos/index';
-import { CriarMinistracao } from './pages/Administrador/Create/Ministração/index';
 // Administrador - Editar
 import { EditCelulas } from './pages/Administrador/Edit/Células/index';
 import { EditEventos } from './pages/Administrador/Edit/Eventos/index';
+import { EditLideres } from './pages/Administrador/Edit/Lideres/index';
 // Administrador - Deletar
 import { DeleteCelulas } from './pages/Administrador/Delete/Células/index';
 import { DeleteEventos } from './pages/Administrador/Delete/Eventos/index';
-import { DeleteMinistracao } from './pages/Administrador/Delete/Ministração/index';
 
 // Importando bibliotecas para desenvolvimento do projeto
 import { createBrowserRouter } from 'react-router-dom';
@@ -65,39 +66,39 @@ const router = createBrowserRouter([
             {
                 element: <Login />,
                 path: "/adac/login"
+            },
+            {
+                element: <Administration />,
+                path: '/adac/admin/'
             }, 
             {
                 element: <CriarCelulas />,
-                path: "/adac/criar/celulas"
+                path: "/adac/admin/criar/celulas"
             },
             {
                 element: <CriarEventos />,
-                path: "/adac/criar/eventos"
-            }, 
-            {
-                element: <CriarMinistracao />,
-                path: "/adac/criar/ministracao"
+                path: "/adac/admin/criar/eventos"
             }, 
             {
                 element: <DeleteCelulas />,
-                path: "/adac/deletar/celulas"
+                path: "/adac/admin/deletar/celulas"
             }, 
             {
                 element: <DeleteEventos />,
-                path: "/adac/deletar/eventos"
-            }, 
-            {
-                element: <DeleteMinistracao />,
-                path: "/adac/deletar/ministracao"
-            }, 
+                path: "/adac/admin/deletar/eventos"
+            },
             {
                 element: <EditCelulas />,
-                path: "/adac/editar/celulas"
+                path: "/adac/admin/editar/celulas"
             }, 
             {
                 element: <EditEventos />,
-                path: "/adac/editar/eventos"
+                path: "/adac/admin/editar/eventos"
             },
+            {
+                element: <EditLideres />,
+                path: "/adac/admin/editar/lideres"
+            }
         ]
     }
 ])

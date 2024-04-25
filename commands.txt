@@ -2,9 +2,13 @@ Comandos de instalação dos pacotes para o desenvolvimento do projeto.
 
 npm i react-router-dom
 npm i react-icons
-npm install firebase
-npm install -D tailwindcss postcss autoprefixer
+npm i firebase
+npm i -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm i @fontsource/quicksand
 npm i @fontsource/inter
-npm install react-slick slick-carousel
+npm i react-slick slick-carousel
+npm i react-hook-form
+npm i zod
+npm i @hookform/resolvers
+npm i react-hot-toast
