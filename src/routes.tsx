@@ -17,17 +17,17 @@ import { Igreja } from './pages/Igreja';
 // Página de Login
 import { Login } from './pages/Login';
 // Página principal de Admin
-import { Administration } from './pages/Administrador/Home/index';
+import { Administration } from './pages/Admin/Home/index';
 // Administrador - Criar
-import { CriarCelulas } from './pages/Administrador/Create/Células/index';
-import { CriarEventos } from './pages/Administrador/Create/Eventos/index';
+import { CriarCelulas } from './pages/Admin/Create/Células/index';
+import { CriarEventos } from './pages/Admin/Create/Eventos/index';
 // Administrador - Editar
-import { EditCelulas } from './pages/Administrador/Edit/Células/index';
-import { EditEventos } from './pages/Administrador/Edit/Eventos/index';
-import { EditLideres } from './pages/Administrador/Edit/Lideres/index';
+import { EditCelulas } from './pages/Admin/Edit/Células/index';
+import { EditEventos } from './pages/Admin/Edit/Eventos/index';
+import { EditLideres } from './pages/Admin/Edit/Lideres/index';
 // Administrador - Deletar
-import { DeleteCelulas } from './pages/Administrador/Delete/Células/index';
-import { DeleteEventos } from './pages/Administrador/Delete/Eventos/index';
+import { DeleteCelulas } from './pages/Admin/Delete/Células/index';
+import { DeleteEventos } from './pages/Admin/Delete/Eventos/index';
 
 // Importando bibliotecas para desenvolvimento do projeto
 import { createBrowserRouter } from 'react-router-dom';

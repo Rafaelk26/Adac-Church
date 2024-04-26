@@ -8,21 +8,22 @@ interface inputProps extends React.InputHTMLAttributes<HTMLInputElement>{
     type: string;
     name: string;
     name_label: string;
-    register?: UseFormRegister<any>;
+    register: UseFormRegister<any>;
     error?: string;
     rules?: RegisterOptions;
 }
 
-export function Input({type, name, name_label, error, rules, ...rest}:inputProps){
+export function Input({type, name, name_label, error, register, rules, ...rest}:inputProps){
     return(
         <>
             <div className="bg-transparent grid w-full max-w-sm items-center gap-1.5">
                 <label
-                className="bg-transparent w-max text-md font-bold inter leading-none 
+                className="bg-transparent w-max text-md font-normal quicksand leading-none 
                 peer-disabled:cursor-not-allowed 
                 peer-disabled:opacity-70">{name_label}</label>
                 
                 <input
+                {...register(name, rules)}
                 {...rest}
                 name={name}
                 type={type}
