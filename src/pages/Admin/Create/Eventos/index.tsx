@@ -1,23 +1,25 @@
 // Import for development
+import { ChangeEvent, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+// import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+// import { addDoc, collection } from 'firebase/firestore';
 
 // Components
 import { ContainerMain } from '../../../../components/Container/Main';
 import { Input } from '../../../../components/Input/Admin';
 import { InputEvent, TextareaEvent } from '../../../../components/Input/Admin/Event';
-import { Button } from '../../../../components/Button/Event';
 
 // Icon
 import { BiPhotoAlbum } from 'react-icons/bi';
+
 
 const schema = z.object({
     title: z.string().nonempty('insira um nome'),
     location: z.string().nonempty('insira uma localização'),
     date: z.string().nonempty('insira uma data'),
     time: z.string().nonempty('insira um horário'),
-    photo: z.string().nonempty('insira uma foto'),
     decription: z.string().nonempty('insira uma descrição'),
     word_bible: z.string().nonempty('insira uma palavra bíblica'),
     book_bible: z.string().nonempty('insira o livro, cap e ver.'),
@@ -33,15 +35,49 @@ export function CriarEventos(){
     })
 
     function onSubmit(data: FormData){
-        console.log(data)
+        const obj = {
+            title: data.title,
+            location: data.location,
+            date: data.date,
+            time: data.time,
+            decription: data.decription,
+            word_bible: data.word_bible,
+            book_bible: data.book_bible,
+        } 
+        console.log(obj)
     }
+
+    const [image, setImage] = useState<File | null>(null);
+    
+    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (file instanceof File) {
+            setImage(file)
+        } else {
+        console.log('ERRRO IMAGEM')  
+        }
+    }
+
+    useEffect(()=> {
+        const handleUpload = () => {
+            if(image !== null){
+                console.log('existe imagem aqui!', image)
+            }
+        }
+
+        handleUpload()
+    }, [image]) 
 
     return(
         <>  
             <ContainerMain>
                 <div className='w-full h-max mt-2'>
                     <form 
-                    onSubmit={handleSubmit(onSubmit)}>
+                    method='#'
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSubmit(onSubmit)(); 
+                    }}>
                         <div className='w-full h-full flex flex-col justify-center gap-5 md:justify-between
                         md:flex-row md:gap-0'>
                             {/* Col 1 */}
@@ -89,6 +125,9 @@ export function CriarEventos(){
                                             register={register}
                                             />
                                         </div>
+                                        <img
+                                        src={image ? URL.createObjectURL(image) : undefined}
+                                        alt="" />
                                         {/* Event Hour */}
                                         <div className='w-1/2'>
                                             <Input
@@ -106,7 +145,7 @@ export function CriarEventos(){
                             {/* Col 2 */}
                             <div className='w-full flex flex-col gap-2 
                             md:max-w-80 md:items-end'>
-                                <div className='flex flex-col gap-5 md:gap-3 
+                                <div className='flex flex-col justify-end gap-5 md:gap-3 
                                 w-full h-full'>
                                     {/* Photo */}
                                     <div className='w-full h-48 flex justify-center items-center'>
@@ -115,7 +154,8 @@ export function CriarEventos(){
                                         name='photo'
                                         register={register}
                                         type='file'
-                                        error={errors.photo?.message}
+                                        accept='image/*'
+                                        onChange={(e) => handleImage(e)}
                                         />
                                     </div>
                                     <div className='w-full max-w-80 h-40 flex flex-col items-center mx-auto 
@@ -135,7 +175,7 @@ export function CriarEventos(){
                                         error={errors.decription?.message} 
                                         register={register}
                                         name='description'
-                                        type='text'
+                                        type=''
                                         />
                                         
                                     </div>
@@ -168,13 +208,14 @@ export function CriarEventos(){
                             </div>
                         </div>
                         {/* Button submit */}
-                        <div className='flex justify-center mt-10'>
-                            <div className='w-56 border border-white rounded-lg'>
-                                <Button
-                                type='submit'
-                                name='Cadastrar'
-                                path='/adac/admin/'
-                                />
+                        <div className='flex justify-center mt-10 w-full mb-5'>
+                            <div className='w-full max-w-56 border border-white rounded-lg'>
+                            <button
+                            type="submit"
+                            className="w-full p-2 border-2 bg-black rounded-lg transition-all font-medium
+                            hover:bg-white hover:text-black hover:font-medium md:border-black">         
+                                Cadastrar
+                            </button>
                             </div>
                         </div>  
                     </form>
