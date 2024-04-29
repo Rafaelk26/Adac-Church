@@ -265,12 +265,12 @@ export function CriarEventos(){
                         {/* Button submit */}
                         <div className='flex justify-center mt-10 w-full mb-5'>
                             <div className='w-full max-w-56 border border-white rounded-lg'>
-                            <button
-                            type="submit"
-                            className="w-full p-2 border-2 bg-black rounded-lg transition-all font-medium
-                            hover:bg-white hover:text-black hover:font-medium md:border-black">         
-                                Cadastrar
-                            </button>
+                                <button
+                                type="submit"
+                                className="w-full p-2 border-2 bg-black rounded-lg transition-all font-medium
+                                hover:bg-white hover:text-black hover:font-medium md:border-black">         
+                                    Cadastrar
+                                </button>
                             </div>
                         </div>  
                     </form>
