@@ -4,7 +4,10 @@
 import { ContainerHeader } from '../../../components/Container/Header';
 import { ContainerMain } from '../../../components/Container/Main';
 import { HeaderPages } from '../../../components/Header/Pages';
-import { cardService } from '../../../components/Pages/Admin/CardsService';
+import { cardService } from '../../../components/Pages/Admin/CardsService/';
+
+
+
 
 export function Administration(){
     return(
@@ -22,12 +25,19 @@ export function Administration(){
                         de conteúdos.</p>
                     </div>
 
-                    <div className='w-full mt-5'>
+                    <section className='w-full mt-5'>
                         {/* Title Adm */}
-                        <div className='w-full flex justify-center'>
+                        <div className='w-full flex justify-center mb-5'>
                             <h2 className='font-semibold quicksand text-3xl'>Serviços</h2>
                         </div>
-                    </div>
+
+                        {/* Cards Services */}
+                        <div className='flex justify-center gap-3'>
+                            {/* Eventos */}
+                            {/* Células */}
+                            {/* Líderes */}
+                        </div>
+                    </section>
                 </ContainerMain>
             </div>
         </>
