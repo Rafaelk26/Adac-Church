@@ -144,7 +144,9 @@ export function CriarCelulas(){
     return(
         <>
             <ContainerHeader>
-                <HeaderPages name='Cadastrar Célula'/>
+                <HeaderPages 
+                path='/adac/admin/'
+                name='Cadastrar Célula'/>
             </ContainerHeader>
             {/* Content */}
             <ContainerMain>

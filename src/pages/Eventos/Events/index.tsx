@@ -45,7 +45,9 @@ export function ViewsEventos(){
         <>
             {/* Header Event */}
             <ContainerHeader>
-                <HeaderPages name='Eventos Confirmados' />
+                <HeaderPages 
+                path='/'
+                name='Eventos Confirmados' />
             </ContainerHeader>
             {/* Events Cards */}
             <ContainerMainCard>

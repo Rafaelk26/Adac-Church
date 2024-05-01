@@ -55,7 +55,9 @@ export function Celulas(){
     return(
         <>
             <ContainerHeader>
-                <HeaderPages name='Células' />
+                <HeaderPages 
+                path='/'
+                name='Células' />
             </ContainerHeader>
             <ContainerMainCard>
             <div className='w-full h-24 flex items-center flex-col mt-40

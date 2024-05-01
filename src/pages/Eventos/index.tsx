@@ -14,7 +14,9 @@ export function Eventos() {
         <>
             {/* Componente ContainerHeader com o componente HeaderPages dentro */}
             <ContainerHeader>
-                <HeaderPages name='Agenda de Eventos' /> 
+                <HeaderPages 
+                path='/'
+                name='Agenda de Eventos' /> 
             </ContainerHeader>
             {/* Componente ContainerMainCard envolvendo os conteúdos */}
             <ContainerMainCard>

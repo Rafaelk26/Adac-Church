@@ -2,10 +2,11 @@
 import logoAdac from '../../../assets/Logo/logo-adac.png';
 
 interface headerProps{
-    name:string
+    name: string;
+    path: string;
 }
 
-export function HeaderPages({ name }: headerProps){
+export function HeaderPages({ name, path }: headerProps){
     
     return(
         <>
@@ -25,7 +26,7 @@ export function HeaderPages({ name }: headerProps){
                 </div>
                 {/* Logo ADAC */}
                 <a 
-                href="/" 
+                href={path} 
                 className='bg-transparent w-20 m-0'
                 >
                     <img src={logoAdac} alt="ADAC Church" 

@@ -4,12 +4,12 @@ import { BiUser } from 'react-icons/bi';
 // Components
 import { Links } from '../../../../components/Button/Home/Links';
 
-interface cardServiceProps{
+interface cardProps{
     name: string;
     name_link: string;
 }
 
-export function cardService({ name, name_link }: cardServiceProps){
+export function CardService({ name, name_link }: cardProps){
     return(
         <>
             <div className='w-60 h-80 outline outline-white outline-2 rounded-lg px-4'>
