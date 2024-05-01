@@ -1,4 +1,5 @@
 // Import for development
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import { ContainerHeader } from '../../../components/Container/Header';
@@ -13,8 +14,11 @@ import { BiUser } from 'react-icons/bi';
 
 export function Administration(){
 
+    const nav = useNavigate()
+
     const handleLogout = () => {
         alert('deslogado');
+        nav('/');
         return;
     }
 

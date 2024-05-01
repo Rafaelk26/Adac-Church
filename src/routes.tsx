@@ -23,7 +23,9 @@ import { CriarCelulas } from './pages/Admin/Create/Células/index';
 import { CriarEventos } from './pages/Admin/Create/Eventos/index';
 // Administrador - Editar
 import { EditCelulas } from './pages/Admin/Edit/Células/index';
+import { EditCelulasId } from './pages/Admin/Edit/Células/Célula/index';
 import { EditEventos } from './pages/Admin/Edit/Eventos/index';
+import { EditarEventosId } from './pages/Admin/Edit/Eventos/Evento/index';
 import { EditLideres } from './pages/Admin/Edit/Lideres/index';
 // Administrador - Deletar
 import { DeleteCelulas } from './pages/Admin/Delete/Células/index';
@@ -90,10 +92,20 @@ const router = createBrowserRouter([
             {
                 element: <EditCelulas />,
                 path: "/adac/admin/editar/celulas"
+            },
+            {
+                element: <EditCelulasId />,
+                path: "/adac/admin/editar/celulas/:id"
+
             }, 
             {
                 element: <EditEventos />,
                 path: "/adac/admin/editar/eventos"
+            },
+            {
+                element: <EditarEventosId />,
+                path: "/adac/admin/editar/eventos/:id"
+
             },
             {
                 element: <EditLideres />,
