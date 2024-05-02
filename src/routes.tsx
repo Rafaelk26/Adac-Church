@@ -27,9 +27,15 @@ import { EditCelulasId } from './pages/Admin/Edit/Células/Célula/index';
 import { EditEventos } from './pages/Admin/Edit/Eventos/index';
 import { EditarEventosId } from './pages/Admin/Edit/Eventos/Evento/index';
 import { EditLideres } from './pages/Admin/Edit/Lideres/index';
+import { EditLideresId } from './pages/Admin/Edit/Lideres/Lider/index';
 // Administrador - Deletar
 import { DeleteCelulas } from './pages/Admin/Delete/Células/index';
 import { DeleteEventos } from './pages/Admin/Delete/Eventos/index';
+// Administrador - Visualizar
+import { ViewCelulas } from './pages/Admin/View/Células/index';
+import { ViewEventos } from './pages/Admin/View/Eventos/index';
+import { ViewLideres } from './pages/Admin/View/Lideres/index';
+
 
 // Importando bibliotecas para desenvolvimento do projeto
 import { createBrowserRouter } from 'react-router-dom';
@@ -110,7 +116,23 @@ const router = createBrowserRouter([
             {
                 element: <EditLideres />,
                 path: "/adac/admin/editar/lideres"
-            }
+            },
+            {
+                element: <EditLideresId />,
+                path: "/adac/admin/editar/lideres/:id"
+            },
+            {
+                element: <ViewCelulas />,
+                path: "/adac/admin/visualizar/celulas"
+            },
+            {
+                element: <ViewEventos />,
+                path: "/adac/admin/visualizar/eventos"
+            },
+            {
+                element: <ViewLideres />,
+                path: "/adac/admin/visualizar/lideres"
+            },
         ]
     }
 ])
