@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ContainerHeader } from '../../../../components/Container/Header';
 import { ContainerMain } from '../../../../components/Container/Main';
 import { HeaderPages } from '../../../../components/Header/Pages';
-import { Input, Textarea, InputFile } from '../../../../components/Input/Admin/Cell/';
+import { Input, Textarea, InputFile, Select } from '../../../../components/Input/Admin/Cell/';
 
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
@@ -20,18 +20,19 @@ interface imageInfo {
 
 const schema = z.object({
     // Cell
-    name_cell: z.string().nonempty('insira um nome'),
-    street: z.string().nonempty('insira uma localização'),
-    neighborhood: z.string().nonempty('insira uma data'),
-    number: z.string().nonempty('insira um horário'),
-    day: z.string().nonempty('insira um dia').min(2),
-    hour: z.string().nonempty(''),
-    word_bible_cell: z.string().nonempty('insira uma palavra bíblica.'),
-    book_bible_cell: z.string().nonempty('insira o livro, cap e ver.'),
-    description: z.string().nonempty('insira uma descrição').min(2),
+    name_cell: z.string().nonempty('Insira um nome'),
+    street: z.string().nonempty('Insira uma rua'),
+    neighborhood: z.string().nonempty('Insira um bairro'),
+    number: z.string().nonempty('Insira um número'),
+    day: z.string().nonempty('Insira um dia').min(2),
+    hour: z.string().nonempty('Insira uma hora'),
+    word_bible_cell: z.string().nonempty('Insira uma palavra bíblica.'),
+    book_bible_cell: z.string().nonempty('Insira o livro, cap e ver.'),
+    description: z.string().nonempty('Insira uma descrição').min(2),
     // Leader
-    name_leader: z.string().nonempty('insira um nome'),
-    phone_leader: z.string().nonempty('insira um telefone'),
+    name_leader: z.string().nonempty('Insira um nome'),
+    phone_leader: z.string().nonempty('Insira um telefone'),
+    office: z.string().nonempty('Insira um cargo'),
 })
 
 type FormData = z.infer<typeof schema>
@@ -51,7 +52,7 @@ export function CriarCelulas(){
         if (file instanceof File) {
             const url = file.name
             setImageCell(
-                { file, url: `images/cell/${url}` }
+                { file, url: `${url}` }
             );
         } else {
             setImageCell(
@@ -67,7 +68,7 @@ export function CriarCelulas(){
         if (file instanceof File) {
             const url = file.name
             setImageLeader(
-                { file, url: `images/cell/${url}` }
+                { file, url: `${url}` }
             );
         } else {
             setImageCell(
@@ -106,13 +107,13 @@ export function CriarCelulas(){
 
         if(!imageCell.url){
             // Toast de erro
-            alert('inserir imagem célula')
+            alert('inserir imagem célula');
             return;
         }
 
         if(!imageLeader.url){
             // Toast de erro
-            alert('inserir imagem líder')
+            alert('inserir imagem líder');
             return;
         }
 
@@ -120,6 +121,7 @@ export function CriarCelulas(){
             // Cell
             name_cell: data.name_cell,
             street: data.street,
+            neighborhood: data.neighborhood,
             day: data.day,
             hour: data.hour,
             photo_cell: imageCell.url,
@@ -130,7 +132,7 @@ export function CriarCelulas(){
             // Leader
             name_leader: data.name_leader,
             phone_leader: data.phone_leader,
-            // Cargo
+            office: data.office,
             photo_leader: imageLeader.url,
         };
         reset();
@@ -203,13 +205,61 @@ export function CriarCelulas(){
                                         </div>
                                         <div className='w-full md:w-1/2'>
                                             {/* Neighborhood */}
-                                            <Input
-                                            type='text'
+                                            <Select
                                             name='neighborhood'
                                             name_label='Bairro'
                                             register={register}
-                                            error={errors.neighborhood?.message}
-                                            />
+                                            error={errors.neighborhood?.message}>
+                                                <option value=""></option>
+                                                <option value="Barranco Alto">Barranco Alto</option>
+                                                <option value="Benfica">Benfica</option>
+                                                <option value="Cantagalo">Cantagalo</option>
+                                                <option value="Capricórnio I">Capricórnio I</option>
+                                                <option value="Capricórnio II">Capricórnio II</option>
+                                                <option value="Capricórnio III">Capricórnio III</option>
+                                                <option value="Caputera">Caputera</option>
+                                                <option value="Centro">Centro</option>
+                                                <option value="Cidade Jardim">Cidade Jardim</option>
+                                                <option value="Estrela D' Alva">Estrela D' Alva</option>
+                                                <option value="Getuba">Getuba</option>
+                                                <option value="Golfinho">Golfinho</option>
+                                                <option value="Indaiá">Indaiá</option>
+                                                <option value="Ipiranga">Ipiranga</option>
+                                                <option value="Jaraguá">Jaraguá</option>
+                                                <option value="Jaraguazinho">Jaraguazinho</option>
+                                                <option value="Jardim Aruan">Jardim Aruan</option>
+                                                <option value="Jardim Britânia">Jardim Britânia</option>
+                                                <option value="Jardim Califórnia">Jardim Califórnia</option>
+                                                <option value="Jardim Casa Branca">Jardim Casa Branca</option>
+                                                <option value="Jardim Flecheiras">Jardim Flecheiras</option>
+                                                <option value="Jardim Gaivotas">Jardim Gaivotas</option>
+                                                <option value="Jardim Jaqueira">Jardim Jaqueira</option>
+                                                <option value="Jardim Mariella">Jardim Mariella</option>
+                                                <option value="Jardim Olaria">Jardim Olaria</option>
+                                                <option value="Jardim Primavera">Jardim Primavera</option>
+                                                <option value="Jardim Rio Claro">Jardim Rio Claro</option>
+                                                <option value="Jardim Tarumãs">Jardim Tarumãs</option>
+                                                <option value="Jardim Terralão">Jardim Terralão</option>
+                                                <option value="Martim de Sá">Martim de Sá</option>
+                                                <option value="Massaguaçu">Massaguaçu</option>
+                                                <option value="Morro do Algodão">Morro do Algodão</option>
+                                                <option value="Pegorelli">Pegorelli</option>
+                                                <option value="Perequê Mirim">Perequê Mirim</option>
+                                                <option value="Poiares">Poiares</option>
+                                                <option value="Pontal Santa Marina">Pontal Santa Marina</option>
+                                                <option value="Porto Novo">Porto Novo</option>
+                                                <option value="Praia da Cocanha">Praia da Cocanha</option>
+                                                <option value="Praia da Mococa">Praia da Mococa</option>
+                                                <option value="Praia das Palmeiras">Praia das Palmeiras</option>
+                                                <option value="Prainha">Prainha</option>
+                                                <option value="Rio do Ouro">Rio do Ouro</option>
+                                                <option value="Sumaré">Sumaré</option>
+                                                <option value="Tabatinga">Tabatinga</option>
+                                                <option value="Tinga">Tinga</option>
+                                                <option value="Travessão">Travessão</option>
+                                                <option value="Vila Ponte Seca">Vila Ponte Seca</option>
+                                                
+                                            </Select>
                                         </div>
                                     </div>
                                     <div className='w-full flex flex-col md:flex-row md:mt-2'>
@@ -225,18 +275,24 @@ export function CriarCelulas(){
                                         </div>
                                         <div className='w-full md:w-1/3'>
                                             {/* Day */}
-                                            <Input
-                                            type='text'
+                                            <Select
                                             name='day'
                                             name_label='Dia'
                                             register={register}
                                             error={errors.day?.message}
-                                            />
+                                            >
+                                                <option value=""></option>
+                                                <option value="Segunda-Feira">Segunda-Feira</option>
+                                                <option value="Terça-Feira">Terça-Feira</option>
+                                                <option value="Quinta-Feira">Quinta-Feira</option>
+                                                <option value="Sexta-Feira">Sexta-Feira</option>
+                                                <option value="Sábado">Sábado</option>
+                                            </Select>
                                         </div>
                                         <div className='w-full md:w-1/3'>
                                             {/* Hour */}
                                             <Input
-                                            type='text'
+                                            type='time'
                                             name='hour'
                                             name_label='Hora'
                                             register={register}
@@ -345,9 +401,10 @@ export function CriarCelulas(){
                                 className='w-full md:w-4/5'>
                                     <Input
                                     type='text'
-                                    name='name'
+                                    name='name_leader'
                                     name_label='Nome'
                                     register={register}
+                                    error={errors.name_leader?.message}
                                     />
                                     <div className='w-full flex flex-col md:flex-row md:mt-9'>
                                         <div className='w-full md:w-1/2'>
@@ -357,16 +414,21 @@ export function CriarCelulas(){
                                             name='phone_leader'
                                             name_label='WhatsApp'
                                             register={register}
+                                            error={errors.phone_leader?.message}
                                             />
                                         </div>
                                         <div className='w-full md:w-1/2'>
                                             {/* Cargo */}
-                                            <Input
-                                            type='text'
-                                            name='cargo'
+                                            <Select
+                                            name='office'
                                             name_label='Cargo'
                                             register={register}
-                                            />
+                                            error={errors.office?.message}>
+                                                <option value=""></option>
+                                                <option value="Coordenador">Coordenador</option>
+                                                <option value="Supervisor">Supervisor</option>
+                                                <option value="Líder">Líder</option>
+                                            </Select>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,5 @@
 // Import for development
+import { ReactNode } from 'react';
 import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface inputProps extends React.InputHTMLAttributes<HTMLInputElement>{
@@ -8,6 +9,7 @@ interface inputProps extends React.InputHTMLAttributes<HTMLInputElement>{
     register: UseFormRegister<any>;
     error?: string;
     rules?: RegisterOptions;
+    children?: ReactNode;
 }
 
 export function Input({type, name, name_label, error, register, rules, ...rest}:inputProps){
@@ -38,7 +40,7 @@ export function Input({type, name, name_label, error, register, rules, ...rest}:
                 disabled:cursor-not-allowed 
                 disabled:opacity-50"
                 />
-                {error && <p className='my-1 text-red-500'>{error}</p>}
+                {error && <p className='text-red-500'>{error}</p>}
             </div>
         </>
     )
@@ -72,7 +74,7 @@ export function Textarea({name, name_label, error, register, rules}:inputProps){
                 disabled:cursor-not-allowed 
                 disabled:opacity-50"
                 ></textarea>
-                {error && <p className='my-1 text-red-500'>{error}</p>}
+                {error && <p className='text-red-500'>{error}</p>}
             </div>
         </>
     )
@@ -101,7 +103,41 @@ export function InputFile({type, name, error, register, rules, ...rest}:inputPro
                 disabled:cursor-not-allowed 
                 disabled:opacity-50"
                 />
-                {error && <p className='my-1 text-red-500'>{error}</p>}
+                {error && <p className='text-red-500'>{error}</p>}
+            </div>
+        </>
+    )
+}
+
+export function Select({children, name, name_label, error, register, rules }:inputProps){
+    return(
+        <>
+            <div className="bg-transparent grid w-full px-1 items-center gap-1.5">
+                <label
+                className="bg-transparent w-max text-md font-normal quicksand leading-none 
+                peer-disabled:cursor-not-allowed 
+                peer-disabled:opacity-70">{name_label}</label>
+                
+                <select
+                {...register(name, rules)}
+                name={name}
+                className="flex h-11 w-full rounded-md border border-input 
+                bg-transparent px-3 py-2 text-md ring-offset-background transition-all 
+                file:border-0 
+                file:bg-transparent 
+                file:text-sm 
+                file:font-medium 
+                placeholder:text-muted-foreground 
+                focus-visible:outline-none 
+                focus-visible:ring-2 
+                focus-visible:ring-ring 
+                focus-visible:ring-offset-2 
+                disabled:cursor-not-allowed 
+                disabled:opacity-50"
+                >
+                    {children}
+                </select>
+                {error && <p className='text-red-500'>{error}</p>}
             </div>
         </>
     )
