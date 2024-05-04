@@ -1,8 +1,14 @@
 // Import for development
-import { ChangeEvent, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { v4 as uuidV4 } from 'uuid';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { addDoc, collection } from 'firebase/firestore';
+
+// Connection
+import { db, storage } from '../../../../services/server';
 
 // Components
 import { ContainerHeader } from '../../../../components/Container/Header';
@@ -12,11 +18,6 @@ import { Input, Textarea, InputFile, Select } from '../../../../components/Input
 
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
-
-interface imageInfo {
-    file: File | null;
-    url: string | null;
-}
 
 const schema = z.object({
     // Cell
@@ -29,6 +30,8 @@ const schema = z.object({
     word_bible_cell: z.string().nonempty('Insira uma palavra bíblica.'),
     book_bible_cell: z.string().nonempty('Insira o livro, cap e ver.'),
     description: z.string().nonempty('Insira uma descrição').min(2),
+    participants: z.string(),
+    baptizeds: z.string(),
     // Leader
     name_leader: z.string().nonempty('Insira um nome'),
     phone_leader: z.string().nonempty('Insira um telefone'),
@@ -39,109 +42,92 @@ type FormData = z.infer<typeof schema>
 
 export function CriarCelulas(){
 
+    const [photoCell, setPhotoCell] = useState<File | null>(null);
+    const [photoLeader, setPhotoLeader] = useState<File | null>(null);
+
     const { register, handleSubmit, formState: { errors }, reset} = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onChange"
     })
 
-    const [imageCell, setImageCell] = useState<imageInfo>({ file: null, url: null });
-    const [imageLeader, setImageLeader] = useState<imageInfo>({ file: null, url: null });
+    const handlePhotoCellChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) setPhotoCell(file);
+    };
+
+    const handlePhotoLeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) setPhotoLeader(file);
+    };
+
+    const handleDelete = (image1: string, image2: string) => {
+        if(image1){
+            setPhotoCell(null)
+        }
+        if(image2){
+            setPhotoLeader(null)
+        }
+    }
+
+    const onSubmit = async (data: FormData) => {
+        try {
+
+        if(!photoCell){
+            alert('Inserir imagem da Célula!');
+            return;
+        }
+
+        if(!photoLeader){
+            alert('Inserir imagem do Líder!');
+            return;
+        }
+
+        // Upload das imagens para o Firebase Storage
+        let photoCellUrl = '';
+        let photoLeaderUrl = '';
+        if (photoCell) {
+            const photoCellRef = ref(storage, `celulas/${uuidV4()}_${photoCell.name}`);
+            await uploadBytes(photoCellRef, photoCell);
+            photoCellUrl = await getDownloadURL(photoCellRef);
+        }
+        if (photoLeader) {
+            const photoLeaderRef = ref(storage, `celulas/${uuidV4()}_${photoLeader.name}`);
+            await uploadBytes(photoLeaderRef, photoLeader);
+            photoLeaderUrl = await getDownloadURL(photoLeaderRef);
+        }
     
-    const handleImageCell = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file instanceof File) {
-            const url = file.name
-            setImageCell(
-                { file, url: `${url}` }
-            );
-        } else {
-            setImageCell(
-                {file: null, url: null}
-            )
-            // Toast de erro
-            console.log('Arquivo de imagem vazio!');
-        }
-    };
-
-    const handleImageLeader = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file instanceof File) {
-            const url = file.name
-            setImageLeader(
-                { file, url: `${url}` }
-            );
-        } else {
-            setImageCell(
-                {file: null, url: null}
-            )
-            // Toast de erro
-            console.log('Arquivo de imagem vazio!');
-        }
-    };
-
-    const handleDelete = () => {
-        if(imageCell.file){
-            // Toast de erro
-            setImageCell({ file: null, url: null })
-        }
-    }
-
-    const handleDeleteLeader = () => {
-        if(imageLeader.file){
-            // Toast de erro
-            setImageLeader({ file: null, url: null })
-        }
-    }
-
-    useEffect(() => {
-        const handleUpload = async () => {
-            if (imageCell.file) {
-                // Toast de sucesso
-            }
-        };
-
-        handleUpload();
-    }, [imageCell.file]);
-
-    function onSubmit(data: FormData) {
-
-        if(!imageCell.url){
-            // Toast de erro
-            alert('inserir imagem célula');
-            return;
-        }
-
-        if(!imageLeader.url){
-            // Toast de erro
-            alert('inserir imagem líder');
-            return;
-        }
-
-        const objCell = {
-            // Cell
+        // Construção do objeto de dados para o Firestore
+        const cellData = {
+            // Cell data
             name_cell: data.name_cell,
             street: data.street,
             neighborhood: data.neighborhood,
             day: data.day,
             hour: data.hour,
-            photo_cell: imageCell.url,
+            photo_cell: photoCellUrl,
             description: data.description,
             word_bible_cell: data.word_bible_cell,
             book_bible_cell: data.book_bible_cell,
-            
-            // Leader
+            // Leader Data
             name_leader: data.name_leader,
             phone_leader: data.phone_leader,
             office: data.office,
-            photo_leader: imageLeader.url,
+            photo_leader: photoLeaderUrl,
+            participants: data.participants,
+            baptizeds: data.baptizeds,
         };
+        // Envio dos dados para o Firestore
+        await addDoc(collection(db, 'Celulas'), cellData);
+    
+        handleDelete(photoCellUrl, photoLeaderUrl);
         reset();
-        handleDelete();
-        handleDeleteLeader();
-
+        
         // Toast de sucesso
-        console.log(objCell);
+        console.log('Dados enviados com sucesso!', cellData);
+    } catch (error) {
+        console.error('Erro ao enviar os dados:', error);
     }
+    };
 
     return(
         <>
@@ -330,7 +316,7 @@ export function CriarCelulas(){
                                     peer-disabled:cursor-not-allowed 
                                     peer-disabled:opacity-70">Foto</label>
 
-                                    {!imageCell.file && (
+                                    {!photoCell && (
                                         <>
                                             <div className='px-1 flex justify-center items-center m-0'>
                                                 <div className='absolute'>
@@ -343,19 +329,18 @@ export function CriarCelulas(){
                                                     name_label='Foto'
                                                     register={register}
                                                     accept='image/*'
-                                                    onChange={(e) => handleImageCell(e)}
+                                                    onChange={handlePhotoCellChange}
                                                     />
                                                 </div>
                                             </div>
                                         </>
                                     )}
 
-                                    {imageCell.file && (
+                                    {photoCell && (
                                         <>
                                             <div className='px-1 flex justify-center items-center'>
                                                 <div className="absolute z-10 bg-transparent cursor-pointer">
                                                     <BiTrash
-                                                    onClick={handleDelete} 
                                                     className='bg-transparent' 
                                                     size={30} />
                                                 </div>
@@ -373,8 +358,7 @@ export function CriarCelulas(){
                                                     focus-visible:ring-ring 
                                                     focus-visible:ring-offset-2 
                                                     disabled:cursor-not-allowed'
-                                                    src={imageCell.file ? URL.createObjectURL(imageCell.file) : ''}
-                                                    onClick={handleDelete}
+                                                    src={photoCell ? URL.createObjectURL(photoCell) : ''}
                                                     alt=''
                                                     />
                                                 </div>
@@ -442,7 +426,7 @@ export function CriarCelulas(){
                                     peer-disabled:opacity-70
                                     md:ms-5 md:static">Foto</label>
 
-                                    {!imageLeader.file && (
+                                    {!photoLeader && (
                                         <div className='mt-6 px-1 md:mt-1 flex justify-center items-center'>
                                             <div className='absolute'>
                                                 <BiPhotoAlbum size={30} />
@@ -453,17 +437,16 @@ export function CriarCelulas(){
                                                 name='photo_leader'
                                                 name_label='Foto'
                                                 register={register}
-                                                onChange={(e) => handleImageLeader(e)}
+                                                onChange={handlePhotoLeaderChange}
                                                 />
                                             </div>
                                         </div>
                                     )}
 
-                                    {imageLeader.file && (
+                                    {photoLeader && (
                                         <div className='mt-6 px-1 md:mt-1 flex justify-center items-center'>
                                             <div className="absolute z-10 bg-transparent cursor-pointer">
                                                     <BiTrash
-                                                    onClick={handleDeleteLeader} 
                                                     className='bg-transparent' 
                                                     size={30} />
                                                 </div>
@@ -481,8 +464,7 @@ export function CriarCelulas(){
                                                 focus-visible:ring-ring 
                                                 focus-visible:ring-offset-2 
                                                 disabled:cursor-not-allowed'
-                                                src={imageLeader.file ? URL.createObjectURL(imageLeader.file) : ''}
-                                                onClick={handleDeleteLeader}
+                                                src={photoLeader ? URL.createObjectURL(photoLeader) : ''}
                                                 alt=''
                                                 />
                                             </div>
@@ -491,6 +473,26 @@ export function CriarCelulas(){
                                 </div>
                             </div>
                         </section>
+                        
+                        {/* Just leader can change. */}
+                        <div className='hidden'>
+                            <Input 
+                            name_label='Participantes'
+                            type='text'
+                            value={0}
+                            name='participants'
+                            register={register}
+                            error={errors.participants?.message}
+                            />
+                            <Input 
+                            name_label='Batizados'
+                            type='text'
+                            value={0}
+                            name='baptizeds'
+                            register={register}
+                            error={errors.baptizeds?.message}
+                            />
+                        </div>
 
                         {/* Button submit */}
                         <button

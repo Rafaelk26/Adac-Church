@@ -12,3 +12,5 @@ npm i react-hook-form
 npm i zod
 npm i @hookform/resolvers
 npm i react-hot-toast
+npm i uuid
+npm i @types/uuid --save-dev
