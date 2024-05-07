@@ -1,7 +1,6 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection } from 'firebase/firestore';
-import bcrypt from 'bcryptjs';
+import { collection, getDocs } from 'firebase/firestore';
 
 // Connection
 import { db } from '../../../../services/server';
@@ -10,46 +9,60 @@ import { db } from '../../../../services/server';
 import { Input } from '../../../Input';
 import { Button } from '../../../Button/Login';
 
+interface UserAdminProps{
+    matricula: string;
+    password: string;
+}
+
 
 export function Form() {
 
     const nav = useNavigate()
 
+    // Dados do formulário
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [matricula, setMatricula] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [matricula, setMatricula] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    // Dados do firebase
+    const [user, setUser] = useState<UserAdminProps[]>([]);
 
-    // Awui deverá assim que acessar o site fazer a conexão com o banco para trazer os dados
+
+    useEffect(() => {
+        const fetchAdmin = async () => {
+            const adminCollection = collection(db, 'Admin');
+            const adminSnapshot = await getDocs(adminCollection);
+            const adminData = adminSnapshot.docs.map(doc => doc.data() as UserAdminProps);
+            console.log(adminData);
+            setUser(adminData);
+            // Test
+            console.log(user);
+        };
+
+        fetchAdmin();
+    }, []);
+
+    // Aqui deverá assim que acessar o site fazer a conexão com o banco para trazer os dados
     // do usuário que inserir o user.
-    
+    const signAdmin = (matricula: string, password: string) => {
+        console.log(matricula)
+        console.log(password)
+
+        setMatricula('')
+        setPassword('')
+    }
 
 
     function handleSubmit(e: FormEvent){
         e.preventDefault()
-        cadastrarAdmin(matricula, password);
+        // Criptography password
+        const criptPass = password
+        // Send password criptography for firebase database.
+        signAdmin('adac2024', criptPass)
     }
 
     function toggleShowPassword() {
         setShowPassword((prevState) => !prevState);
     }
-
-    // Função para cadastrar o usuário administrador com a senha criptografada
-async function cadastrarAdmin(matricula: string, senha: string) {
-    try {
-        // Criptografa a senha usando bcrypt
-        const hashedPassword = await bcrypt.hash(senha, 10);
-
-        // Salva o usuário administrador no Firestore
-        await db.collection('Admin').doc().set({
-            matricula,
-            password: hashedPassword,
-        });
-
-        console.log('Usuário administrador cadastrado com sucesso!');
-    } catch (error) {
-        throw new Error('Erro ao cadastrar usuário administrador: ' + error.message);
-    }
-}
 
     return (
         <form
