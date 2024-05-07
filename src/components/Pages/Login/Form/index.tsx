@@ -1,15 +1,14 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collection } from 'firebase/firestore';
+import bcrypt from 'bcryptjs';
+
+// Connection
+import { db } from '../../../../services/server';
 
 // Components
 import { Input } from '../../../Input';
 import { Button } from '../../../Button/Login';
-
-interface userProps{
-    user: string;
-    password: string;
-}
-
 
 
 export function Form() {
@@ -17,37 +16,40 @@ export function Form() {
     const nav = useNavigate()
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [user, setUser] = useState<string>("");
+    const [matricula, setMatricula] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
     // Awui deverá assim que acessar o site fazer a conexão com o banco para trazer os dados
     // do usuário que inserir o user.
     
-    const obj:userProps = {
-        user: 'adac2024',
-        password: '123456789'
-    }
+
 
     function handleSubmit(e: FormEvent){
         e.preventDefault()
-        if(user !== obj.user){
-            alert('Nome ou Senha incorreta!')
-            setUser("")
-            setPassword("")
-            return;
-        }
-        if(password !== obj.password){
-            alert('Nome ou Senha incorreta!')
-            setUser("")
-            setPassword("")
-            return;
-        }
-        nav('/adac/admin/')
+        cadastrarAdmin(matricula, password);
     }
 
     function toggleShowPassword() {
         setShowPassword((prevState) => !prevState);
     }
+
+    // Função para cadastrar o usuário administrador com a senha criptografada
+async function cadastrarAdmin(matricula: string, senha: string) {
+    try {
+        // Criptografa a senha usando bcrypt
+        const hashedPassword = await bcrypt.hash(senha, 10);
+
+        // Salva o usuário administrador no Firestore
+        await db.collection('Admin').doc().set({
+            matricula,
+            password: hashedPassword,
+        });
+
+        console.log('Usuário administrador cadastrado com sucesso!');
+    } catch (error) {
+        throw new Error('Erro ao cadastrar usuário administrador: ' + error.message);
+    }
+}
 
     return (
         <form
@@ -58,10 +60,10 @@ export function Form() {
             <h1 className='bg-transparent font-medium quicksand text-white text-5xl mt-4'>Login</h1>
 
             <Input
-            value={user}
-            onChange={(e)=> setUser(e.target.value)}
+            value={matricula}
+            onChange={(e)=> setMatricula(e.target.value)}
             type='text' 
-            name='user' 
+            name='matricula' 
             name_label='Matrícula' />
 
             <Input

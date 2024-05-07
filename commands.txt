@@ -14,3 +14,4 @@ npm i @hookform/resolvers
 npm i react-hot-toast
 npm i uuid
 npm i @types/uuid --save-dev
+npm i bcryptjs

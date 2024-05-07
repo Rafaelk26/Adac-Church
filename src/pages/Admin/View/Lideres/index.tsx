@@ -39,7 +39,7 @@ export function ViewLideres(){
                 md:flex-row md:mt-36'>
                     <div className='w-full'>
                         {/* Arrow back page */}
-                        <Link className='bg-transparent mx-auto md:mx-0' to={'/adac/celulas/'}>
+                        <Link className='bg-transparent mx-auto md:mx-0' to={'/adac/admin/'}>
                             <BiArrowBack className='bg-transparent w-full md:w-max' size={35}/>
                         </Link>
                         <div className='w-full max-w-96 mx-auto h-max flex mt-5 justify-center items-center 
