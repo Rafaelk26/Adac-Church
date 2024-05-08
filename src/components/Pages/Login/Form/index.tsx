@@ -1,5 +1,4 @@
 import { useState, useEffect, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 
 // Connection
@@ -9,6 +8,9 @@ import { db } from '../../../../services/server';
 import { Input } from '../../../Input';
 import { Button } from '../../../Button/Login';
 
+// Context
+// import { authLogged } from '../../../../context/Auth';
+
 interface UserAdminProps{
     matricula: string;
     password: string;
@@ -17,8 +19,6 @@ interface UserAdminProps{
 
 export function Form() {
 
-    const nav = useNavigate()
-
     // Dados do formulário
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [matricula, setMatricula] = useState<string>('');
@@ -26,16 +26,15 @@ export function Form() {
     // Dados do firebase
     const [user, setUser] = useState<UserAdminProps[]>([]);
 
+    // Context fictício
+    const [authLogged, setAuthLogged] = useState<boolean>(false)
 
     useEffect(() => {
         const fetchAdmin = async () => {
             const adminCollection = collection(db, 'Admin');
             const adminSnapshot = await getDocs(adminCollection);
             const adminData = adminSnapshot.docs.map(doc => doc.data() as UserAdminProps);
-            console.log(adminData);
             setUser(adminData);
-            // Test
-            console.log(user);
         };
 
         fetchAdmin();
@@ -44,11 +43,20 @@ export function Form() {
     // Aqui deverá assim que acessar o site fazer a conexão com o banco para trazer os dados
     // do usuário que inserir o user.
     const signAdmin = (matricula: string, password: string) => {
-        console.log(matricula)
-        console.log(password)
-
-        setMatricula('')
-        setPassword('')
+        if(user){
+            if(user[0]?.matricula === matricula && user[0]?.password === password){
+                alert('is logged');
+                setMatricula('')
+                setPassword('')
+                return true;
+            }
+        } else{
+            alert('is not logged!')
+            setMatricula('')
+            setPassword('')
+            return false;
+        }
+        
     }
 
 
@@ -56,8 +64,9 @@ export function Form() {
         e.preventDefault()
         // Criptography password
         const criptPass = password
-        // Send password criptography for firebase database.
-        signAdmin('adac2024', criptPass)
+        const checkLogged: true | false = signAdmin(matricula, criptPass)
+        setAuthLogged(checkLogged)
+        alert(authLogged)
     }
 
     function toggleShowPassword() {
