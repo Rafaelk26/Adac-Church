@@ -1,9 +1,6 @@
 // Import for development
 import { BiCalendar } from 'react-icons/bi';
 
-// Components
-import { Button } from '../../../Button/Event';
-
 export interface eventoProps{
     id?: string;
     name: string;
@@ -11,12 +8,12 @@ export interface eventoProps{
     date: string;
 }
 
-export function EventCards({ id, name, photo, date}: eventoProps){
+export function EventViews({ id, name, photo, date}: eventoProps){
     return(
         <>  
-            <div className="max-w-4xl w-72 h-max px-1 py-1 bg-white 
+            <div id={id} className="max-w-4xl w-72 h-max px-1 py-1 bg-white 
             rounded-lg flex flex-col justify-between transition-all
-            hover:scale-105 hover:cursor-pointer
+            hover:scale-105
             sm:px-4 sm:w-80
             md:items-center md:flex-row md:px-4 md:w-full">
                 {/* Information 1 */}
@@ -48,15 +45,6 @@ export function EventCards({ id, name, photo, date}: eventoProps){
                         text-gray-700 bg-transparent'>
                             {date}
                         </span>
-                    </div>
-                    <div className='w-full max-w-32 bg-transparent
-                    md:w-2/5'>
-                        {/* Button */}
-                        <Button
-                        path={`/adac/eventos/detalhes/${id}`}
-                        name='Conferir'
-                        type='button' 
-                        />
                     </div>
                 </div>
             </div>

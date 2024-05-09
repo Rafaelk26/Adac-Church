@@ -1,22 +1,22 @@
-// Import for development
+// Icons
 import { BiCalendar } from 'react-icons/bi';
 
 // Components
-import { Button } from '../../../Button/Event';
+import { ButtonDelete } from '../../../Button/Event/Delete';
 
 export interface eventoProps{
-    id?: string;
+    id_event?: string;
     name: string;
     photo?: string;
     date: string;
 }
 
-export function EventCards({ id, name, photo, date}: eventoProps){
+export function EventDelete({ id_event, name, photo, date}: eventoProps){
+
     return(
         <>  
-            <div className="max-w-4xl w-72 h-max px-1 py-1 bg-white 
-            rounded-lg flex flex-col justify-between transition-all
-            hover:scale-105 hover:cursor-pointer
+            <div id={id_event} className="max-w-4xl w-72 h-max px-1 py-1 bg-white 
+            rounded-lg flex flex-col justify-between
             sm:px-4 sm:w-80
             md:items-center md:flex-row md:px-4 md:w-full">
                 {/* Information 1 */}
@@ -52,9 +52,9 @@ export function EventCards({ id, name, photo, date}: eventoProps){
                     <div className='w-full max-w-32 bg-transparent
                     md:w-2/5'>
                         {/* Button */}
-                        <Button
-                        path={`/adac/eventos/detalhes/${id}`}
-                        name='Conferir'
+                        <ButtonDelete
+                        id_event={id_event}
+                        name='Deletar'
                         type='button' 
                         />
                     </div>

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'react-router-dom'; 
-// import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 // import { addDoc, collection } from 'firebase/firestore';
 
 // Connection with Firebase
