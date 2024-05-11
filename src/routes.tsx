@@ -36,6 +36,8 @@ import { ViewCelulas } from './pages/Admin/View/Células/index';
 import { ViewEventos } from './pages/Admin/View/Eventos/index';
 import { ViewLideres } from './pages/Admin/View/Lideres/index';
 
+// Private
+import { Private } from './middleware/Private';
 
 // Importando bibliotecas para desenvolvimento do projeto
 import { createBrowserRouter } from 'react-router-dom';
@@ -76,61 +78,89 @@ const router = createBrowserRouter([
                 path: "/adac/login"
             },
             {
-                element: <Administration />,
+                element: <Private>
+                            <Administration />
+                        </Private>,
                 path: '/adac/admin/'
             }, 
             {
-                element: <CriarCelulas />,
+                element: <Private>
+                            <CriarCelulas />
+                        </Private>,
                 path: "/adac/admin/criar/celulas"
             },
             {
-                element: <CriarEventos />,
+                element: <Private>
+                            <CriarEventos />
+                        </Private>,
                 path: "/adac/admin/criar/eventos"
             }, 
             {
-                element: <DeleteCelulas />,
+                element: <Private>
+                            <DeleteCelulas />
+                        </Private>,
                 path: "/adac/admin/deletar/celulas"
             }, 
             {
-                element: <DeleteEventos />,
+                element: <Private>
+                            <DeleteEventos />
+                        </Private>,
                 path: "/adac/admin/deletar/eventos"
             },
             {
-                element: <EditCelulas />,
+                element: <Private>
+                            <EditCelulas />
+                        </Private>,
                 path: "/adac/admin/editar/celulas"
             },
             {
-                element: <EditCelulasId />,
+                element: <Private>
+                            <EditCelulasId />
+                        </Private>,
                 path: "/adac/admin/editar/celulas/:id"
 
             }, 
             {
-                element: <EditEventos />,
+                element: <Private>
+                            <EditEventos />
+                        </Private>,
                 path: "/adac/admin/editar/eventos"
             },
             {
-                element: <EditarEventosId />,
+                element: <Private>
+                            <EditarEventosId />
+                        </Private>,
                 path: "/adac/admin/editar/eventos/:id"
 
             },
             {
-                element: <EditLideres />,
+                element: <Private>
+                            <EditLideres />
+                        </Private>,
                 path: "/adac/admin/editar/lideres"
             },
             {
-                element: <EditLideresId />,
+                element: <Private>
+                            <EditLideresId />
+                        </Private>,
                 path: "/adac/admin/editar/lideres/:id"
             },
             {
-                element: <ViewCelulas />,
+                element: <Private>
+                            <ViewCelulas />
+                        </Private>,
                 path: "/adac/admin/visualizar/celulas"
             },
             {
-                element: <ViewEventos />,
+                element: <Private>
+                            <ViewEventos />
+                        </Private>,
                 path: "/adac/admin/visualizar/eventos"
             },
             {
-                element: <ViewLideres />,
+                element: <Private>
+                            <ViewLideres />
+                        </Private>,
                 path: "/adac/admin/visualizar/lideres"
             },
         ]

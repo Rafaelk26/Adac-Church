@@ -11,13 +11,18 @@ import { Links } from '../../../components/Button/Home/Links';
 // Icon
 import { BiUser } from 'react-icons/bi';
 
+// Context
+import { useAuth } from '../../../context/Auth';
+
 
 export function Administration(){
-
+    // Navegação de página
     const nav = useNavigate()
+    // Alterna o context para false
+    const { setAuthLogged } = useAuth()
 
     const handleLogout = () => {
-        alert('deslogado');
+        setAuthLogged(false);
         nav('/');
         return;
     }
