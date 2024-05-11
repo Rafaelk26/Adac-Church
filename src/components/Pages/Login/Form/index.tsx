@@ -1,4 +1,5 @@
 import { useState, useEffect, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 
 // Connection
@@ -9,7 +10,7 @@ import { Input } from '../../../Input';
 import { Button } from '../../../Button/Login';
 
 // Context
-// import { authLogged } from '../../../../context/Auth';
+import { AuthLoggedProvider } from '../../../../context/Auth';
 
 interface UserAdminProps{
     matricula: string;
@@ -26,8 +27,7 @@ export function Form() {
     // Dados do firebase
     const [user, setUser] = useState<UserAdminProps[]>([]);
 
-    // Context fictício
-    const [authLogged, setAuthLogged] = useState<boolean>(false)
+    const nav = useNavigate()
 
     useEffect(() => {
         const fetchAdmin = async () => {
@@ -39,34 +39,29 @@ export function Form() {
 
         fetchAdmin();
     }, []);
+    
 
     // Aqui deverá assim que acessar o site fazer a conexão com o banco para trazer os dados
     // do usuário que inserir o user.
     const signAdmin = (matricula: string, password: string) => {
-        if(user){
+        if(user.length >= 1){
+            console.log(user)
             if(user[0]?.matricula === matricula && user[0]?.password === password){
-                alert('is logged');
-                setMatricula('')
-                setPassword('')
-                return true;
+                setAuthLogged(true)
+                nav('/adac/admin/');
+                return;
+            } else {
+                setAuthLogged(false)
             }
-        } else{
-            alert('is not logged!')
-            setMatricula('')
-            setPassword('')
-            return false;
+        } else {
+            setAuthLogged(false)
         }
-        
     }
-
 
     function handleSubmit(e: FormEvent){
         e.preventDefault()
         // Criptography password
-        const criptPass = password
-        const checkLogged: true | false = signAdmin(matricula, criptPass)
-        setAuthLogged(checkLogged)
-        alert(authLogged)
+        signAdmin(matricula, password)
     }
 
     function toggleShowPassword() {
@@ -74,52 +69,53 @@ export function Form() {
     }
 
     return (
-        <form
-        onSubmit={handleSubmit}
-        method='post'
-        className='w-full bg-transparent relative z-10 outline outline-2 outline-white 
-        flex flex-col items-center pt-4 rounded-xl px-4 gap-6'>
-            <h1 className='bg-transparent font-medium quicksand text-white text-5xl mt-4'>Login</h1>
+        <AuthLoggedProvider>
+            <form
+            onSubmit={handleSubmit}
+            method='post'
+            className='w-full bg-transparent relative z-10 outline outline-2 outline-white 
+            flex flex-col items-center pt-4 rounded-xl px-4 gap-6'>
+                <h1 className='bg-transparent font-medium quicksand text-white text-5xl mt-4'>Login</h1>
 
-            <Input
-            value={matricula}
-            onChange={(e)=> setMatricula(e.target.value)}
-            type='text' 
-            name='matricula' 
-            name_label='Matrícula' />
+                <Input
+                onChange={(e)=> setMatricula(e.target.value)}
+                type='text' 
+                name='matricula' 
+                name_label='Matrícula' />
 
-            <Input
-            value={password}
-            onChange={(e)=> setPassword(e.target.value)}
-            type={showPassword ? 'text' : 'password'}
-            name='password'
-            name_label='Senha'
-            />
-
-            <div 
-            className='bg-transparent w-full flex items-center gap-2'>
-                <input
-                type="checkbox"
-                className='w-5 h-5'
-                name="showPassword"
-                checked={showPassword}
-                onChange={toggleShowPassword}
-                id="showPassword"
+                <Input
+                onChange={(e)=> setPassword(e.target.value)}
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                name_label='Senha'
                 />
-                <label htmlFor="showPassword" className='bg-transparent text-white font-medium inter'>
-                    Mostrar Senha
-                </label>
-            </div>
 
-            <Button
-            type='submit'
-            name='Entrar' />
-            
-            <a
-            className='bg-transparent mb-2 transition-all 
-            hover:text-blue-300 hover:underline' 
-            href="/adac/checkin/senha"
-            >Esqueci minha senha</a>
-        </form>
+                <div 
+                className='bg-transparent w-full flex items-center gap-2'>
+                    <input
+                    type="checkbox"
+                    className='w-5 h-5'
+                    name="showPassword"
+                    checked={showPassword}
+                    onChange={toggleShowPassword}
+                    id="showPassword"
+                    />
+                    <label htmlFor="showPassword" className='bg-transparent text-white font-medium inter'>
+                        Mostrar Senha
+                    </label>
+                </div>
+
+                <Button
+                type='submit'
+                name='Entrar' />
+                
+                <a
+                className='bg-transparent mb-2 transition-all 
+                hover:text-blue-300 hover:underline' 
+                href="/adac/checkin/senha"
+                >Esqueci minha senha</a>
+            </form>
+        </AuthLoggedProvider>
+        
     );
 }
