@@ -19,7 +19,7 @@ export function Cell({id_cell, name_cell, name_leader, neighborhood, photo_cell,
             <Link 
             className='m-0'
             to={`/adac/celulas/detalhes/${id_cell}`}>
-                <div className="w-72 h-36 bg-white rounded-xl flex gap-5 pe-3 transition-all
+                <div className="w-96 h-36 bg-white rounded-xl flex gap-5 pe-3 transition-all
                 hover:scale-105
                 md:w-96">
                     {/* Foto */}
@@ -33,8 +33,8 @@ export function Cell({id_cell, name_cell, name_leader, neighborhood, photo_cell,
                     <div className='w-3/5 h-full flex justify-start items-start flex-col gap-2 bg-white'>
                         {/* Name Cell */}
                         <h1 className='mt-2 w-52 font-bold quicksand bg-white
-                        text-sm ms-1 text-black
-                        sm:text-sm
+                        text-lg ms-1 text-black
+                        sm:text-lg
                         md:text-xl'>{name_cell}</h1>
                         {/* Local Cell */}
                         <div className='flex items-center bg-white'>
@@ -42,8 +42,8 @@ export function Cell({id_cell, name_cell, name_leader, neighborhood, photo_cell,
                             className='bg-transparent' 
                             size={35}
                             fill="#000" />
-                            <p className='text-xs font-bold inter text-black bg-white
-                            sm:text-xs
+                            <p className='text-sm font-bold inter text-black bg-white
+                            sm:text-sm
                             md:text-lg'>{neighborhood}</p>
                         </div>
                         {/* Leader Cell */}
@@ -51,13 +51,13 @@ export function Cell({id_cell, name_cell, name_leader, neighborhood, photo_cell,
                             {/* Photo Leader */}
                             <div className='max-w-12 max-h-12 bg-white'>
                                 <img 
-                                className='w-12 h-12 max-h-12 rounded-full bg-white object-cover'
+                                className='w-10 h-10 max-h-12 rounded-full bg-white object-cover'
                                 src={photo_leader} 
                                 alt="Líder" />
                             </div>
                             {/* Name Leader */}
-                            <p className='text-xs font-bold inter text-black bg-white
-                            sm:text-xs
+                            <p className='text-sm font-bold inter text-black bg-white
+                            sm:text-sm
                             md:text-lg'>{name_leader}</p>
                         </div>
                     </div>

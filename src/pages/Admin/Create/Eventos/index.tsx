@@ -135,7 +135,7 @@ export function CriarEventos(){
                                     </p>
                                 </div>
                                 {/* Inputs */}
-                                <div className='flex flex-col max-w-sm
+                                <div className='flex flex-col w-72
                                 md:gap-2 md:w-full md:mt-16'>
                                     {/* Title */}
                                     <Input

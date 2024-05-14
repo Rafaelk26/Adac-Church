@@ -15,11 +15,11 @@ export interface cellProps {
 export function CellEdit({id_cell , name_cell, name_leader, neighborhood, photo_cell, photo_leader}:cellProps){
     return(
         <>
-            <div id={id_cell} className="w-72 h-max bg-white rounded-xl px-1 flex gap-5 
+            <div id={id_cell} className="w-96 h-max bg-white rounded-xl px-1 flex gap-5 
             py-1 transition-all
             md:w-96">
                 {/* Foto */}
-                <div className="w-2/5 h-5/6 my-auto ms-3 bg-white">
+                <div className="w-2/5 h-36 my-auto ms-3 bg-white">
                     <img 
                     className="w-full h-full object-cover rounded-lg"
                     src={photo_cell} 
@@ -29,8 +29,8 @@ export function CellEdit({id_cell , name_cell, name_leader, neighborhood, photo_
                 <div className='w-3/5 h-full flex justify-start items-start flex-col gap-2 bg-white'>
                     {/* Name Cell */}
                     <h1 className='mt-2 w-52 font-bold quicksand bg-white
-                    text-sm ms-1 text-black
-                    sm:text-sm
+                    text-lg ms-1 text-black
+                    sm:text-lg
                     md:text-xl'>{name_cell}</h1>
                     {/* Local Cell */}
                     <div className='flex items-center bg-white'>
@@ -38,8 +38,8 @@ export function CellEdit({id_cell , name_cell, name_leader, neighborhood, photo_
                         className='bg-transparent' 
                         size={35}
                         fill="#000" />
-                        <p className='text-xs font-bold inter text-black bg-white
-                        sm:text-xs
+                        <p className='text-md font-bold inter text-black bg-white
+                        sm:text-md
                         md:text-lg'>{neighborhood}</p>
                     </div>
                     {/* Leader Cell */}
@@ -48,12 +48,12 @@ export function CellEdit({id_cell , name_cell, name_leader, neighborhood, photo_
                         <div className='max-w-full max-h-12 bg-white 
                         flex items-center gap-2'>
                             <img 
-                            className='w-12 h-12 max-h-12 rounded-full bg-white object-cover'
+                            className='w-10 h-10 max-h-12 rounded-full bg-white object-cover'
                             src={photo_leader} 
                             alt="Líder" />
                             {/* Name Leader */}
-                            <p className='text-xs font-bold inter text-black bg-white
-                            sm:text-xs
+                            <p className='text-md font-bold inter text-black bg-white
+                            sm:text-md
                             md:text-lg'>{name_leader}</p>
                         </div>
                         <div className="w-full flex justify-start bg-transparent">

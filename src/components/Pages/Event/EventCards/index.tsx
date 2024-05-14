@@ -14,7 +14,7 @@ export interface eventoProps{
 export function EventCards({ id, name, photo, date}: eventoProps){
     return(
         <>  
-            <div className="max-w-4xl w-72 h-max px-1 py-1 bg-white 
+            <div className="max-w-4xl w-80 h-max px-1 ps-3 py-1 bg-white 
             rounded-lg flex flex-col justify-between transition-all
             hover:scale-105 hover:cursor-pointer
             sm:px-4 sm:w-80

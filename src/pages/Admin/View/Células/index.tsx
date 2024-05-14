@@ -111,7 +111,7 @@ export function ViewCelulas(){
                         </select>
                     </div>
                 </div>
-                <div className='mt-24 flex flex-grow flex-wrap gap-5 mb-10 justify-center 
+                <div className='mt-4 flex flex-grow flex-wrap gap-5 mb-10 justify-center 
                 md:mt-8 md:justify-center'>
                     {filteredCells.length === 0 ? ( 
                     <p className="text-center text-md w-full h-full flex justify-center md:text-lg ">Nenhuma célula encontrada</p>

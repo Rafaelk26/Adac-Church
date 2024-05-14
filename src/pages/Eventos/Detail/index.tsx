@@ -46,8 +46,8 @@ export function DetalhesEvento(){
             </ContainerHeader>
             {/* Content */}
             <ContainerMainDetails>
-                <div className='w-full flex justify-start flex-col gap-2 
-                sm:mt-8
+                <div className='w-full flex justify-start flex-col gap-2 mt-28 
+                sm:mt-28
                 md:mt-6'>
                     <h1 className='font-bold quicksand text-3xl text-center
                     sm:text-4xl sm:text-center
