@@ -69,6 +69,20 @@ export function CriarCelulas(){
         }
     }
 
+    const handleDeleteLeader = () => {
+        if(photoLeader){
+            // Toast de erro
+            setPhotoLeader(null);
+        }
+    }
+
+    const handleDeleteCell = () => {
+        if(photoCell){
+            // Toast de erro
+            setPhotoCell(null);
+        }
+    }
+
     const onSubmit = async (data: FormData) => {
         try {
 
@@ -341,6 +355,7 @@ export function CriarCelulas(){
                                             <div className='px-1 flex justify-center items-center'>
                                                 <div className="absolute z-10 bg-transparent cursor-pointer">
                                                     <BiTrash
+                                                    onClick={handleDeleteCell}
                                                     className='bg-transparent' 
                                                     size={30} />
                                                 </div>
@@ -447,6 +462,7 @@ export function CriarCelulas(){
                                         <div className='mt-6 px-1 md:mt-1 flex justify-center items-center'>
                                             <div className="absolute z-10 bg-transparent cursor-pointer">
                                                     <BiTrash
+                                                    onClick={handleDeleteLeader}
                                                     className='bg-transparent' 
                                                     size={30} />
                                                 </div>
