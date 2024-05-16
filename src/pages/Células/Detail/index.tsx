@@ -1,11 +1,15 @@
+// Import for development 
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+
+// Connection
+import { db } from '../../../services/server';
+
 // Components
 import { ContainerHeader } from '../../../components/Container/Header';
 import { ContainerMainDetails } from '../../../components/Container/MainDetails';
 import { HeaderDetails } from '../../../components/Header/Details/Cell';
-
-// Image
-import imgBackground  from '../../../assets/Perfil/IMG-20240120-WA0105 - Robson Soares floriano.jpg';
-import imgRobson from '../../../assets/Perfil/IMG-20211121-WA0092_resized - Robson Soares floriano.jpg';
 
 // Icon
 import { BiLogoWhatsapp } from 'react-icons/bi';
@@ -13,10 +17,57 @@ import { BiLogoWhatsapp } from 'react-icons/bi';
 // CSS
 import './index.css'
 
+interface CellData {
+    name_cell: string;
+    street: string;
+    neighborhood: string;
+    day: string;
+    hour: string;
+    description: string;
+    baptizeds: string;
+    participants: string;
+    phone_leader: string;
+    name_leader: string;
+    word_bible_cell: string;
+    book_bible_cell: string;
+    photo_cell: string;
+    photo_leader: string;
+}
+
 export function DetalhesCelula(){
 
-    const batizados = 8;
-    const participantes = 16;
+    const [data, setData] = useState<CellData | null>(null);
+
+    const { id } = useParams();
+
+    useEffect(()=> {
+        const fetchCellData = async () => {
+            try {
+                if(id){
+                    // Referência ao documento com o ID específico
+                    const cellRef = doc(db, 'Celulas', id);
+                    // Obtenção dos dados do documento
+                    const docSnap = await getDoc(cellRef);
+                    // Verifica se o documento existe
+                    if (docSnap.exists()) {
+                        // Dados encontrados, define o estado
+                        setData(docSnap.data() as CellData);
+                    } else {
+                        // Documento não encontrado
+                        console.log('Documento não encontrado!');
+                    }
+                }
+            } catch (error) {
+                // Tratamento de erros
+                console.error('Erro ao obter os dados:', error);
+            }
+        };
+
+        fetchCellData();
+    }, [id]);
+
+    const batizados = data?.baptizeds;
+    const participantes = data?.participants;
 
     return(
         <>
@@ -26,7 +77,7 @@ export function DetalhesCelula(){
                 <div className="absolute z-30 w-full h-full bg-transparent bg-gradient-to-b from-transparent via-transparent to-black"></div>
                 
                 <img 
-                src={imgBackground}
+                src={data?.photo_cell}
                 id='imagem_capa_celula' 
                 className='w-full h-full object-cover opacity-80'/>
             </div>
@@ -40,7 +91,7 @@ export function DetalhesCelula(){
                     hover:scale-105'>
                         <img 
                         className='w-full h-full rounded-lg'
-                        src={imgBackground} 
+                        src={data?.photo_cell} 
                         alt="Casa da Célula" />
                     </div>
                 </div>
@@ -58,14 +109,13 @@ export function DetalhesCelula(){
                             sm:text-4xl sm:text-center
                             md:text-5xl md:text-start'>
                                 {/* Title */}
-                                Anjos do Rei
+                                {data?.name_cell}
                             </h1>
                             <h3 className='font-normal inter text-xl max-w-80 text-center mx-auto
                             sm:text-2xl
                             md:text-start md:mx-0 md:max-w-xl md:mt-10'>
                                 {/* Description */}
-                                Venha fazer parte da nossa família de homens cheios do Espírito Santo 
-                                e serão muito bem recebidos!
+                                {data?.description}
                             </h3>
                         </div>
                         {/* Words Bible */}
@@ -75,13 +125,13 @@ export function DetalhesCelula(){
                             sm:text-2xl
                             md:text-start md:mx-0 md:max-w-2xl'>
                                 {/* Word */}
-                                “Ide por todo o mundo, pregai o evangelho a toda criatura”
+                                “{data?.word_bible_cell}”
                             </h3>
                             <h3 className='font-bold inter text-xl max-w-80 text-center mx-auto
                             sm:text-xl
                             md:text-start md:mx-0 md:max-w-2xl'>
                                 {/* Word */}
-                                Marcos 16:15
+                                {data?.book_bible_cell}
                             </h3>
                         </div>
                     </div>
@@ -99,16 +149,16 @@ export function DetalhesCelula(){
                                         {/* Image Leader */}
                                         <img
                                         className='w-14 h-14 rounded-full' 
-                                        src={imgRobson} 
-                                        alt="Robson Soares" />
+                                        src={data?.photo_leader} 
+                                        alt="" />
                                     </div>
                                     <div className='w-2/3'>
                                         {/* Name Leader */}
-                                        <span className='font-bold inter text-xl'>Robson Soares</span>
+                                        <span className='font-bold inter text-xl'>{data?.name_leader}</span>
                                         <div className='flex'>
                                             {/* Icon Whatsapp */}
                                             <BiLogoWhatsapp size={25} fill='#3dca49' />
-                                            <span className='font-medium inter text-lg'>(12)00000-0000</span>
+                                            <span className='font-medium inter text-lg'>{data?.phone_leader}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +171,7 @@ export function DetalhesCelula(){
                                     <div className='w-full rounded-lg outline outline-1 outline-white px-2 py-1.5
                                     flex gap-6 justify-center'>
                                         <span className='inter text-sm text-center md:text-lg'>
-                                        <span className='font-bold text-md md:text-lg'>{participantes}</span> {participantes > 1 ? 'Membros' : 'Membro'}
+                                        <span className='font-bold text-md md:text-lg'>{participantes}</span> {participantes ? 'Membros' : 'Membro'}
                                         </span>
                                     </div>
                                 </div>
@@ -131,7 +181,7 @@ export function DetalhesCelula(){
                                     <div className='w-full rounded-lg outline outline-1 outline-white px-2 py-1.5
                                     flex gap-6 justify-center'>
                                         <span className='inter text-sm text-center md:text-lg'>
-                                            <span className='font-bold text-md md:text-lg'>{batizados}</span> {batizados > 1 ? 'Membros' : 'Membro'}
+                                            <span className='font-bold text-md md:text-lg'>{batizados}</span> {batizados ? 'Membros' : 'Membro'}
                                         </span>
                                     </div>
                                 </div>
@@ -143,7 +193,7 @@ export function DetalhesCelula(){
                                 <div className='w-full rounded-lg outline outline-1 outline-white px-3 py-2
                                 flex gap-6'>
                                     <span className='inter font-medium text-xl'>
-                                        Rua Pedro Galdino dos Santos, 76
+                                        {data?.street}
                                     </span>
                                 </div>
                             </div>
@@ -154,7 +204,7 @@ export function DetalhesCelula(){
                                 <div className='w-full rounded-lg outline outline-1 outline-white px-2 py-1.5
                                 flex gap-6'>
                                     <span className='inter font-medium text-xl'>
-                                        Caputera
+                                        {data?.neighborhood}
                                     </span>
                                 </div>
                             </div>
@@ -166,7 +216,7 @@ export function DetalhesCelula(){
                                     <div className='w-full rounded-lg outline outline-1 outline-white px-2 py-1.5
                                     flex gap-6 justify-center'>
                                         <span className='inter font-medium text-xl'>
-                                            Terça-feira
+                                            {data?.day}
                                         </span>
                                     </div>
                                 </div>
@@ -178,7 +228,7 @@ export function DetalhesCelula(){
                                     <div className='w-full rounded-lg outline outline-1 outline-white px-2 py-1.5
                                     flex gap-6 justify-center'>
                                         <span className='inter font-medium text-xl'>
-                                            20:00
+                                            {data?.hour}
                                         </span>
                                     </div>
                                 </div>
