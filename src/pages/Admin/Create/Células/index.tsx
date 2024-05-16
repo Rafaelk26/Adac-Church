@@ -45,6 +45,10 @@ export function CriarCelulas(){
     const [photoCell, setPhotoCell] = useState<File | null>(null);
     const [photoLeader, setPhotoLeader] = useState<File | null>(null);
 
+    // Loading
+    const [isUploading, setIsUploading] = useState(false);
+
+
     const { register, handleSubmit, formState: { errors }, reset} = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onChange"
@@ -71,27 +75,40 @@ export function CriarCelulas(){
 
     const handleDeleteLeader = () => {
         if(photoLeader){
-            // Toast de erro
+            // Toast de sucesso
             setPhotoLeader(null);
         }
     }
 
     const handleDeleteCell = () => {
         if(photoCell){
-            // Toast de erro
+            // Toast de sucesso
             setPhotoCell(null);
         }
     }
 
+    const generateLeaderId = (name: string): string => {
+        const formattedName = name.toLowerCase().replace(/\s/g, '');
+        const randomNumbers = Math.floor(1000 + Math.random() * 9000);
+        
+        return formattedName + randomNumbers;
+    }
+    
+
     const onSubmit = async (data: FormData) => {
         try {
+        // Start loading upload archives
+        setIsUploading(true);
+        const leaderId = generateLeaderId(data.name_leader);
 
         if(!photoCell){
+            // Toast de erro
             alert('Inserir imagem da Célula!');
             return;
         }
 
         if(!photoLeader){
+            // Toast de erro
             alert('Inserir imagem do Líder!');
             return;
         }
@@ -123,7 +140,9 @@ export function CriarCelulas(){
             word_bible_cell: data.word_bible_cell,
             book_bible_cell: data.book_bible_cell,
             // Leader Data
+            id_leader: leaderId,
             name_leader: data.name_leader,
+            pass_leader: 'asdasd',
             phone_leader: data.phone_leader,
             office: data.office,
             photo_leader: photoLeaderUrl,
@@ -136,9 +155,12 @@ export function CriarCelulas(){
         handleDelete(photoCellUrl, photoLeaderUrl);
         reset();
         
+        // End loading for upload archives
+        setIsUploading(false);
+        
         // Toast de sucesso
-        console.log('Dados enviados com sucesso!', cellData);
     } catch (error) {
+        // Toast de erro
         console.error('Erro ao enviar os dados:', error);
     }
     };
@@ -518,6 +540,13 @@ export function CriarCelulas(){
                         md:my-10">         
                             Cadastrar
                         </button>
+
+                        {/* Div loading */}
+                        {isUploading && (
+                            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                            </div>
+                        )}
                     </form>
                 </div>
             </ContainerMain>
