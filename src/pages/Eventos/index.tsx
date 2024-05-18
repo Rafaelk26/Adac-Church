@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 export function Eventos() {
     return (
         <>
-            {/* Componente ContainerHeader com o componente HeaderPages dentro */}
             <ContainerHeader>
                 <HeaderPages 
                 path='/'

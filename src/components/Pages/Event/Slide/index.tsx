@@ -11,6 +11,9 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import './index.css';
 
+// Img Slider
+import imgSliderFixed from '../../../../assets/leao.png';
+
 // Config Slider
 const settings = {
     dots: false,
@@ -54,13 +57,21 @@ export function Slide() {
     
     return (
         <Slider {...settings}>
-            {contentSlide.map((cSlide, index)=> (
-                <div key={index} className='w-full flex outline-none'>
+            {contentSlide.length === 0 ? (
+                <div className='w-full flex outline-none'>
                     <img 
                     className='w-full outline-none'
-                    src={cSlide.photo} />
+                    src={imgSliderFixed} />
                 </div>
-            ))}
+            ):(
+                contentSlide.map((cSlide, index)=> (
+                    <div key={index} className='w-full flex outline-none'>
+                        <img 
+                        className='w-full outline-none'
+                        src={cSlide.photo} />
+                    </div>
+                ))
+            )}
             {/* Div loading */}
             {isUploading && (
                 <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
