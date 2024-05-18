@@ -98,7 +98,7 @@ export function DetalhesCelula(){
             </ContainerHeader>
             {/* Content */}
             <ContainerMainDetails>
-                <div className='flex flex-col w-full justify-center
+                <div className='flex flex-col w-full justify-center mt-14
                 md:flex-row'>
                     <div className='mt-28 
                     md:w-1/2 md:mt-0'>
