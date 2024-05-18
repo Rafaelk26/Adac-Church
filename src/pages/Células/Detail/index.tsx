@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 // Connection
 import { db } from '../../../services/server';
@@ -54,12 +55,12 @@ export function DetalhesCelula(){
                         setData(docSnap.data() as CellData);
                     } else {
                         // Documento não encontrado
-                        console.log('Documento não encontrado!');
+                        toast.error('Documento não encontrado!');
                     }
                 }
             } catch (error) {
                 // Tratamento de erros
-                console.error('Erro ao obter os dados:', error);
+                toast.error('Erro ao obter os dados');
             }
         };
 

@@ -57,18 +57,22 @@ export function DeleteEventos(){
                         </Link>
                     </div>
                     <div className='w-full mt-12 flex flex-col items-center gap-4'>
-                        {
-                        events.map(event=>(
-                            <EventDelete
-                            id_event={event?.id} 
-                            key={event.id}
-                            name={event.name}
-                            date={event.date}
-                            photo={event.photo ? event.photo : logoEx} />
-                        ))} 
+                        {events.length === 0 ? (
+                            <p className="text-center text-md w-full h-full flex justify-center md:text-lg ">Nenhum evento encontrado</p>
+                        ) : (
+                            events?.map(event=>(
+                                <EventDelete
+                                id_event={event?.id} 
+                                key={event.id}
+                                name={event.name}
+                                date={event.date}
+                                photo={event.photo ? event.photo : logoEx} />
+                            ))
+                        )}
                     </div>
                 </div>
             </ContainerMainCard>
         </>
     )
 }
+

@@ -19,15 +19,26 @@ export function Celulas(){
     const [cells, setCells] = useState<cellProps[]>();
     const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('All');
     
+    // Loading
+    const [isUploading, setIsUploading] = useState(false);
 
     useEffect(() => {
         const fetchCells = async () => {
+            setIsUploading(true);
             const cellsCollection = collection(db, 'Celulas');
             const cellsSnapshot = await getDocs(cellsCollection);
             const cellsData = cellsSnapshot.docs.map(doc => {
                 const data = doc.data() as cellProps;
-                return { id: doc.id, ...data };
+                return { 
+                    id: doc.id,
+                    name_cell: data.name_cell,
+                    name_leader: data.name_leader,
+                    neighborhood: data.neighborhood,
+                    photo_cell: data.photo_cell,
+                    photo_leader:data.photo_leader
+                };
             });
+            setIsUploading(false);
             setCells(cellsData);
         };
         fetchCells();
@@ -131,7 +142,8 @@ export function Celulas(){
                 ) : (
                         filteredCells?.map((cell)=> (
                             <Cell
-                            id_cell={cell?.id} 
+                            id_cell={cell?.id}
+                            key={cell.id} 
                             name_cell={cell.name_cell}
                             name_leader={cell.name_leader} 
                             neighborhood={cell.neighborhood}
@@ -140,6 +152,12 @@ export function Celulas(){
                         ))
                     )}
                 </div>
+                {/* Div loading */}
+                {isUploading && (
+                    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                    </div>
+                )}
             </ContainerMainCard>
         </>
     )

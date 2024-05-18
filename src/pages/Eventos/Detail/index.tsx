@@ -1,32 +1,65 @@
 // Import for development
-// import { useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
+
+// Connection with Firebase
+import { db } from '../../../services/server';
 
 // Components
 import { ContainerHeader } from '../../../components/Container/Header';
 import { ContainerMainDetails } from '../../../components/Container/MainDetails';
 import { HeaderDetails } from '../../../components/Header/Details/Event';
 
-// Image
-import imgEx  from '../../../assets/leao.png';
-
 // Icons
 import { BiMap, BiCalendar } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa';
 
 // CSS
-import './index.css'
+import './index.css';
+
+
+interface eventProps{
+    book_bible: string;
+    date: string;
+    description: string;
+    title: string;
+    location: string;
+    photo: string;
+    time: string;
+    word_bible: string;
+}
 
 export function DetalhesEvento(){
-    // const { id } = useParams()
+
+    const [event, setEvent] = useState<eventProps>();
+    
+    const { id } = useParams();
+
+    useEffect(()=> {
+        const fetchEventId = async () => {
+            if(id){
+                const eventRef = doc(db, 'Eventos', id);
+                const eventSnap = await getDoc(eventRef);
+                if(eventSnap.exists()){
+                    setEvent(eventSnap.data() as eventProps)
+                }
+            } else{
+                toast.error('Erro ao encontrar os dados!');
+            }
+        }
+        fetchEventId()
+    },[])
+
     return(
         <>
-            {/* Imagem de fundo da igreja */}
+            {/* Imagem de fundo do evento */}
             <div className="relative z-20 inset-0">
                 {/* Aplica o gradiente linear */}
                 <div className="absolute z-30 w-full h-full bg-transparent bg-gradient-to-b from-transparent via-transparent to-black"></div>
                 <img 
-                src={imgEx}
+                src={event?.photo}
                 id='imagem_capa_detalhes' 
                 className='w-full h-full object-cover opacity-50'/>
             </div>
@@ -39,7 +72,7 @@ export function DetalhesEvento(){
                     <div className='w-60 outline outline-2 outline-white rounded-lg bg-transparent'>
                         <img 
                         className='w-full h-full rounded-lg'
-                        src={imgEx} 
+                        src={event?.photo} 
                         alt="Banner do Evento" />
                     </div>
                 </div>
@@ -53,15 +86,13 @@ export function DetalhesEvento(){
                     sm:text-4xl sm:text-center
                     md:text-5xl md:text-start'>
                         {/* Title */}
-                        Célulão da ADAC
+                        {event?.title}
                     </h1>
                     <h3 className='font-normal inter text-xl max-w-80 text-center mx-auto
                     sm:text-2xl
                     md:text-start md:mx-0 md:max-w-xl'>
                         {/* Description */}
-                        Venha fazer parte de nosso culto e entre 
-                        em uma comunhão com Cristo jamais vista antes, 
-                        traga um acompanhante com você!
+                        {event?.description}
                     </h3>
                 </div>
                 {/* Informations Address, Day and Hour */}
@@ -72,19 +103,19 @@ export function DetalhesEvento(){
                     md:justify-start'>
                         <BiMap size={30} />
                         <p className='font-semibold inter text-2xl text-center
-                        md:text-start md:w-full'>Rua Maestro Pedro Alves de Souza, 16 - Benfica</p>
+                        md:text-start md:w-full'>{event?.location}</p>
                     </div>
                     <div className='w-1/2 flex items-center flex-col gap-3
                     md:flex-row md:gap-5'>
                         {/* Day */}
                         <div className='flex items-center gap-2'>
                             <BiCalendar size={30} />
-                            <p className='font-semibold inter text-2xl'>10/01/2024</p>
+                            <p className='font-semibold inter text-2xl'>{event?.date}</p>
                         </div>
                         {/* Hour */}
                         <div className='flex items-center gap-2'>
                             <FaClock size={30} />
-                            <p className='font-semibold inter text-2xl'>20:00</p>
+                            <p className='font-semibold inter text-2xl'>{event?.time}</p>
                         </div>
                     </div>
                 </div>
@@ -95,15 +126,13 @@ export function DetalhesEvento(){
                     sm:text-2xl
                     md:text-start md:mx-0 md:max-w-2xl'>
                         {/* Word */}
-                        “Deem graças em todas as circunstâncias, 
-                        pois esta é a vontade de Deus para vocês 
-                        em Cristo Jesus.”
+                        “{event?.word_bible}”
                     </h3>
                     <h3 className='font-bold inter text-xl max-w-80 text-center mx-auto
                     sm:text-xl
                     md:text-start md:mx-0 md:max-w-2xl'>
                         {/* Word */}
-                        I Tessalonicenses 5:18
+                        {event?.book_bible}
                     </h3>
                 </div>
             </ContainerMainDetails>

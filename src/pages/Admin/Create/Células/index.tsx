@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidV4 } from 'uuid';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
-// Connection
+// Connection with Firebase
 import { db, storage } from '../../../../services/server';
 
 // Components
@@ -76,6 +77,7 @@ export function CriarCelulas(){
     const handleDeleteLeader = () => {
         if(photoLeader){
             // Toast de sucesso
+            toast.success('Foto excluída com sucesso!');
             setPhotoLeader(null);
         }
     }
@@ -83,6 +85,7 @@ export function CriarCelulas(){
     const handleDeleteCell = () => {
         if(photoCell){
             // Toast de sucesso
+            toast.success('Foto excluída com sucesso!');
             setPhotoCell(null);
         }
     }
@@ -97,21 +100,22 @@ export function CriarCelulas(){
 
     const onSubmit = async (data: FormData) => {
         try {
-        // Start loading upload archives
-        setIsUploading(true);
         const leaderId = generateLeaderId(data.name_leader);
 
         if(!photoCell){
             // Toast de erro
-            alert('Inserir imagem da Célula!');
+            toast.error('Inserir imagem da Célula!');
             return;
         }
 
         if(!photoLeader){
             // Toast de erro
-            alert('Inserir imagem do Líder!');
+            toast.error('Inserir imagem do Líder!');
             return;
         }
+
+        // Start loading upload archives
+        setIsUploading(true);
 
         // Upload das imagens para o Firebase Storage
         let photoCellUrl = '';
@@ -142,7 +146,7 @@ export function CriarCelulas(){
             // Leader Data
             id_leader: leaderId,
             name_leader: data.name_leader,
-            pass_leader: 'asdasd',
+            pass_leader: 'jesusvive',
             phone_leader: data.phone_leader,
             office: data.office,
             photo_leader: photoLeaderUrl,
@@ -159,9 +163,11 @@ export function CriarCelulas(){
         setIsUploading(false);
         
         // Toast de sucesso
+        toast.success('Cadastrado com sucesso!');
     } catch (error) {
         // Toast de erro
-        console.error('Erro ao enviar os dados:', error);
+        toast.error('Erro ao enviar os dados!');
+        console.log(error);
     }
     };
 

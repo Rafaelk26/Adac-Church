@@ -6,12 +6,12 @@ import { Button } from '../../../Button/Event';
 
 export interface eventoProps{
     id?: string;
-    name: string;
+    title: string;
     photo?: string;
     date: string;
 }
 
-export function EventCards({ id, name, photo, date}: eventoProps){
+export function EventCards({ id, title, photo, date}: eventoProps){
     return(
         <>  
             <div className="max-w-4xl w-80 h-max px-1 ps-3 py-1 bg-white 
@@ -30,7 +30,7 @@ export function EventCards({ id, name, photo, date}: eventoProps){
                     {/* Title */}
                     <span className='font-bold inter text-xl text-black bg-transparent
                     sm:text-2xl'>
-                        {name}
+                        {title}
                     </span>
                 </div>
                 {/* Information 2 */}

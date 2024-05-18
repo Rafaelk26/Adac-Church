@@ -1,13 +1,15 @@
 // Import for development
-import { ChangeEvent, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-// import { addDoc, collection } from 'firebase/firestore';
+import { v4 as uuidV4 } from 'uuid';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { addDoc, collection } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 // Connection with Firebase
-// import { db, storage } from '../../../../services/server';
+import { db, storage } from '../../../../services/server';
 
 // Components
 import { ContainerMain } from '../../../../components/Container/Main';
@@ -17,7 +19,7 @@ import { InputEvent, TextareaEvent } from '../../../../components/Input/Admin/Ev
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
 
-
+// Event
 const schema = z.object({
     title: z.string().nonempty('insira um nome'),
     location: z.string().nonempty('insira uma localização'),
@@ -30,11 +32,6 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-interface imageInfo {
-    file: File | null;
-    url: string | null;
-}
-
 export function CriarEventos(){
 
     const { register, handleSubmit, formState: { errors }, reset} = useForm<FormData>({
@@ -42,69 +39,75 @@ export function CriarEventos(){
         mode: "onChange"
     })
 
-    const [image, setImage] = useState<imageInfo>({ file: null, url: null });
+    const [image, setImage] = useState<File | null>(null);
+       
+    // Loading
+    const [isUploading, setIsUploading] = useState(false);
     
-    const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file instanceof File) {
-            const url = file.name
-            setImage(
-                { file, url: `images/event/${url}` }
-            );
-        } else {
-            setImage(
-                {file: null, url: null}
-            )
-            // Toast de erro
-            console.log('Arquivo de imagem vazio!');
-        }
+        if (file) setImage(file);
     };
 
     const handleDelete = () => {
-        if(image.file){
-            // Toast de erro
-            setImage(
-                {
-                    file: null,
-                    url: null
-                }
-            )
+        if(image){
+            setImage(null);
         }
     }
 
-    useEffect(() => {
-        const handleUpload = async () => {
-            if (image.file) {
-                // Toast de sucesso
+    async function onSubmit(data: FormData) {
+        try{
+            // Variáveis para armazenar as url das fotos no storage do Firebase
+            let imageEventUrl = '';
+
+            if(!image){
+                // Toast de erro
+                toast.error('Inserir imagem do evento!');
+                return;
             }
-        };
 
-        handleUpload();
-    }, [image.file]);
+            // Inicializa tela de carregamento de dados
+            setIsUploading(true);
 
-    function onSubmit(data: FormData) {
+            if(image){
+                // Cria a referência do caminho para o storage seguir
+                const imageRef = ref(storage, `eventos/${uuidV4()}_${image.name}`);
+                // Aguarda o caminho e a imagem serem inseridas
+                await uploadBytes(imageRef, image);
+                // Pega a URL da imagem e faz o download do path e insere na variável vazia
+                imageEventUrl = await getDownloadURL(imageRef);
+            }
+            
+            // Cria-se o objeto com base nos campos que queria adicionar ao banco
+            const objEvent = {
+                title: data.title,
+                location: data.location,
+                date: data.date,
+                time: data.time,
+                photo: imageEventUrl,
+                description: data.description,
+                word_bible: data.word_bible,
+                book_bible: data.book_bible,
+            };
 
-        if(!image.url){
-            // Toast de erro
-            alert('inserir imagem')
-            return;
+            // Conexão com o firebase e adicionando nosso objeto passando o nosso database, 
+            // nome da collection e o nosso objeto para serem adicionados.
+            await addDoc(collection(db, 'Eventos'), objEvent);
+            
+            // Reseta todos os campos do schema
+            reset();
+            // Função para remover remover as imaagens do campo de img
+            handleDelete();
+    
+            // Toast de sucesso
+            toast.success('Cadastrado com sucesso!');
+            setIsUploading(false);
         }
-
-        const objEvent = {
-            title: data.title,
-            location: data.location,
-            date: data.date,
-            time: data.time,
-            photo: image.url,
-            description: data.description,
-            word_bible: data.word_bible,
-            book_bible: data.book_bible,
-        };
-        reset();
-        handleDelete();
-
-        // Toast de sucesso
-        console.log(objEvent);
+        catch(error){
+            // Toast de erro
+            toast.error('Erro ao enviar os dados!');
+            console.log(error);
+        }
     }
 
 
@@ -186,7 +189,7 @@ export function CriarEventos(){
                                 w-full h-full'>
                                     {/* Photo */}
                                     <div className='w-full h-48 flex justify-center items-center flex-col'>
-                                        {!image.file && (
+                                        {!image && (
                                             <>
                                                 <BiPhotoAlbum className='absolute z-0' size={30} />
                                                 <InputEvent
@@ -199,7 +202,7 @@ export function CriarEventos(){
                                             </>
                                         )}
 
-                                        {image.file && (
+                                        {image && (
                                             <>
                                                 <BiTrash 
                                                 onClick={handleDelete}
@@ -210,7 +213,7 @@ export function CriarEventos(){
                                                 className='w-full max-w-72 h-full rounded-lg 
                                                 outline outline-2 outline-white opacity-40 
                                                 md:max-w-full md:w-full'
-                                                src={image.file ? URL.createObjectURL(image.file) : ''}
+                                                src={image ? URL.createObjectURL(image) : ''}
                                                 alt=""
                                                 />
                                             </>
@@ -274,6 +277,12 @@ export function CriarEventos(){
                             </div>
                         </div>  
                     </form>
+                    {/* Div loading */}
+                    {isUploading && (
+                        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                        </div>
+                    )}
                 </div>  
             </ContainerMain>
         </>

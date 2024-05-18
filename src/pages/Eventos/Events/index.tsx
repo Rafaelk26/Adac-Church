@@ -1,6 +1,10 @@
 // Import for development
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getDocs, collection } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+
+// Connection with Firebase
+import { db } from '../../../services/server';
 
 // Components
 import { ContainerHeader } from '../../../components/Container/Header';
@@ -9,37 +13,38 @@ import { HeaderPages } from '../../../components/Header/Pages';
 import { EventCards } from '../../../components/Pages/Event/EventCards';
 import { eventoProps } from '../../../components/Pages/Event/EventCards';
 
-// Image
-import logoEx from '../../../assets/leao.png';
 
 // Icon
 import { BiArrowBack } from 'react-icons/bi';
 
-// Test Object
-const obj:eventoProps[] = [
-    {
-        id:"1",
-        name: "Célulão da ADAC",
-        date: "16/03/2024",
-        photo: "",
-    },
-    {
-        id:"2",
-        name: "CFL 18",
-        date: "29/10/2024",
-        photo: "",
-    },
-    {
-        id:"3",
-        name: "Café em Família",
-        date: "10/11/2024",
-        photo: "",
-    },
-]
 
 export function ViewsEventos(){
     
-    const [events, setEvents] = useState<eventoProps[]>(obj)
+    const [events, setEvents] = useState<eventoProps[]>([]);
+    
+    // Loading
+    const [isUploading, setIsUploading] = useState(false);
+
+    useEffect(()=> {
+        const fetchEventsData = async () => {
+            setIsUploading(true);
+            const eventRef = collection(db, 'Eventos');
+            const snapShotEvent = await getDocs(eventRef);
+            const eventData = snapShotEvent.docs.map((doc)=> {
+                const data = doc.data() as eventoProps
+                return {
+                    id: doc.id, 
+                    title: data.title,
+                    photo: data.photo,
+                    date: data.date
+                }
+            })
+            setIsUploading(false);
+            setEvents(eventData);
+            console.log(eventData);
+        }
+        fetchEventsData()
+    }, [])
 
     return(
         <>
@@ -65,12 +70,19 @@ export function ViewsEventos(){
                         events.map(event=>(
                             <EventCards
                             id={event.id} 
-                            name={event.name}
+                            key={event.id}
+                            title={event.title}
                             date={event.date}
-                            photo={event.photo ? event.photo : logoEx} />
+                            photo={event.photo} />
                         ))}
                     </div>
                 </div>
+                {/* Div loading */}
+                {isUploading && (
+                    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                    </div>
+                )}
             </ContainerMainCard>
         </>
     )

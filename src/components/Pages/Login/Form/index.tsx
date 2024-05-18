@@ -2,6 +2,7 @@
 import { useState, useEffect, FormEvent} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 // Connection with database
 import { db } from '../../../../services/server';
@@ -48,19 +49,20 @@ export function Form() {
     const signAdmin = (matricula: string, password: string) => {
         if (user.length >= 1) {
             if (user[0]?.matricula === matricula && user[0]?.password === password) {
+                toast.success('Usuário Logado!');
                 setAuthLogged(true);
                 nav('/adac/admin/');
                 return;
             } else {
+                toast.error('Matricula ou senha incorreta(s).');
                 setAuthLogged(false);
             }
         }
     }
 
     function handleSubmit(e: FormEvent){
-        e.preventDefault()
-        // Criptography password
-        signAdmin(matricula, password)
+        e.preventDefault();
+        signAdmin(matricula, password);
     }
 
     function toggleShowPassword() {
