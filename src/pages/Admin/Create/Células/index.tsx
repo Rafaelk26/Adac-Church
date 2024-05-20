@@ -286,7 +286,6 @@ export function CriarCelulas(){
                                                 <option value="Tinga">Tinga</option>
                                                 <option value="Travessão">Travessão</option>
                                                 <option value="Vila Ponte Seca">Vila Ponte Seca</option>
-                                                
                                             </Select>
                                         </div>
                                     </div>

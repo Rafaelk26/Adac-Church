@@ -24,18 +24,28 @@ export function DeleteEventos(){
 
     useEffect(()=> {
         const getEvents = async () => {
-            const dataCollection = collection(db, 'Eventos')
-            const dataSnapshot = await getDocs(dataCollection)
+            setIsUploading(true);
+            const dataCollection = collection(db, 'Eventos');
+            const dataSnapshot = await getDocs(dataCollection);
             const eventData = dataSnapshot.docs.map(doc => {
                 const data = doc.data() as eventoProps
-                return { id: doc.id, ...data }
+                return { 
+                    id: doc.id,
+                    title: data.title,
+                    photo: data.photo,
+                    date: data.date 
+                }
             })
-            setEvents(eventData)
+            setIsUploading(false);
+            setEvents(eventData);
         }
         getEvents()
     }, [])
     
-    const [events, setEvents] = useState<eventoProps[]>([])
+    const [events, setEvents] = useState<eventoProps[]>([]);
+
+    // Loading
+    const [isUploading, setIsUploading] = useState(false);
 
     return(
         <>
@@ -64,13 +74,19 @@ export function DeleteEventos(){
                                 <EventDelete
                                 id_event={event?.id} 
                                 key={event.id}
-                                name={event.name}
+                                name={event.title}
                                 date={event.date}
                                 photo={event.photo ? event.photo : logoEx} />
                             ))
                         )}
                     </div>
                 </div>
+                {/* Div loading */}
+                {isUploading && (
+                    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                    </div>
+                )}
             </ContainerMainCard>
         </>
     )
