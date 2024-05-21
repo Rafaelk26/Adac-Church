@@ -1,5 +1,5 @@
 // Import development
-import { useState, useEffect } from 'react';
+import { useState, useEffect, } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
 // Components
@@ -12,6 +12,8 @@ import { Cell }  from '../../components/Pages/Cell/CardsCell';
 import { cellProps } from '../../components/Pages/Cell/CardsCell';
 // Connections
 import { db } from '../../services/server';
+// Background cell
+import imgCell from '../../assets/Logo/adac-logo-black.png';
 
 export function Celulas(){
 
@@ -34,8 +36,7 @@ export function Celulas(){
                     name_cell: data.name_cell,
                     name_leader: data.name_leader,
                     neighborhood: data.neighborhood,
-                    photo_cell: data.photo_cell,
-                    photo_leader:data.photo_leader
+                    photo_leader: data.photo_leader
                 };
             });
             setIsUploading(false);
@@ -147,7 +148,7 @@ export function Celulas(){
                             name_cell={cell.name_cell}
                             name_leader={cell.name_leader} 
                             neighborhood={cell.neighborhood}
-                            photo_cell={cell.photo_cell}
+                            photo_cell={imgCell}
                             photo_leader={cell.photo_leader} />
                         ))
                     )}
