@@ -1,179 +1,129 @@
+// Import for development
 import { ChangeEvent, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, collection } from 'firebase/firestore';
-import { ref, deleteObject } from 'firebase/storage';
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "firebase/storage";
+import { db } from '../../../../../services/server';
 
-import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
-
-import { db, storage } from '../../../../../services/server';
-
+// Components
 import { ContainerHeader } from '../../../../../components/Container/Header';
 import { ContainerMain } from '../../../../../components/Container/Main';
 import { HeaderPages } from '../../../../../components/Header/Pages';
-import { 
-    Input, 
-    SelectEdit, 
-    TextareaEdit, 
-    InputFileEdit 
-} from '../../../../../components/Input/Admin/Cell/';
+import { Input, Textarea, InputFile, Select } from '../../../../../components/Input/Admin/Cell/';
 
+// Icon
+import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
 
 const schema = z.object({
-    name_cell: z.string().nonempty('Insira um nome'),
-    street: z.string().nonempty('Insira uma localização'),
-    neighborhood: z.string().nonempty('Insira um bairro'),
-    number: z.string().nonempty('Insira um número'),
-    day: z.string().nonempty('Insira um dia').min(2),
-    hour: z.string().nonempty('Insira uma hora'),
-    word_bible_cell: z.string().nonempty('Insira uma palavra bíblica'),
-    book_bible_cell: z.string().nonempty('Insira o livro, capítulo e versículo'),
-    description: z.string().nonempty('Insira uma descrição').min(2),
+    // Cell
+    name_cell: z.string().nonempty('insira um nome'),
+    street: z.string().nonempty('insira uma localização'),
+    neighborhood: z.string().nonempty('insira uma data'),
+    number: z.string().nonempty('insira um horário'),
+    day: z.string().nonempty('insira um dia').min(2),
+    hour: z.string().nonempty(''),
+    word_bible_cell: z.string().nonempty('insira uma palavra bíblica.'),
+    book_bible_cell: z.string().nonempty('insira o livro, cap e ver.'),
+    description: z.string().nonempty('insira uma descrição').min(2),
 });
 
 type FormData = z.infer<typeof schema>;
 
-interface CellEditProps {
-    name_cell: string;
-    neighborhood: string;
-    street: string;
-    number: string;
-    day: string;
-    hour: string;
-    description: string;
-    word_bible_cell: string;
-    book_bible_cell: string;
-    photo_cell: string;
-}
-
 export function EditCelulasId() {
     const { id } = useParams();
-    const [editData, setEditData] = useState<CellEditProps | null>(null);
-    const [formData, setFormData] = useState<FormData>({
-        name_cell: '',
-        street: '',
-        neighborhood: '',
-        number: '',
-        day: '',
-        hour: '',
-        word_bible_cell: '',
-        book_bible_cell: '',
-        description: '',
-    });
-
-    useEffect(() => {
-        const fetchEditData = async () => {
-            try {
-                if (id) {
-                    const cellRef = doc(db, 'Celulas', id);
-                    const docSnap = await getDoc(cellRef);
-                    if (docSnap.exists()) {
-                        const data = docSnap.data() as CellEditProps;
-                        setEditData(data);
-                        setFormData({
-                            name_cell: data.name_cell,
-                            street: data.street,
-                            neighborhood: data.neighborhood,
-                            number: data.number,
-                            day: data.day,
-                            hour: data.hour,
-                            word_bible_cell: data.word_bible_cell,
-                            book_bible_cell: data.book_bible_cell,
-                            description: data.description,
-                        });
-                        if (data.photo_cell) {
-                            setImageCell(data.photo_cell);
-                        }
-                    } else {
-                        console.error('Documento não encontrado!');
-                    }
-                }
-            } catch (error) {
-                console.error('Erro ao obter os dados');
-            }
-        };
-        fetchEditData();
-    }, [id]);
-
-
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         resolver: zodResolver(schema),
-        mode: 'onChange',
+        mode: "onChange"
     });
 
+    const [formData, setFormData] = useState<FormData>({} as FormData);
     const [imageCell, setImageCell] = useState<string | null>(null);
+    const [newImageFile, setNewImageFile] = useState<File | null>(null);
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    useEffect(() => {
+        const fetchCellData = async () => {
+            const docRef = doc(db, "Celulas", id as string);
+            const docSnap = await getDoc(docRef);
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+            if (docSnap.exists()) {
+                const data = docSnap.data() as FormData;
+                setFormData(data);
+                setImageCell(data?.photo_cell || null);
+                reset(data);
+            } else {
+                console.log("No such document!");
+            }
+        };
+
+        fetchCellData();
+    }, [id, reset]);
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageCell(reader.result as string);
-            };
-            reader.readAsDataURL(file);
+            setNewImageFile(file);
         }
     };
 
-    const deletePhotoFromStorage = async (photoUrl: string) => {
+    const deletePhotoFromStorage = async (imageUrl: string) => {
+        const storage = getStorage();
+        const imageRef = ref(storage, imageUrl);
         try {
-            const photoRef = ref(storage, photoUrl);
-            await deleteObject(photoRef);
-            console.log('Foto excluída do armazenamento com sucesso');
-            clearImage();
+            await deleteObject(imageRef);
+            setImageCell(null);
         } catch (error) {
-            console.error('Erro ao excluir foto do armazenamento:', error);
+            console.error("Error deleting image:", error);
         }
     };
-    
 
-    const clearImage = () => {
-        setImageCell(null);
+    const uploadImage = async (file: File): Promise<string> => {
+        const storage = getStorage();
+        const storageRef = ref(storage, `images/cell/${file.name}`);
+        await uploadBytes(storageRef, file);
+        return await getDownloadURL(storageRef);
     };
 
     const onSubmit = async (data: FormData) => {
-        if (!imageCell) {
-            alert('Insira uma imagem para a célula');
-            return;
+        let photoCellUrl = imageCell;
+
+        if (newImageFile) {
+            if (imageCell) {
+                await deletePhotoFromStorage(imageCell);
+            }
+            photoCellUrl = await uploadImage(newImageFile);
         }
-    
-        const objCell = {
+
+        const updatedData = {
             ...data,
-            photo_cell: imageCell,
+            photo_cell: photoCellUrl,
         };
-    
-        try {
-            await db.collection('Celulas').doc(id).update(objCell);
-            console.log('Dados da célula atualizados com sucesso!');
-        } catch (error) {
-            console.error('Erro ao atualizar dados da célula:', error);
-        }
-    
+
+        const docRef = doc(db, "Celulas", id as string);
+        await updateDoc(docRef, updatedData);
         reset();
+        setNewImageFile(null);
+        alert('Célula atualizada com sucesso');
     };
-    
 
     return (
         <>
             <ContainerHeader>
                 <HeaderPages path='/adac/admin/' name='Editar Célula' />
             </ContainerHeader>
+            {/* Content */}
             <ContainerMain>
                 <div className='mt-40 md:mt-28'>
+                    {/* Subtitle */}
                     <div className='w-full mx-auto max-w-56 md:mx-0 md:max-w-max'>
                         <p className='w-full max-w-max text-center inter text-gray-300 text-xl md:w-80 md:mt-2 md:font-medium md:text-start'>
-                            Edite os dados das células cadastradas em nossa plataforma.
+                            Edite dados das célula cadastradas em nossa plataforma.
                         </p>
                     </div>
+
+                    {/* Form */}
                     <form
                         className='w-full flex flex-col max-w-96 mx-auto h-max mt-5 md:mt-8 md:max-w-4xl'
                         method='#'
@@ -186,39 +136,46 @@ export function EditCelulasId() {
                             <div className='w-full'>
                                 <h3 className='font-semibold text-3xl quicksand'>Dados da Célula</h3>
                             </div>
+                            {/* Cell */}
                             <div className='w-full flex flex-col md:flex-row md:mt-1'>
+                                {/* Cell data - group 1 */}
                                 <div className='w-full md:w-8/5'>
+                                    {/* Name Cell */}
                                     <Input
                                         type='text'
                                         name='name_cell'
                                         name_label='Nome'
                                         register={register}
                                         error={errors.name_cell?.message}
-                                        value={formData.name_cell}
-                                        onChange={handleInputChange}
+                                        value={formData.name_cell || ''}
+                                        onChange={(e) => setFormData({ ...formData, name_cell: e.target.value })}
                                     />
                                     <div className='w-full flex flex-col md:flex-row md:mt-2'>
                                         <div className='w-full md:w-1/2'>
+                                            {/* Street */}
                                             <Input
                                                 type='text'
                                                 name='street'
                                                 name_label='Rua'
                                                 register={register}
                                                 error={errors.street?.message}
-                                                value={formData.street}
-                                                onChange={handleInputChange}
+                                                value={formData.street || ''}
+                                                onChange={(e) => setFormData({ ...formData, street: e.target.value })}
                                             />
                                         </div>
                                         <div className='w-full md:w-1/2'>
-                                            <SelectEdit
-                                                name='neighborhood'
-                                                name_label='Bairro'
-                                                register={register}
-                                                error={errors.neighborhood?.message}
-                                                value={formData.neighborhood}
-                                                onChange={handleInputChange}
+                                            {/* Neighborhood */}
+                                            <Select
+                                            type='text'
+                                            name='neighborhood'
+                                            name_label='Bairro'
+                                            register={register}
+                                            error={errors.neighborhood?.message}
+                                            value={formData.neighborhood || ''}
+                                            onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
                                             >
-                                                <option value=""></option>
+                                                <option value="All">Filtre por bairro</option>
+                                                <option value="All" selected>Todos os Bairros</option>
                                                 <option value="Barranco Alto">Barranco Alto</option>
                                                 <option value="Benfica">Benfica</option>
                                                 <option value="Cantagalo">Cantagalo</option>
@@ -266,50 +223,51 @@ export function EditCelulasId() {
                                                 <option value="Tinga">Tinga</option>
                                                 <option value="Travessão">Travessão</option>
                                                 <option value="Vila Ponte Seca">Vila Ponte Seca</option>
-                                            </SelectEdit>
+                                            </Select>
                                         </div>
                                     </div>
                                     <div className='w-full flex flex-col md:flex-row md:mt-2'>
-                                    <div className='w-full md:w-1/3'>
+                                        <div className='w-full md:w-1/3'>
                                             {/* Number */}
                                             <Input
-                                            type='text'
-                                            name='number'
-                                            name_label='N°'
-                                            register={register}
-                                            error={errors.number?.message}
-                                            value={formData.number}
-                                            onChange={handleInputChange}
+                                                type='text'
+                                                name='number'
+                                                name_label='N°'
+                                                register={register}
+                                                error={errors.number?.message}
+                                                value={formData.number || ''}
+                                                onChange={(e) => setFormData({ ...formData, number: e.target.value })}
                                             />
                                         </div>
                                         <div className='w-full md:w-1/3'>
-                                            <SelectEdit
+                                            {/* Day */}
+                                            <Select
+                                                type='text'
                                                 name='day'
                                                 name_label='Dia'
                                                 register={register}
                                                 error={errors.day?.message}
-                                                value={formData.day}
-                                                onChange={handleInputChange}
+                                                value={formData.day || ''}
+                                                onChange={(e) => setFormData({ ...formData, day: e.target.value })}
                                             >
                                                 <option value=""></option>
-                                                <option value="Domingo">Domingo</option>
                                                 <option value="Segunda-Feira">Segunda-Feira</option>
                                                 <option value="Terça-Feira">Terça-Feira</option>
-                                                <option value="Quarta-Feira">Quarta-Feira</option>
                                                 <option value="Quinta-Feira">Quinta-Feira</option>
                                                 <option value="Sexta-Feira">Sexta-Feira</option>
                                                 <option value="Sábado">Sábado</option>
-                                            </SelectEdit>
+                                            </Select>
                                         </div>
                                         <div className='w-full md:w-1/3'>
+                                            {/* Hour */}
                                             <Input
                                                 type='text'
                                                 name='hour'
                                                 name_label='Hora'
                                                 register={register}
                                                 error={errors.hour?.message}
-                                                value={formData.hour}
-                                                onChange={handleInputChange}
+                                                value={formData.hour || ''}
+                                                onChange={(e) => setFormData({ ...formData, hour: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -319,8 +277,8 @@ export function EditCelulasId() {
                                         name_label='Palavra Bíblica'
                                         register={register}
                                         error={errors.word_bible_cell?.message}
-                                        value={formData.word_bible_cell}
-                                        onChange={handleInputChange}
+                                        value={formData.word_bible_cell || ''}
+                                        onChange={(e) => setFormData({ ...formData, word_bible_cell: e.target.value })}
                                     />
                                     <Input
                                         type='text'
@@ -328,29 +286,66 @@ export function EditCelulasId() {
                                         name_label='Livro, capítulo e versículo'
                                         register={register}
                                         error={errors.book_bible_cell?.message}
-                                        value={formData.book_bible_cell}
-                                        onChange={handleInputChange}
+                                        value={formData.book_bible_cell || ''}
+                                        onChange={(e) => setFormData({ ...formData, book_bible_cell: e.target.value })}
                                     />
                                 </div>
+                                {/* Cell data - group 2 */}
                                 <div className='w-full flex flex-col md:w-2/5'>
-                                    <TextareaEdit
+                                    <Textarea
                                         name='description'
                                         name_label='Descrição'
                                         register={register}
                                         error={errors.description?.message}
-                                        value={formData.description}
-                                        onChange={handleInputChange}
+                                        value={formData.description || ''}
+                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     />
-                                    <label className="px-1 mt-1 bg-transparent w-max text-md font-normal quicksand leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                                        Foto
-                                    </label>
-                                    {!imageCell && (
+
+                                    <label
+                                        className="px-1 mt-1 bg-transparent w-max text-md font-normal quicksand leading-none 
+                                    peer-disabled:cursor-not-allowed 
+                                    peer-disabled:opacity-70">Foto</label>
+
+                                    {!newImageFile && imageCell && (
+                                        <>
+                                            <div className='px-1 flex justify-center items-center'>
+                                                <div className="absolute z-10 bg-transparent cursor-pointer">
+                                                    <BiTrash
+                                                        onClick={() => deletePhotoFromStorage(imageCell)}
+                                                        className='bg-transparent'
+                                                        size={30}
+                                                    />
+                                                </div>
+                                                <div className='w-full border border-input rounded-md'>
+                                                    <img
+                                                        className='opacity-45 flex h-36 w-full rounded-md border border-input 
+                                                    bg-transparent text-md ring-offset-background transition-all cursor-pointer
+                                                    file:border-0 
+                                                    file:bg-transparent 
+                                                    file:text-sm 
+                                                    file:font-medium 
+                                                    placeholder:text-muted-foreground 
+                                                    focus-visible:outline-none 
+                                                    focus-visible:ring-2 
+                                                    focus-visible:ring-ring 
+                                                    focus-visible:ring-offset-2 
+                                                    disabled:cursor-not-allowed'
+                                                        src={imageCell}
+                                                        onClick={() => deletePhotoFromStorage(imageCell)}
+                                                        alt=''
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {!newImageFile && !imageCell && (
                                         <div className='px-1 flex justify-center items-center m-0'>
                                             <div className='absolute'>
                                                 <BiPhotoAlbum size={30} />
                                             </div>
                                             <div className='w-full border border-input rounded-md'>
-                                                <InputFileEdit
+                                                <InputFile
                                                     type='file'
                                                     name='photo_cell'
                                                     name_label='Foto'
@@ -361,45 +356,46 @@ export function EditCelulasId() {
                                             </div>
                                         </div>
                                     )}
-                                    {imageCell && (
-                                        <>
-                                            <div className='px-1 flex justify-center items-center'>
-                                                <div className="absolute z-10 bg-transparent cursor-pointer">
-                                                    <BiTrash
-                                                    onClick={()=> deletePhotoFromStorage(imageCell)}
+
+                                    {newImageFile && (
+                                        <div className='px-1 flex justify-center items-center'>
+                                            <div className="absolute z-10 bg-transparent cursor-pointer">
+                                                <BiTrash
+                                                    onClick={() => setNewImageFile(null)}
                                                     className='bg-transparent'
                                                     size={30}
-                                                    />
-                                                </div>
-                                                <div className='w-full border border-input rounded-md'>
-                                                    <img
-                                                        className='opacity-45 flex h-36 w-full rounded-md border border-input 
-                                                        bg-transparent text-md ring-offset-background transition-all cursor-pointer
-                                                        file:border-0 
-                                                        file:bg-transparent 
-                                                        file:text-sm 
-                                                        file:font-medium 
-                                                        placeholder:text-muted-foreground 
-                                                        focus-visible:outline-none 
-                                                        focus-visible:ring-2 
-                                                        focus-visible:ring-ring 
-                                                        focus-visible:ring-offset-2 
-                                                        disabled:cursor-not-allowed'
-                                                        src={imageCell}
-                                                        alt=''
-                                                    />
-                                                </div>
+                                                />
                                             </div>
-                                        </>
+                                            <div className='w-full border border-input rounded-md'>
+                                                <img
+                                                    className='opacity-45 flex h-36 w-full rounded-md border border-input 
+                                                bg-transparent text-md ring-offset-background transition-all cursor-pointer
+                                                file:border-0 
+                                                file:bg-transparent 
+                                                file:text-sm 
+                                                file:font-medium 
+                                                placeholder:text-muted-foreground 
+                                                focus-visible:outline-none 
+                                                focus-visible:ring-2 
+                                                focus-visible:ring-ring 
+                                                focus-visible:ring-offset-2 
+                                                disabled:cursor-not-allowed'
+                                                    src={URL.createObjectURL(newImageFile)}
+                                                    onClick={() => setNewImageFile(null)}
+                                                    alt=''
+                                                />
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             </div>
                         </section>
+                        {/* Button submit */}
                         <button
                             type="submit"
                             className="w-56 my-10 mx-auto p-2 border border-solid border-white rounded-lg transition-all font-medium
-                            hover:bg-white hover:text-black hover:font-medium
-                            md:my-10"
+                        hover:bg-white hover:text-black hover:font-medium
+                        md:my-10"
                         >
                             Editar
                         </button>

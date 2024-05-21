@@ -88,7 +88,7 @@ export function DetalhesCelula(){
                 sm:top-40
                 md:top-32 md:justify-start'>
                     {/* Image Card */}
-                    <div className='w-60 outline outline-2 outline-white rounded-lg bg-transparent transition-all
+                    <div className='w-60 h-36 max-h-36 outline outline-2 outline-white rounded-lg bg-transparent transition-all
                     hover:scale-105'>
                         <img 
                         className='w-full h-full rounded-lg'
@@ -149,7 +149,7 @@ export function DetalhesCelula(){
                                     <div className='w-max border border-1 border-white rounded-full'>
                                         {/* Image Leader */}
                                         <img
-                                        className='w-14 h-14 rounded-full' 
+                                        className='w-14 h-14 rounded-full object-cover' 
                                         src={data?.photo_leader} 
                                         alt="" />
                                     </div>

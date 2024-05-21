@@ -7,7 +7,7 @@ export interface cellProps {
     name_cell: string;
     name_leader: string;
     neighborhood: string;
-    photo_cell: string;
+    photo_cell?: string;
     photo_leader: string;
 }
 
