@@ -3,9 +3,12 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, deleteObject, getDownloadURL } from "firebase/storage";
+
+// Connection with Firebase
 import { db } from '../../../../../services/server';
 
 // Components
@@ -43,6 +46,8 @@ export function EditCelulasId() {
     const [imageCell, setImageCell] = useState<string | null>(null);
     const [newImageFile, setNewImageFile] = useState<File | null>(null);
 
+    const nav = useNavigate();
+
     useEffect(() => {
         const fetchCellData = async () => {
             const docRef = doc(db, "Celulas", id as string);
@@ -54,7 +59,7 @@ export function EditCelulasId() {
                 setImageCell(data?.photo_cell || null);
                 reset(data);
             } else {
-                console.log("No such document!");
+                toast.error("Não existe documento de imagem!");
             }
         };
 
@@ -75,7 +80,7 @@ export function EditCelulasId() {
             await deleteObject(imageRef);
             setImageCell(null);
         } catch (error) {
-            console.error("Error deleting image:", error);
+            toast.error("Erro ao deletar a imagem");
         }
     };
 
@@ -105,7 +110,8 @@ export function EditCelulasId() {
         await updateDoc(docRef, updatedData);
         reset();
         setNewImageFile(null);
-        alert('Célula atualizada com sucesso');
+        toast.success('Célula atualizada com sucesso!');
+        nav('/adac/admin/editar/celulas');
     };
 
     return (
