@@ -39,7 +39,7 @@ export function DeleteEventos(){
             setIsUploading(false);
             setEvents(eventData);
         }
-        getEvents()
+        getEvents();
     }, [])
     
     const [events, setEvents] = useState<eventoProps[]>([]);
