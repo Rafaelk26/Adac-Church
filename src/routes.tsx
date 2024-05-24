@@ -37,12 +37,134 @@ import { ViewEventos } from './pages/Admin/View/Eventos/index';
 import { ViewLideres } from './pages/Admin/View/Lideres/index';
 
 // Private
-import { Private } from './middleware/Private';
+// import { Private } from './middleware/Private';
 
 // Importando bibliotecas para desenvolvimento do projeto
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
+    // {
+    //     children: [
+    //         {
+    //             element: <Home />,
+    //             path: "/"
+    //         }, 
+    //         {
+    //             element: <Eventos />,
+    //             path: "/adac/eventos"
+    //         },
+    //         {
+    //             element: <ViewsEventos />,
+    //             path: "/adac/eventos/show"
+    //         },
+    //         {
+    //             element: <DetalhesEvento />,
+    //             path: "/adac/eventos/detalhes/:id"
+    //         },
+    //         {
+    //             element: <Celulas />,
+    //             path: "/adac/celulas"
+    //         },
+    //         {
+    //             element: <DetalhesCelula />,
+    //             path: "/adac/celulas/detalhes/:id"
+    //         },
+    //         {
+    //             element: <Igreja />,
+    //             path: "/adac/igreja"
+    //         },
+    //         {
+    //             element: <Login />,
+    //             path: "/adac/login"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <Administration />
+    //                     </Private>,
+    //             path: '/adac/admin/'
+    //         }, 
+    //         {
+    //             element: <Private>
+    //                         <CriarCelulas />
+    //                     </Private>,
+    //             path: "/adac/admin/criar/celulas"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <CriarEventos />
+    //                     </Private>,
+    //             path: "/adac/admin/criar/eventos"
+    //         }, 
+    //         {
+    //             element: <Private>
+    //                         <DeleteCelulas />
+    //                     </Private>,
+    //             path: "/adac/admin/deletar/celulas"
+    //         }, 
+    //         {
+    //             element: <Private>
+    //                         <DeleteEventos />
+    //                     </Private>,
+    //             path: "/adac/admin/deletar/eventos"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <EditCelulas />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/celulas"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <EditCelulasId />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/celulas/:id"
+
+    //         }, 
+    //         {
+    //             element: <Private>
+    //                         <EditEventos />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/eventos"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <EditarEventosId />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/eventos/:id"
+
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <EditLideres />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/lideres"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <EditLideresId />
+    //                     </Private>,
+    //             path: "/adac/admin/editar/lideres/:id"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <ViewCelulas />
+    //                     </Private>,
+    //             path: "/adac/admin/visualizar/celulas"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <ViewEventos />
+    //                     </Private>,
+    //             path: "/adac/admin/visualizar/eventos"
+    //         },
+    //         {
+    //             element: <Private>
+    //                         <ViewLideres />
+    //                     </Private>,
+    //             path: "/adac/admin/visualizar/lideres"
+    //         },
+    //     ]
+    // },
     {
         children: [
             {
@@ -78,89 +200,61 @@ const router = createBrowserRouter([
                 path: "/adac/login"
             },
             {
-                element: <Private>
-                            <Administration />
-                        </Private>,
+                element: <Administration />,
                 path: '/adac/admin/'
             }, 
             {
-                element: <Private>
-                            <CriarCelulas />
-                        </Private>,
+                element: <CriarCelulas />,
                 path: "/adac/admin/criar/celulas"
             },
             {
-                element: <Private>
-                            <CriarEventos />
-                        </Private>,
+                element: <CriarEventos />,
                 path: "/adac/admin/criar/eventos"
             }, 
             {
-                element: <Private>
-                            <DeleteCelulas />
-                        </Private>,
+                element: <DeleteCelulas />,
                 path: "/adac/admin/deletar/celulas"
             }, 
             {
-                element: <Private>
-                            <DeleteEventos />
-                        </Private>,
+                element: <DeleteEventos />,
                 path: "/adac/admin/deletar/eventos"
             },
             {
-                element: <Private>
-                            <EditCelulas />
-                        </Private>,
+                element: <EditCelulas />,
                 path: "/adac/admin/editar/celulas"
             },
             {
-                element: <Private>
-                            <EditCelulasId />
-                        </Private>,
+                element: <EditCelulasId />,
                 path: "/adac/admin/editar/celulas/:id"
 
             }, 
             {
-                element: <Private>
-                            <EditEventos />
-                        </Private>,
+                element: <EditEventos />,
                 path: "/adac/admin/editar/eventos"
             },
             {
-                element: <Private>
-                            <EditarEventosId />
-                        </Private>,
+                element: <EditarEventosId />,
                 path: "/adac/admin/editar/eventos/:id"
 
             },
             {
-                element: <Private>
-                            <EditLideres />
-                        </Private>,
+                element: <EditLideres />,
                 path: "/adac/admin/editar/lideres"
             },
             {
-                element: <Private>
-                            <EditLideresId />
-                        </Private>,
+                element: <EditLideresId />,
                 path: "/adac/admin/editar/lideres/:id"
             },
             {
-                element: <Private>
-                            <ViewCelulas />
-                        </Private>,
+                element: <ViewCelulas />,
                 path: "/adac/admin/visualizar/celulas"
             },
             {
-                element: <Private>
-                            <ViewEventos />
-                        </Private>,
+                element: <ViewEventos />,
                 path: "/adac/admin/visualizar/eventos"
             },
             {
-                element: <Private>
-                            <ViewLideres />
-                        </Private>,
+                element: <ViewLideres />,
                 path: "/adac/admin/visualizar/lideres"
             },
         ]

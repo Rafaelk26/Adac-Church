@@ -16,6 +16,7 @@ import { ContainerHeader } from '../../../../components/Container/Header';
 import { ContainerMain } from '../../../../components/Container/Main';
 
 interface editLeaderProps {
+    id: string;
     name_leader: string;
     photo_leader: string;
     office: string;
