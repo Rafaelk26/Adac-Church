@@ -1,10 +1,11 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, getStorage, deleteObject, uploadBytes } from 'firebase/storage';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, getStorage, deleteObject, uploadBytes } from 'firebase/storage';
 
 // Connection with Firebase
 import { db } from '../../../../../services/server';
@@ -19,11 +20,6 @@ import { Button } from '../../../../../components/Button/Login';
 // Icon
 import { BiCloudDownload, BiTrash } from 'react-icons/bi';
 
-// Image test
-import imgTest from '../../../../../assets/leao.png';
-
-import { useForm } from 'react-hook-form';
-
 const schema = z.object({
     name_leader: z.string().nonempty('Obrigatório Nome do líder!'),
     phone_leader: z.string().nonempty('Obrigatório telefone do líder'),
@@ -37,11 +33,10 @@ export function EditLideresId(){
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onChange"
-    }) 
+    }); 
 
     const { id } = useParams();
 
-    const [idLeader, setIdLeader] = useState<FormData>({} as FormData);
     const [dataForm, setDataForm] = useState<FormData>({} as FormData);
     const [imageOld, setImageOld] = useState<string>('');
     const [imageNew, setImageNew] = useState<File | null | boolean>(false);
@@ -53,8 +48,8 @@ export function EditLideresId(){
             const refId = doc(db, "Celulas", id as string);
             const snapId = await getDoc(refId);
             const dataId = snapId.data() as FormData;
-            setIdLeader(dataId);
             setDataForm(dataId);
+            reset(dataId);  // Resetar os valores do formulário
             if (dataId.photo_leader) {
                 setImageOld(dataId.photo_leader);
             } else {
@@ -62,7 +57,7 @@ export function EditLideresId(){
             }
         }
         fetchEditIdLeader();
-    }, [id]);
+    }, [id, reset]);
 
     // Função de excluir do firebase storage      
     const handleDeleteImageStorage = async (url: string) => {        
@@ -72,7 +67,7 @@ export function EditLideresId(){
             await deleteObject(storageRef);
             setImageNew(true);
 
-            const leaderRef = doc(db, "Celulas", id as string)
+            const leaderRef = doc(db, "Celulas", id as string);
             await updateDoc(leaderRef, { photo_leader: '' });
 
             setImageOld('');
@@ -130,22 +125,25 @@ export function EditLideresId(){
             {/* Main content */}
             <ContainerMainDetails>
                 <div 
-                className='w-full flex
+                className='w-full flex mt-48 justify-center
                 md:mt-40 md:h-96 md:items-center md:justify-center'>
                     {/* Card Edit Leader */}
                     <form 
-                    className='w-full h-full flex max-w-2xl border-2 border-solid border-white rounded-2xl'
+                    className='w-96 h-full flex border-2 border-solid border-white rounded-2xl
+                    md:max-w-2xl md:flex-row md:w-full'
                     method='#'
                     onSubmit={(e)=> { 
                         e.preventDefault();
                         handleSubmit(onSubmit)();
                     }}>
                         <div 
-                        className="w-full h-full flex max-w-2xl">
+                        className="w-full h-full flex flex-col
+                        md:max-w-2xl md:flex-row">
                             {/* Image leader */}
-                            {imageOld && !imgSend && (
+                            {(imageOld && !imgSend) && (
                                 <div
-                                className='w-5/12 h-full flex justify-center items-center relative'>
+                                className='w-full h-72 flex justify-center items-center relative
+                                md:w-5/12 md:h-full'>
                                     <div className="absolute z-30">
                                         <BiTrash
                                         onClick={()=> handleDeleteImageStorage(imageOld)}
@@ -163,7 +161,8 @@ export function EditLideresId(){
 
                             {!imageOld && !imgSend && imageNew === true && (
                                 <div
-                                className='w-5/12 h-full flex justify-center items-center relative'>
+                                className='w-full h-72 flex justify-center items-center relative
+                                md:w-5/12 md:h-full'>
                                     <div className="absolute z-30">
                                         <BiCloudDownload
                                         className='cursor-pointer'
@@ -184,7 +183,8 @@ export function EditLideresId(){
 
                             {imgSend && (
                                 <div
-                                className='w-5/12 h-full flex justify-center items-center relative'>
+                                className='w-full h-72 flex justify-center items-center relative
+                                md:w-5/12 md:h-full'>
                                     <img
                                     className='w-full h-full object-cover rounded-s-xl opacity-55' 
                                     src={imgSend} 
@@ -205,7 +205,8 @@ export function EditLideresId(){
 
                             {/* Info leader */}
                             <div
-                            className='w-7/12 h-full ms-5'>
+                            className='w-full h-full mb-8
+                            md:w-7/12 md:ms-5'>
                                 
                                 <h1 className='text-center text-4xl quicksand mt-2'>Dados do Líder</h1>
                                 
@@ -256,5 +257,5 @@ export function EditLideresId(){
                 </div>
             </ContainerMainDetails>
         </>
-    )
+    );
 }

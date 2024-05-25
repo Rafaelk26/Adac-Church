@@ -27,9 +27,10 @@ export function ViewLideres(){
 
     const [useSearch, setUseSearch] = useState<string>('');
     const [useActive, setUseActive] = useState<boolean>(false);
-    
+        
     // Leaders
-    const [leader, setLeader] = useState<leaderProps[]>([])
+    const [editLeader, setEditLeader] = useState<leaderProps[]>([]);
+    const [filteredLeaders, setFilteredLeaders] = useState<leaderProps[]>([]);
     // Loading
     const [isUploading, setIsUploading] = useState(false);
 
@@ -50,15 +51,22 @@ export function ViewLideres(){
                 }
             });
             setIsUploading(false);
-            setLeader(leaderData);
+            setEditLeader(leaderData);
+            setFilteredLeaders(leaderData);
         }
 
         fetchEventsData();
     },[])
+
+    useEffect(() => {
+        const results = editLeader.filter((leader) =>
+            leader.name_leader.toLowerCase().includes(useSearch.toLowerCase())
+        );
+        setFilteredLeaders(results);
+    }, [useSearch, editLeader]);
     
     const handleSearch = () => {
-        alert(`Palavra procurada: ${useSearch}`);
-        setUseSearch('');
+        
     }
 
     return(
@@ -106,10 +114,10 @@ export function ViewLideres(){
                     </div>
                 </div>
                 {
-                    leader.length === 0 ? (
+                    filteredLeaders.length === 0 ? (
                         <p className="text-center text-md w-full h-full flex justify-center md:text-lg md:mt-20 ">Nenhum líder encontrado</p>
                     ) : (
-                        leader.map((lead)=> (
+                        filteredLeaders.map((lead)=> (
                             <section className='w-full max-w-96 flex flex-col gap-3 mx-auto mt-8 
                             md:max-w-xl md:mt-6'>
                                 {/* Card Leader */}

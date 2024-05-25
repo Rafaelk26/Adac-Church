@@ -1,14 +1,14 @@
-// Import for development
 import { ChangeEvent, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'react-router-dom'; 
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import { addDoc, collection } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, getStorage, deleteObject } from 'firebase/storage';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 // Connection with Firebase
-// import { db, storage } from '../../../../services/server';
+import { db, storage } from '../../../../../services/server';
 
 // Components
 import { ContainerMain } from '../../../../../components/Container/Main';
@@ -18,102 +18,115 @@ import { InputEvent, TextareaEvent } from '../../../../../components/Input/Admin
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
 
-
 const schema = z.object({
-    title: z.string().nonempty('insira um nome'),
-    location: z.string().nonempty('insira uma localização'),
-    date: z.string().nonempty('insira uma data'),
-    time: z.string().nonempty('insira um horário'),
-    description: z.string().nonempty('insira uma descrição').min(2),
-    word_bible: z.string().nonempty('insira uma palavra bíblica'),
-    book_bible: z.string().nonempty('insira o livro, cap e ver.'),
-})
+    title: z.string().nonempty('Insira um nome'),
+    location: z.string().nonempty('Insira uma localização'),
+    date: z.string().nonempty('Insira uma data'),
+    time: z.string().nonempty('Insira um horário'),
+    description: z.string().nonempty('Insira uma descrição').min(2),
+    word_bible: z.string().nonempty('Insira uma palavra bíblica'),
+    book_bible: z.string().nonempty('Insira o livro, cap e ver.'),
+});
 
-type FormData = z.infer<typeof schema>
+type FormData = z.infer<typeof schema>;
 
-interface imageInfo {
-    file: File | null;
-    url: string | null;
+interface eventEditProps {
+    title: string;
+    location: string;
+    date: string;
+    time: string;
+    description: string;
+    photo: string;
+    word_bible: string;
+    book_bible: string;
 }
 
-export function EditarEventosId(){
+export function EditarEventosId() {
+    const { id } = useParams();
 
-    const { id } = useParams()
-
-    const { register, handleSubmit, formState: { errors }, reset} = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onChange"
-    })
+    });
 
-    const [image, setImage] = useState<imageInfo>({ file: null, url: null });
-    
+    const [image, setImage] = useState<File | null>(null);
+    const [event, setEvent] = useState<eventEditProps>({} as eventEditProps);
+    const [isUploading, setIsUploading] = useState(false);
+
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file instanceof File) {
-            const url = file.name
-            setImage(
-                { file, url: `images/event/${url}` }
-            );
+        if (file) {
+            setImage(file);
         } else {
-            setImage(
-                {file: null, url: null}
-            )
-            // Toast de erro
-            console.log('Arquivo de imagem vazio!');
+            console.log('Erro ao cadastrar a imagem!');
         }
     };
 
-    const handleDelete = () => {
-        if(image.file){
-            // Toast de erro
-            setImage(
-                {
-                    file: null,
-                    url: null
-                }
-            )
-        }
-    }
-
     useEffect(() => {
-        console.log(id)
-        
-        const handleUpload = async () => {
-            if (image.file) {
-                // Toast de sucesso
+        const fetchDataEvent = async () => {
+            const eventRef = doc(db, "Eventos", id as string);
+            const eventSnap = await getDoc(eventRef);
+            const eventData = eventSnap.data() as eventEditProps;
+            try {
+                setEvent(eventData);
+                reset(eventData);
+            } catch (err) {
+                toast.error('Erro ao resgatar os dados!');
+                console.log('Erro ao resgatar os dados!', err);
             }
         };
 
-        handleUpload();
-    }, [image.file]);
+        fetchDataEvent();
+    }, [id, reset]);
 
-    function onSubmit(data: FormData) {
+    const handleDelete = () => {
+        if (image) {
+            setImage(null);
+        }
+    };
 
-        if(!image.url){
-            // Toast de erro
-            alert('inserir imagem')
-            return;
+    const handleDeleteFromStorage = async (url: string) => {
+        if (url) {
+            const storageRef = ref(storage, url);
+            try {
+                await deleteObject(storageRef);
+                setEvent((prev) => ({ ...prev, photo: '' })); // Atualizar o estado para remover a foto
+                toast.success('Imagem excluída com sucesso!');
+            } catch (error) {
+                toast.error('Não foi possível excluir a foto!');
+                console.log('Não foi possível excluir a foto!', error);
+            }
+        }
+    };
+
+    const onSubmit = async (data: FormData) => {
+        setIsUploading(true);
+        let photoURL = event.photo;
+
+        if (image) {
+            const imageRef = ref(storage, `eventos/${id}`);
+            await uploadBytes(imageRef, image);
+            photoURL = await getDownloadURL(imageRef);
         }
 
-        const objEvent = {
-            title: data.title,
-            location: data.location,
-            date: data.date,
-            time: data.time,
-            photo: image.url,
-            description: data.description,
-            word_bible: data.word_bible,
-            book_bible: data.book_bible,
+        const updatedEvent = {
+            ...data,
+            photo: photoURL,
         };
-        reset();
-        handleDelete();
 
-        // Toast de sucesso
-        console.log(objEvent);
-    }
+        try {
+            const eventRef = doc(db, "Eventos", id as string);
+            await updateDoc(eventRef, updatedEvent);
+            toast.success('Evento atualizado com sucesso!');
+        } catch (error) {
+            toast.error('Erro ao atualizar o evento!');
+            console.log('Erro ao atualizar o evento!', error);
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
-
-    return(
+    return (
         <>  
             <ContainerMain>
                 <div className='w-full h-max mt-2'>
@@ -190,8 +203,8 @@ export function EditarEventosId(){
                                 <div className='flex flex-col justify-end gap-5 md:gap-3 
                                 w-full h-full'>
                                     {/* Photo */}
-                                    <div className='w-full h-48 flex justify-center items-center flex-col'>
-                                        {!image.file && (
+                                    <div className='w-full h-48 flex justify-center items-center flex-col relative'>
+                                        {(!event.photo && !image) && (
                                             <>
                                                 <BiPhotoAlbum className='absolute z-0' size={30} />
                                                 <InputEvent
@@ -204,10 +217,10 @@ export function EditarEventosId(){
                                             </>
                                         )}
 
-                                        {image.file && (
+                                        {(event.photo || image) && (
                                             <>
                                                 <BiTrash 
-                                                onClick={handleDelete}
+                                                onClick={() => handleDeleteFromStorage(event.photo)}
                                                 className='w-full absolute z-10 cursor-pointer bg-transparent max-w-72
                                                 md:max-w-80' 
                                                 size={30} />
@@ -215,8 +228,8 @@ export function EditarEventosId(){
                                                 className='w-full max-w-72 h-full rounded-lg 
                                                 outline outline-2 outline-white opacity-40 
                                                 md:max-w-full md:w-full'
-                                                src={image.file ? URL.createObjectURL(image.file) : ''}
-                                                alt=""
+                                                src={image ? URL.createObjectURL(image) : event.photo}
+                                                alt="Foto do evento"
                                                 />
                                             </>
                                         )}
@@ -273,8 +286,9 @@ export function EditarEventosId(){
                                 <button
                                 type="submit"
                                 className="w-full p-2 border-2 bg-black rounded-lg transition-all font-medium
-                                hover:bg-white hover:text-black hover:font-medium md:border-black">         
-                                    Editar
+                                hover:bg-white hover:text-black hover:font-medium md:border-black"
+                                disabled={isUploading}>         
+                                    {isUploading ? 'Atualizando...' : 'Editar'}
                                 </button>
                             </div>
                         </div>  
@@ -282,10 +296,5 @@ export function EditarEventosId(){
                 </div>  
             </ContainerMain>
         </>
-    )
+    );
 }
-
-
-
-
-
