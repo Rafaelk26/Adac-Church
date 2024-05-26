@@ -69,7 +69,7 @@ export function DetalhesEvento(){
                 sm:top-40
                 md:top-32 md:justify-start'>
                     {/* Image Card */}
-                    <div className='w-60 outline outline-2 outline-white rounded-lg bg-transparent'>
+                    <div className='w-60 h-36 outline outline-2 outline-white rounded-lg bg-transparent'>
                         <img 
                         className='w-full h-full rounded-lg'
                         src={event?.photo} 

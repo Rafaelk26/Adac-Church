@@ -1,9 +1,6 @@
-// Import for deelopment
-import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+// Import for development
+import { useMemo } from 'react';
 
-// Connection with Firebase
-import { db } from '../../../../services/server';
 // Import react-slick library in project
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -12,7 +9,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import './index.css';
 
 // Img Slider
-import imgSliderFixed from '../../../../assets/leao.png';
+import imgSlider1 from '../../../../assets/leao.png';
+import imgSlider2 from '../../../../assets/Logo/logo-adac.png';
+import imgSlider3 from '../../../../assets/Perfil/IMG-20240120-WA0105 - Robson Soares floriano.jpg';
 
 // Config Slider
 const settings = {
@@ -28,56 +27,30 @@ const settings = {
     adaptiveHeight: true,
 };
 
-interface imageSlideProps{
-    photo: string;
-}
-
 
 export function Slide() {
-    
-    const [contentSlide, setContentSlide] = useState<imageSlideProps[]>([]);
 
-    // Loading
-    const [isUploading, setIsUploading] = useState(false);
+    const img1 = useMemo(()=> imgSlider1 ,[])
+    const img2 = useMemo(()=> imgSlider2 ,[])
+    const img3 = useMemo(()=> imgSlider3 ,[])
 
-    useEffect(()=> {
-        const fetchImageSlide = async () => {
-            setIsUploading(true);
-            const imageSlideRef = collection(db, 'Eventos');
-            const imageSlideShot = await getDocs(imageSlideRef);
-            const imageSlideData = imageSlideShot.docs.map((doc)=>{
-                const data = doc.data() as imageSlideProps
-                return {photo: data.photo};
-            })
-            setIsUploading(false);
-            setContentSlide(imageSlideData);
-        }
-        fetchImageSlide()
-    }, [])
-    
     return (
         <Slider {...settings}>
-            {contentSlide.length === 0 ? (
-                <div className='w-full flex outline-none'>
-                    <img 
-                    className='w-full outline-none'
-                    src={imgSliderFixed} />
-                </div>
-            ):(
-                contentSlide.map((cSlide, index)=> (
-                    <div key={index} className='w-full flex outline-none'>
-                        <img 
-                        className='w-full outline-none'
-                        src={cSlide.photo} />
-                    </div>
-                ))
-            )}
-            {/* Div loading */}
-            {isUploading && (
-                <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
-                </div>
-            )}
+            <div className='w-full h-56 flex outline-none md:h-96'>
+                <img 
+                className='w-full h-full outline-none object-cover'
+                src={img1} />
+            </div>
+            <div className='w-full h-56 flex outline-none md:h-96'>
+                <img 
+                className='w-full h-full outline-none object-cover'
+                src={img2} />
+            </div>
+            <div className='w-full h-56 flex outline-none md:h-96'>
+                <img 
+                className='w-full h-full outline-none object-cover'
+                src={img3} />
+            </div>
         </Slider>        
     );
 }

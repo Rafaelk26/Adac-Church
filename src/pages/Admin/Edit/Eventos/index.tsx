@@ -1,5 +1,5 @@
 // Import for development
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -16,6 +16,8 @@ import { BiArrowBack } from 'react-icons/bi';
 // Connection with Firebase
 import { db } from '../../../../services/server';
 
+// Image loading 
+import logoLoading from '../../../../assets/Logo/logo-adac.png';
 
 
 export function EditEventos(){
@@ -43,7 +45,11 @@ export function EditEventos(){
         getEvents()
     }, [])
     
-    const [events, setEvents] = useState<eventoProps[]>([])
+    const [events, setEvents] = useState<eventoProps[]>([]);
+    
+    const memorizedEventsImage = useMemo(()=> {
+        return events.map(event => event.photo);
+    }, [events]);
 
     return(
         <>
@@ -82,7 +88,11 @@ export function EditEventos(){
                 {/* Div loading */}
                 {isUploading && (
                     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                        <img 
+                        className='w-24 fixed'
+                        src={logoLoading} 
+                        alt="Logo Adac" />
+                        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
                     </div>
                 )}
             </ContainerMainCard>

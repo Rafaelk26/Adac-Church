@@ -3,7 +3,7 @@ import { ContainerHeader } from '../../components/Container/Header';
 import { ContainerMain } from '../../components/Container/Main';
 
 // Importando hooks do react
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
@@ -22,7 +22,7 @@ import './index.css';
 export function Home(){
 
     // useState são estados, ou melhor dizendo, variáveis que são ativadas e desativadas a qualquer momento
-    // durante a execuçõa do nosso código, aqui criamos uma para armazenar 'true' ou 'false' para nossa função
+    // durante a execuçõa do noss o código, aqui criamos uma para armazenar 'true' ou 'false' para nossa função
     // Se a função retornar 'true' o estado(valor da váriavel) muda e assim por diante.
     const [exibirImagem, setExibirImagem] = useState<boolean>(false);
 
@@ -40,6 +40,8 @@ export function Home(){
         }
     },[])
 
+    const memorizedLogoAdac = useMemo(()=> backgroundLogo , [])
+
     return(
         <>  
             {/* Section da foto */}
@@ -51,7 +53,7 @@ export function Home(){
                 {exibirImagem && (
                     <img 
                     className='absolute z-30 bg-transparent w-72 top-32 right-0 flex'
-                    src={backgroundLogo} 
+                    src={memorizedLogoAdac} 
                     alt="ADAC Church" />
                 )}
                 

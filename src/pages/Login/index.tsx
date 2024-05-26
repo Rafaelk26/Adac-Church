@@ -1,3 +1,5 @@
+// Import for development
+import { useMemo } from 'react';
 // Components
 import { HeaderLogin } from '../../components/Header/Login';
 import { ContainerHeader } from '../../components/Container/Header';
@@ -7,12 +9,15 @@ import { Form } from '../../components/Pages/Login/Form';
 // Image
 import leaoLogo from '../../assets/leao.png';
 
-export function Login(){
 
+export const Login = () => {
+
+    const memoizedLeaoLogo = useMemo(() => leaoLogo, []);
+    
     return(
         <>  
             <img 
-            src={leaoLogo}
+            src={memoizedLeaoLogo}
             className="fixed z-0 object-cover top-0 flex items-center w-full h-screen overflow-hidden opacity-35" />
             <ContainerHeader>
                 <HeaderLogin />

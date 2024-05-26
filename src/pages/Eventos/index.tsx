@@ -47,7 +47,7 @@ export function Eventos() {
                             md:justify-start">
                                 <Button 
                                 name='Ver Eventos'
-                                path='/adac/eventos/show'
+                                path='/adac/eventos/show/'
                                 type='button'
                                 />
                             </div>

@@ -1,5 +1,4 @@
-// Import development
-import { useState, useEffect, } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
 // Components
@@ -14,78 +13,73 @@ import { cellProps } from '../../components/Pages/Cell/CardsCell';
 import { db } from '../../services/server';
 // Background cell
 import imgCell from '../../assets/Logo/adac-logo-black.png';
+// Image loading 
+import logoLoading from '../../assets/Logo/logo-adac.png';
 
-export function Celulas(){
-
-    
-    const [cells, setCells] = useState<cellProps[]>();
+export function Celulas() {
+    const [cells, setCells] = useState<cellProps[]>([]);
     const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('All');
-    
-    // Loading
-    const [isUploading, setIsUploading] = useState(false);
+    const [isUploading, setIsUploading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchCells = async () => {
-            setIsUploading(true);
-            const cellsCollection = collection(db, 'Celulas');
-            const cellsSnapshot = await getDocs(cellsCollection);
-            const cellsData = cellsSnapshot.docs.map(doc => {
-                const data = doc.data() as cellProps;
-                return { 
-                    id: doc.id,
-                    name_cell: data.name_cell,
-                    name_leader: data.name_leader,
-                    neighborhood: data.neighborhood,
-                    photo_leader: data.photo_leader
-                };
-            });
-            setIsUploading(false);
-            setCells(cellsData);
+            try {
+                setIsUploading(true);
+                const cellsCollection = collection(db, 'Celulas');
+                const cellsSnapshot = await getDocs(cellsCollection);
+                const cellsData = cellsSnapshot.docs.map(doc => {
+                    const data = doc.data() as cellProps;
+                    return { 
+                        id: doc.id,
+                        name_cell: data.name_cell,
+                        name_leader: data.name_leader,
+                        neighborhood: data.neighborhood,
+                        photo_leader: data.photo_leader
+                    };
+                });
+                setCells(cellsData);
+            } catch (error) {
+                console.error("Erro ao buscar células:", error);
+            } finally {
+                setIsUploading(false);
+            }
         };
         fetchCells();
     }, []);
 
-
-
+    const memorizedLeaderImages = useMemo(() => {
+        return cells.map(cell => cell.photo_leader);
+    }, [cells]);
 
     function handleNeighborhood(event: React.ChangeEvent<HTMLSelectElement>) {
         setSelectedNeighborhood(event.target.value);
     }
 
-    // Filtrar as células com base no bairro selecionado
     const filteredCells = selectedNeighborhood !== 'All' 
-    ? cells?.filter(cell => cell.neighborhood === selectedNeighborhood) 
-    : cells;
+        ? cells.filter(cell => cell.neighborhood === selectedNeighborhood) 
+        : cells;
 
-    return(
+    return (
         <>
             <ContainerHeader>
-                <HeaderPages 
-                path='/'
-                name='Células' />
+                <HeaderPages path='/' name='Células' />
             </ContainerHeader>
             <ContainerMainCard>
-            <div className='w-full h-24 flex items-center flex-col mt-40
-                sm:mt-36
-                md:justify-between md:flex-row md:mt-28'>
+                <div className='w-full h-24 flex items-center flex-col mt-40 sm:mt-36 md:justify-between md:flex-row md:mt-28'>
                     {/* Subtitle */}
-                    <p className='w-72 h-full font-normal text-xl inter text-center mb-5
-                    sm:w-80 sm:text-center
-                    md:w-2/6 md:text-start
-                    lg:max-w-96'>
+                    <p className='w-72 h-full font-normal text-xl inter text-center mb-5 sm:w-80 sm:text-center md:w-2/6 md:text-start lg:max-w-96'>
                         Localize a célula mais perto de sua residência e sinta o agir de Deus bem pertinho de sua casa!
                     </p>
                     {/* Select bairro */}
-                    <div className='h-max flex justify-end mt-3
-                    md:md:w-2/3'>
+                    <div className='h-max flex justify-end mt-3 md:w-2/3'>
                         <select
-                        className='border border-1 border-white w-max p-1 rounded-md text-lg cursor-pointer' 
-                        name="Bairro" 
-                        id="bairro_escolha"
-                        onChange={handleNeighborhood}
-                        value={selectedNeighborhood}>
+                            className='border border-1 border-white w-max p-1 rounded-md text-lg cursor-pointer' 
+                            name="Bairro" 
+                            id="bairro_escolha"
+                            onChange={handleNeighborhood}
+                            value={selectedNeighborhood}>
                             <option value="All">Filtre por bairro</option>
-                            <option value="All" selected>Todos os Bairros</option>
+                            <option value="All">Todos os Bairros</option>
                             <option value="Barranco Alto">Barranco Alto</option>
                             <option value="Benfica">Benfica</option>
                             <option value="Cantagalo">Cantagalo</option>
@@ -136,30 +130,36 @@ export function Celulas(){
                         </select>
                     </div>
                 </div>
-                <div className='mt-24 flex flex-grow flex-wrap gap-5 mb-10 justify-center 
-                md:mt-8 md:justify-center'>
-                    {filteredCells?.length === 0 ? ( 
-                    <p className="text-center text-md w-full h-full flex justify-center md:text-lg ">Nenhuma célula encontrada</p>
-                ) : (
-                        filteredCells?.map((cell)=> (
+                <div className='mt-24 flex flex-grow flex-wrap gap-5 mb-10 justify-center md:mt-8 md:justify-center'>
+                    {filteredCells?.length === 0 ? (
+                        <p className="text-center text-md w-full h-full flex justify-center md:text-lg">
+                            Nenhuma célula encontrada
+                        </p>
+                    ) : (
+                        filteredCells?.map(cell => (
                             <Cell
-                            id_cell={cell?.id}
-                            key={cell.id} 
-                            name_cell={cell.name_cell}
-                            name_leader={cell.name_leader} 
-                            neighborhood={cell.neighborhood}
-                            photo_cell={imgCell}
-                            photo_leader={cell.photo_leader} />
+                                id_cell={cell?.id}
+                                key={cell.id} 
+                                name_cell={cell.name_cell}
+                                name_leader={cell.name_leader} 
+                                neighborhood={cell.neighborhood}
+                                photo_cell={imgCell}
+                                photo_leader={cell.photo_leader} 
+                            />
                         ))
                     )}
                 </div>
                 {/* Div loading */}
                 {isUploading && (
                     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                        <img 
+                        className='w-24 fixed'
+                        src={logoLoading} 
+                        alt="Logo Adac" />
+                        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
                     </div>
                 )}
             </ContainerMainCard>
         </>
-    )
+    );
 }

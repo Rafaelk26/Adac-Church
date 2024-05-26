@@ -20,6 +20,9 @@ import { Input, Textarea, InputFile, Select } from '../../../../../components/In
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
 
+// Image loading 
+import logoLoading from '../../../../../assets/Logo/logo-adac.png';
+
 const schema = z.object({
     // Cell
     name_cell: z.string().nonempty('insira um nome'),
@@ -46,9 +49,12 @@ export function EditCelulasId() {
     const [imageCell, setImageCell] = useState<string | null>(null);
     const [newImageFile, setNewImageFile] = useState<File | null>(null);
 
+    const [isUploading, setIsUploading] = useState(false);
+
     const nav = useNavigate();
 
     useEffect(() => {
+        setIsUploading(true);
         const fetchCellData = async () => {
             const docRef = doc(db, "Celulas", id as string);
             const docSnap = await getDoc(docRef);
@@ -58,6 +64,7 @@ export function EditCelulasId() {
                 setFormData(data);
                 setImageCell(data?.photo_cell || null);
                 reset(data);
+                setIsUploading(false);
             } else {
                 toast.error("Não existe documento de imagem!");
             }
@@ -92,6 +99,7 @@ export function EditCelulasId() {
     };
 
     const onSubmit = async (data: FormData) => {
+        setIsUploading(true);
         let photoCellUrl = imageCell;
 
         if (newImageFile) {
@@ -111,6 +119,7 @@ export function EditCelulasId() {
         reset();
         setNewImageFile(null);
         toast.success('Célula atualizada com sucesso!');
+        setIsUploading(false);
         nav('/adac/admin/editar/celulas');
     };
 
@@ -406,6 +415,16 @@ export function EditCelulasId() {
                             Editar
                         </button>
                     </form>
+                    {/* Div loading */}
+                    {isUploading && (
+                        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <img 
+                            className='w-24 fixed'
+                            src={logoLoading} 
+                            alt="Logo Adac" />
+                            <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
+                        </div>
+                    )}
                 </div>
             </ContainerMain>
         </>

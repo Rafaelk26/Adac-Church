@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'react-router-dom'; 
-import { ref, uploadBytes, getDownloadURL, getStorage, deleteObject } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
 
@@ -17,6 +17,9 @@ import { InputEvent, TextareaEvent } from '../../../../../components/Input/Admin
 
 // Icon
 import { BiPhotoAlbum, BiTrash } from 'react-icons/bi';
+
+// Image loading 
+import logoLoading from '../../../../../assets/Logo/logo-adac.png';
 
 const schema = z.object({
     title: z.string().nonempty('Insira um nome'),
@@ -51,6 +54,7 @@ export function EditarEventosId() {
 
     const [image, setImage] = useState<File | null>(null);
     const [event, setEvent] = useState<eventEditProps>({} as eventEditProps);
+    
     const [isUploading, setIsUploading] = useState(false);
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,10 +83,8 @@ export function EditarEventosId() {
         fetchDataEvent();
     }, [id, reset]);
 
-    const handleDelete = () => {
-        if (image) {
-            setImage(null);
-        }
+    const handleDeleteLocal = () => {
+        setImage(null);
     };
 
     const handleDeleteFromStorage = async (url: string) => {
@@ -90,19 +92,29 @@ export function EditarEventosId() {
             const storageRef = ref(storage, url);
             try {
                 await deleteObject(storageRef);
-                setEvent((prev) => ({ ...prev, photo: '' })); // Atualizar o estado para remover a foto
+                const eventRef = doc(db, "Eventos", id as string);
+                await updateDoc(eventRef, { photo: '' });
+                setEvent((prev) => ({ ...prev, photo: '' }));
+                handleDeleteLocal();
                 toast.success('Imagem excluída com sucesso!');
             } catch (error) {
                 toast.error('Não foi possível excluir a foto!');
                 console.log('Não foi possível excluir a foto!', error);
             }
+        } else {
+            handleDeleteLocal();
         }
     };
 
     const onSubmit = async (data: FormData) => {
+        if(image === null){
+            toast.error('Inserir foto do evento!');
+            return;
+        }
+
         setIsUploading(true);
         let photoURL = event.photo;
-
+        
         if (image) {
             const imageRef = ref(storage, `eventos/${id}`);
             await uploadBytes(imageRef, image);
@@ -291,7 +303,17 @@ export function EditarEventosId() {
                                     {isUploading ? 'Atualizando...' : 'Editar'}
                                 </button>
                             </div>
-                        </div>  
+                        </div> 
+                        {/* Div loading */}
+                        {isUploading && (
+                            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                <img 
+                                className='w-24 fixed'
+                                src={logoLoading} 
+                                alt="Logo Adac" />
+                                <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
+                            </div>
+                        )} 
                     </form>
                 </div>  
             </ContainerMain>
