@@ -44,17 +44,17 @@ export const Cell = React.memo(({ id_cell, name_cell, name_leader, neighborhood,
                 {/* Foto */}
                 <div className="w-2/5 h-5/6 my-auto ms-3 bg-white">
                     <img
-                        ref={imgRef}
-                        data-src={photo_cell} 
-                        alt="Célula"
-                        className="w-full h-full object-cover rounded-lg"
-                        src="placeholder-image-url" // Placeholder enquanto a imagem não carrega
+                    ref={imgRef}
+                    data-src={photo_cell} 
+                    alt="Célula"
+                    className="w-full h-full object-cover rounded-lg"
+                    src={photo_cell} // Placeholder enquanto a imagem não carrega
                     />
                 </div>
                 {/* Informations */}
                 <div className='w-3/5 h-full flex justify-start items-start flex-col gap-2 bg-white'>
                     {/* Name Cell */}
-                    <h1 className='mt-2 w-52 font-bold quicksand bg-white text-lg ms-1 text-black sm:text-lg md:text-xl'>
+                    <h1 className='mt-2 w-full overflow-y-hidden font-bold quicksand bg-white text-lg ms-1 text-black sm:text-lg md:text-xl'>
                         {name_cell}
                     </h1>
                     {/* Local Cell */}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
 // Components
@@ -21,43 +21,46 @@ export function Celulas() {
     const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>('All');
     const [isUploading, setIsUploading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const fetchCells = async () => {
-            try {
-                setIsUploading(true);
-                const cellsCollection = collection(db, 'Celulas');
-                const cellsSnapshot = await getDocs(cellsCollection);
-                const cellsData = cellsSnapshot.docs.map(doc => {
-                    const data = doc.data() as cellProps;
-                    return { 
-                        id: doc.id,
-                        name_cell: data.name_cell,
-                        name_leader: data.name_leader,
-                        neighborhood: data.neighborhood,
-                        photo_leader: data.photo_leader
-                    };
-                });
-                setCells(cellsData);
-            } catch (error) {
-                console.error("Erro ao buscar células:", error);
-            } finally {
-                setIsUploading(false);
-            }
-        };
-        fetchCells();
+    const fetchCells = useCallback(async () => {
+        try {
+            setIsUploading(true);
+            const cellsCollection = collection(db, 'Celulas');
+            const cellsSnapshot = await getDocs(cellsCollection);
+            const cellsData = cellsSnapshot.docs.map(doc => {
+                const data = doc.data() as cellProps;
+                return { 
+                    id: doc.id,
+                    name_cell: data.name_cell,
+                    name_leader: data.name_leader,
+                    neighborhood: data.neighborhood,
+                    photo_leader: data.photo_leader
+                };
+            });
+            setCells(cellsData);
+        } catch (error) {
+            console.error("Erro ao buscar células:", error);
+        } finally {
+            setIsUploading(false);
+        }
     }, []);
+
+    useEffect(() => {
+        fetchCells();
+    }, [fetchCells]);
 
     const memorizedLeaderImages = useMemo(() => {
         return cells.map(cell => cell.photo_leader);
     }, [cells]);
 
-    function handleNeighborhood(event: React.ChangeEvent<HTMLSelectElement>) {
+    const handleNeighborhood = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedNeighborhood(event.target.value);
-    }
+    }, []);
 
-    const filteredCells = selectedNeighborhood !== 'All' 
-        ? cells.filter(cell => cell.neighborhood === selectedNeighborhood) 
-        : cells;
+    const filteredCells = useMemo(() => {
+        return selectedNeighborhood !== 'All' 
+            ? cells.filter(cell => cell.neighborhood === selectedNeighborhood) 
+            : cells;
+    }, [cells, selectedNeighborhood]);
 
     return (
         <>
@@ -153,9 +156,9 @@ export function Celulas() {
                 {isUploading && (
                     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <img 
-                        className='w-24 fixed'
-                        src={logoLoading} 
-                        alt="Logo Adac" />
+                            className='w-24 fixed'
+                            src={logoLoading} 
+                            alt="Logo Adac" />
                         <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
                     </div>
                 )}

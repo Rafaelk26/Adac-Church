@@ -17,6 +17,9 @@ import { eventoProps } from '../../../components/Pages/Event/EventCards';
 // Icon
 import { BiArrowBack } from 'react-icons/bi';
 
+// Logo loading
+import logoLoading from '../../../assets/Logo/logo-adac.png'
+
 
 export function ViewsEventos(){
     
@@ -66,21 +69,34 @@ export function ViewsEventos(){
                         </Link>
                     </div>
                     <div className='w-full mt-12 flex flex-col items-center gap-4'>
-                        {
-                        events.map(event=>(
-                            <EventCards
-                            id={event.id} 
-                            key={event.id}
-                            title={event.title}
-                            date={event.date}
-                            photo={event.photo} />
-                        ))}
+                        {events.length === 0 ? (
+                            <p className="text-center text-md w-full h-full flex justify-center md:text-lg">
+                            Nenhum evento encontrado
+                        </p>
+                        ) : (
+                            events.map(event=>(
+                                <EventCards
+                                id={event.id} 
+                                key={event.id}
+                                title={event.title}
+                                date={event.date}
+                                photo={event.photo} />
+                            ))
+                        )}
+                        
+
+                        
+                        
                     </div>
                 </div>
                 {/* Div loading */}
                 {isUploading && (
                     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-white"></div>
+                        <img 
+                        className='w-24 fixed'
+                        src={logoLoading} 
+                        alt="Logo Adac" />
+                        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-b-4 border-white"></div>
                     </div>
                 )}
             </ContainerMainCard>
