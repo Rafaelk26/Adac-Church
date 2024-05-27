@@ -8,6 +8,13 @@
           "distDir": "build"
         }
       }
+    ],
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/"
+      }
     ]
   }
+
   
