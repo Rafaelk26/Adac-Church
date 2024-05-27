@@ -38,6 +38,10 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+type DataLeader = FormData & {
+    photo_cell: string;
+}
+
 export function EditCelulasId() {
     const { id } = useParams();
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
@@ -60,7 +64,7 @@ export function EditCelulasId() {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                const data = docSnap.data() as FormData;
+                const data = docSnap.data() as DataLeader;
                 setFormData(data);
                 setImageCell(data?.photo_cell || null);
                 reset(data);

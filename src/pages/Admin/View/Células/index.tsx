@@ -62,6 +62,8 @@ export function ViewCelulas(){
         return cells.map(cell => cell.photo_cell);
     },[cells])
 
+    console.log(memorizedCellViewsImage);
+
     return(
         <>
             <ContainerHeader>

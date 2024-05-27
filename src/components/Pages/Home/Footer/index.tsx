@@ -38,16 +38,16 @@ export function Footer(){
                             md:justify-start 
                             lg:w-full'>
                                 <Link to={"/"} className='bg-transparent transition-all hover:scale-110'>
-                                    <BiLogoFacebook size={39} color='#0007db' className='bg-transparent' />
+                                    <BiLogoFacebook size={39} fill='#0007db' className='bg-transparent' />
                                 </Link>
                                 <Link to={"/"} className='bg-transparent transition-all hover:scale-110'>
-                                    <BiLogoInstagram size={39} color='#e4980c' className='bg-transparent' />
+                                    <BiLogoInstagram size={39} fill='#e4980c' className='bg-transparent' />
                                 </Link>
                                 <Link to={"/"} className='bg-transparent transition-all hover:scale-110'>
-                                    <BiLogoYoutube size={39} color='#e20202' className='bg-transparent' />
+                                    <BiLogoYoutube size={39} fill='#e20202' className='bg-transparent' />
                                 </Link>
                                 <Link to={"/"} className='bg-transparent transition-all hover:scale-110'>
-                                    <BiLogoSpotify size={39} color='#008e13' className='bg-transparent' />
+                                    <BiLogoSpotify size={39} fill='#008e13' className='bg-transparent' />
                                 </Link>
                             </div>
                         {/* Contatos */}

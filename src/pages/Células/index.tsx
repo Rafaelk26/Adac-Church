@@ -62,6 +62,8 @@ export function Celulas() {
             : cells;
     }, [cells, selectedNeighborhood]);
 
+    console.log(memorizedLeaderImages);
+
     return (
         <>
             <ContainerHeader>

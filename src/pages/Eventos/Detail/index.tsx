@@ -49,8 +49,8 @@ export function DetalhesEvento(){
                 toast.error('Erro ao encontrar os dados!');
             }
         }
-        fetchEventId()
-    },[])
+        fetchEventId();
+    },[id])
 
     return(
         <>

@@ -49,7 +49,9 @@ export function DeleteEventos(){
 
     const memorizedEventsImage = useMemo(()=> {
         return events.map(event => event.photo);
-    }, [events])
+    }, [events]);
+
+    console.log(memorizedEventsImage);
 
     // Loading
     const [isUploading, setIsUploading] = useState(false);

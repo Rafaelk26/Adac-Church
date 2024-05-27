@@ -69,7 +69,9 @@ export function ViewLideres(){
 
     const memorizedEditLeaderImage = useMemo(()=> {
         return editLeader.map(leader => leader.photo_leader)
-    },[editLeader])
+    },[editLeader]);
+
+    console.log(memorizedEditLeaderImage);
 
     return(
         <>  

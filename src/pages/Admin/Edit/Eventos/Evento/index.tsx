@@ -33,15 +33,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-interface eventEditProps {
-    title: string;
-    location: string;
-    date: string;
-    time: string;
-    description: string;
+type eventEditProps = FormData & {
     photo: string;
-    word_bible: string;
-    book_bible: string;
 }
 
 export function EditarEventosId() {

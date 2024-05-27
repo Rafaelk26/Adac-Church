@@ -58,7 +58,9 @@ export function DeleteCelulas(){
 
     const memorizedCellImage = useMemo(()=> {
         return cells.map(cell => cell.photo_cell);
-    }, [cells])
+    }, [cells]);
+
+    console.log(memorizedCellImage);
 
     return(
         <>

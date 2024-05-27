@@ -53,6 +53,9 @@ export function ViewEventos(){
         return events.map(event => event.photo);
     }, [events])
 
+    console.log(memorizedEventsImage);
+    
+
     return(
         <>
             {/* Header Event */}

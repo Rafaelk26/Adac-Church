@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { z } from 'zod';
@@ -23,10 +23,15 @@ import { BiCloudDownload, BiTrash } from 'react-icons/bi';
 const schema = z.object({
     name_leader: z.string().nonempty('Obrigatório Nome do líder!'),
     phone_leader: z.string().nonempty('Obrigatório telefone do líder'),
-    office: z.string().nonempty('Obrigatório cargo!')
+    office: z.string().nonempty('Obrigatório cargo!'),
 });
 
-type FormData = z.infer<typeof schema>
+type FormData = z.infer<typeof schema>;
+
+type DataLeader = FormData & {
+    photo_leader: string;
+};
+
 
 export function EditLideresId(){
 
@@ -47,11 +52,11 @@ export function EditLideresId(){
         const fetchEditIdLeader = async () => {
             const refId = doc(db, "Celulas", id as string);
             const snapId = await getDoc(refId);
-            const dataId = snapId.data() as FormData;
+            const dataId = snapId.data() as DataLeader;
             setDataForm(dataId);
             reset(dataId);  // Resetar os valores do formulário
-            if (dataId.photo_leader) {
-                setImageOld(dataId.photo_leader);
+            if (dataId?.photo_leader) {
+                setImageOld(dataId?.photo_leader);
             } else {
                 setImageNew(true);
             }

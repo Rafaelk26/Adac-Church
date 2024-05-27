@@ -58,7 +58,9 @@ export function EditCelulas(){
 
     const memorizedCellsImage = useMemo(()=> {
         return cells.map(cell => cell.photo_cell);
-    }, [cells])
+    }, [cells]);
+
+    console.log(memorizedCellsImage);
 
     return(
         <>
