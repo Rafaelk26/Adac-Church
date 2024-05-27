@@ -36,4 +36,8 @@ body, input, textarea, select, option {
   background: #ffffff; /* Cor da barra de rolagem quando não está ativa */
 }
 
+*{
+  color: #ffffff;
+}
+
 
