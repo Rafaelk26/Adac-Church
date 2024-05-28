@@ -191,9 +191,10 @@ export function HeaderHome() {
                 md:w-8/12 md:text-start
                 lg:w-5/12 lg:text-start'
                 >
-                    Lorem ipsum dolor sit amet consectetur. 
-                    Sem ac orci imperdiet cursus. Imperdiet ut cursus senectus arcu tellus elit neque faucibus tincidunt.
-                    Sed pellentesque quisque vitae risus id sit. Laoreet nulla aliquet et nec ut accumsan.
+                    Venha participar de nossos encontros e veja como a 
+                    fé em Cristo pode trazer renovação e propósito para sua vida. 
+                    Junte-se a nós e sinta o poder do amor de Deus agindo em sua vida e 
+                    na vida de outras pessoas, pois Nossa Missão é Ganhar essa Cidade!
                 </p>
             </main>
         </>

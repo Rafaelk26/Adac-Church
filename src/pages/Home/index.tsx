@@ -8,13 +8,15 @@ import { useState, useEffect, useMemo } from 'react';
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
 import { Church } from '../../components/Pages/Home/Church';
+import { Ministration } from '../../components/Pages/Home/Ministration';
 import { Event } from '../../components/Pages/Home/Event';
 import { Cards } from '../../components/Pages/Home/Cards';
 import { Cell } from '../../components/Pages/Home/Cell';
 import { Footer } from '../../components/Pages/Home/Footer';
 
-// Background Logo
+// Photos
 import backgroundLogo from '../../assets/Logo/logo-background.png';
+import backgroundBanner from '../../assets/foto-banner.jpeg';
 
 // CSS
 import './index.css';
@@ -59,9 +61,9 @@ export function Home(){
                 
                 {/* Imagem de fundo da igreja */}
                 <img 
-                src="https://pr0.nicelocal.br.com/ONvL54HRTo5T9kZ04e_azg/1120x700,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2WnEBIfC8NFr1TK9gtcHWbpFu1XIaKv6g_iCJljMPfIbtPw7Vk5VFXQMlL8xMgh-rQ"
+                src={backgroundBanner}
                 id='imagem_capa' 
-                className='relative w-full h-full object-cover bg-center opacity-50'/>
+                className='relative w-full h-full object-cover bg-top opacity-45'/>
             </div>
 
             {/* Header Settings */}
@@ -72,6 +74,9 @@ export function Home(){
             {/* Main Settings */}
             <ContainerMain>
                 <Church />
+                <Ministration
+                link='https://www.youtube.com/embed/xDPO3vZXf-k?si=9bVfMuZL3iZzacXc'
+                />
                 <div 
                 className='flex justify-center flex-col items-center gap-4 mt-16
                 md:flex-row'>

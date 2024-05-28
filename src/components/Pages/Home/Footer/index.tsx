@@ -61,7 +61,7 @@ export function Footer(){
                             sm:justify-center
                             md:justify-end'>
                                 <p className='w-72 bg-transparent text-white text-center inter
-                                md:text-end md:w-full'>R. Eng. João Fonseca, 70 - Centro Caraguatatuba - SP, 11660-200</p>
+                                md:text-end md:w-full'>R. Eng. João Fonseca, 70 - Centro, Caraguatatuba - SP, 11660-200</p>
                             </div>
                             {/* Telefone */}
                             <div className='bg-transparent w-full flex mt-2 justify-center
@@ -71,7 +71,7 @@ export function Footer(){
                             {/* Palavra do senhor */}
                             <div className='bg-transparent w-full flex flex-col justify-center mt-2
                             md:w-full md:justify-end'>
-                                <p className='bg-transparent text-white text-end w-full inter md:w-full'>“Deem graças em todas as circunstâncias, pois esta é a vontade de Deus para vocês em Cristo Jesus.”</p>
+                                <p className='bg-transparent text-white text-center w-full inter md:w-full md:text-end'>“Deem graças em todas as circunstâncias, pois esta é a vontade de Deus para vocês em Cristo Jesus.”</p>
                                 <p className='bg-transparent text-white w-full text-center inter font-semibold md:text-end'>I Tessalonicenses 5:18</p>
                             </div>
                         </div>

@@ -3,7 +3,7 @@ import { Button } from '../../../../components/Button/Home';
 
 export function Event(){
     return(
-        <article className="bg-transparent flex flex-col justify-center items-center mb-52 h-96 mt-40 md:mt-10">   
+        <article className="bg-transparent flex flex-col justify-center items-center mb-64 h-96 mt-40 md:mt-10 md:mb-44">   
             {/* The Event */}
             <section className='bg-transparent w-full mt-20 md:flex md:justify-center md:gap-5'>
                 {/* Photo Event */}
@@ -13,11 +13,14 @@ export function Event(){
                     </a>
                 </div>
                 {/* Informations */}
-                <div className='flex flex-col w-full items-center md:w-1/3 md:items-start overflow-hidden'>
-                    <h1 className='quicksand text-5xl text-center text-white w-full m-0 mb-5 mt-3 md:text-start md:mt-0'>
+                <div className='flex flex-col w-full items-center overflow-hidden
+                md:w-1/3 md:items-start'>
+                    <h1 className='quicksand text-5xl text-center text-white w-full m-0 mb-5 mt-8 
+                    md:text-start md:mt-0'>
                         Eventos
                     </h1>
-                    <div className="h-48 overflow-y-auto mb-4">
+                    <div className="h-48 overflow-y-auto mb-4
+                    md:h-64">
                         <p className='text-white text-lg inter mb-5 sm:text-sm md:text-base md:max-w-96'>
                             Lorem ipsum dolor sit amet consectetur. 
                             Eu turpis mauris at accumsan condimentum et. 

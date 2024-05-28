@@ -5,7 +5,7 @@ import { CellCards } from '../CellCards';
 export function Cell(){
     return(
         <>
-            <article className='w-full flex flex-col justify-center mb-56 mt-16 md:mt-0'>
+            <article className='w-full flex flex-col justify-center mb-56 mt-20 md:mt-0'>
                 {/* Title Cell */}
                 <div className='w-full flex flex-col items-center transition-all hover:scale-105 hover:cursor-default'>
                     <h1 className='quicksand text-5xl text-center text-white w-full'>Células</h1>
