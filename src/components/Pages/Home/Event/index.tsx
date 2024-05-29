@@ -19,18 +19,20 @@ export function Event(){
                     md:text-start md:mt-0'>
                         Eventos
                     </h1>
-                    <div className="h-48 overflow-y-auto mb-4
+                    <div className="h-60 overflow-y-auto mb-4
                     md:h-64">
                         <p className='text-white text-lg inter mb-5 sm:text-sm md:text-base md:max-w-96'>
-                            Lorem ipsum dolor sit amet consectetur. 
-                            Eu turpis mauris at accumsan condimentum et. 
-                            At mauris non quis in aliquam. Sed non ut leo 
-                            elit egestas convallis pharetra at. Mauris viverra 
-                            id proin amet nunc dignissim metus quis. Ac elementum 
-                            sagittis sodales nunc. Sed risus erat orci tempus 
-                            lectus mi at. Nisi amet urna suspendisse egestas. 
-                            Ut vel dolor amet non lorem. Aliquet ac posuere 
-                            pretium praesent arcu ipsum quis montes. 
+                        Não perca a chance de participar! Explore a seção de Eventos da ADAC 
+                        e fique por dentro de todas as atividades planejadas para fortalecer 
+                        sua fé e comunidade. Desde encontros maravilhosos a cursos de formação, nossos 
+                        eventos são desenhados para impactar vidas e promover um crescimento espiritual
+                        significativo. Venha vivenciar momentos de comunhão e edificação com Deus, 
+                        onde cada evento é uma oportunidade de se conectar mais profundamente com Deus 
+                        e com outros membros da ADAC. Nossos eventos não são apenas ocasiões sociais, 
+                        mas verdadeiros marcos na caminhada espiritual de cada participante. Além disso, 
+                        oferecemos atividades para todas as idades, desde os mais jovens até os mais 
+                        experientes, garantindo que cada membro da família encontre seu espaço e propósito 
+                        com Cristo.
                         </p>
                     </div>
                     <div className='ms-2'>

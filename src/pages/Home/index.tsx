@@ -63,7 +63,7 @@ export function Home(){
                 <img 
                 src={backgroundBanner}
                 id='imagem_capa' 
-                className='relative w-full h-full object-cover bg-top opacity-45'/>
+                className='relative w-full h-full object-cover bg-top opacity-65 md:opacity-50'/>
             </div>
 
             {/* Header Settings */}

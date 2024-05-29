@@ -175,15 +175,16 @@ export function HeaderHome() {
             >
                 <h1
                     className="relative z-10 w-full h-min 
-                bg-transparent text-white text-3xl quicksand
+                bg-transparent text-white text-4xl quicksand
                 text-center
-                sm:w-1/2 sm:text-3xl sm:text-start
+                sm:w-1/2 sm:text-4xl sm:text-start
                 md:w-2/3 md:text-4xl md:text-start
                 lg:w-1/2 lg:text-5xl lg:text-start"
                 >
                     ADAC Church<br />
-                    Lugar onde existem pessoas imperfeitas! 
+                    Lugar onde existem pessoas imperfeitas!<br />
                     Menos uma...
+                    {/* Amor é nossa razão, Entrega é nossa resposta! */}
                 </h1>
                 <p
                     className='bg-transparent mt-5 w-full text-white text-center text-xl inter
