@@ -182,9 +182,8 @@ export function HeaderHome() {
                 lg:w-1/2 lg:text-5xl lg:text-start"
                 >
                     ADAC Church<br />
-                    Lugar onde existem pessoas imperfeitas!<br />
-                    Menos uma...
-                    {/* Amor é nossa razão, Entrega é nossa resposta! */}
+                    Amor é a nossa razão,<br />
+                    Entrega é a nossa resposta!
                 </h1>
                 <p
                     className='bg-transparent mt-5 w-full text-white text-center text-xl inter
