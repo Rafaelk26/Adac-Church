@@ -10,16 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@fontsource/inter": "^5.0.17",
     "@fontsource/quicksand": "^5.0.17",
     "@hookform/resolvers": "^3.3.4",
     "axios": "^1.7.2",
-=======
-    "@fontsource/inter": "^5.0.18",
-    "@fontsource/quicksand": "^5.0.18",
-    "@hookform/resolvers": "^3.4.2",
->>>>>>> d30a9a73836a5ce14e0603e8ff3016be37a216cb
     "bcryptjs": "^2.4.3",
     "firebase": "^10.12.2",
     "react": "^18.2.0",
