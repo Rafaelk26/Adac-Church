@@ -187,7 +187,7 @@ export function HeaderHome() {
                 className="absolute z-10 mt-40 bg-transparent flex flex-col justify-center"
             >
                 <h1
-                    className="relative z-10 w-full h-min 
+                className="relative z-10 w-full h-min 
                 bg-transparent text-white text-4xl quicksand
                 text-center
                 sm:w-1/2 sm:text-4xl sm:text-start
@@ -195,14 +195,8 @@ export function HeaderHome() {
                 lg:w-1/2 lg:text-5xl lg:text-start"
                 >
                     ADAC Church<br />
-<<<<<<< HEAD
                     Amor é nossa razão,<br />
                     Entrega é nossa resposta!
-                    {/* Amor é nossa razão, Entrega é nossa resposta! */}
-=======
-                    Amor é a nossa razão,<br />
-                    Entrega é a nossa resposta!
->>>>>>> d30a9a73836a5ce14e0603e8ff3016be37a216cb
                 </h1>
                 <p
                     className='bg-transparent mt-5 w-full text-white text-center text-xl inter
