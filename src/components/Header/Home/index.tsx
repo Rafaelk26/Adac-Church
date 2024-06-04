@@ -195,9 +195,14 @@ export function HeaderHome() {
                 lg:w-1/2 lg:text-5xl lg:text-start"
                 >
                     ADAC Church<br />
+<<<<<<< HEAD
                     Amor é nossa razão,<br />
                     Entrega é nossa resposta!
                     {/* Amor é nossa razão, Entrega é nossa resposta! */}
+=======
+                    Amor é a nossa razão,<br />
+                    Entrega é a nossa resposta!
+>>>>>>> d30a9a73836a5ce14e0603e8ff3016be37a216cb
                 </h1>
                 <p
                     className='bg-transparent mt-5 w-full text-white text-center text-xl inter
