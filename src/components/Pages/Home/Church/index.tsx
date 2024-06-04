@@ -1,7 +1,10 @@
 // Button
 import { Button } from '../../../../components/Button/Home';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+
+// Photo Church
+import photoChurch from '../../../../assets/Capas/A_Igreja.jpeg';
 
 export function Church(){
 
@@ -15,10 +18,14 @@ export function Church(){
         window.addEventListener("resize", handleResize)
         handleResize()
 
+
         return ()=> {
             window.removeEventListener("resize", handleResize)
         }
     },[])
+
+    // Desempenho da foto
+    useMemo(()=> photoChurch, []);
 
     return(
         <>
@@ -87,7 +94,7 @@ export function Church(){
                                 className='w-full h-72 object-cover rounded-xl transition-all cursor-pointer
                                 sm:h-full
                                 hover:scale-105'
-                                src="https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA" 
+                                src={photoChurch} 
                                 alt="ADAC Church" />
                             </a>
                         </div>

@@ -46,7 +46,7 @@ export function ViewsEventos(){
             setEvents(eventData);
             console.log(eventData);
         }
-        fetchEventsData()
+        fetchEventsData();
     }, [])
 
     return(

@@ -1,7 +1,18 @@
+// Import for development
+import { useMemo } from 'react';
+
 // Components
 import { Button } from '../../../../components/Button/Home';
 
+// Photo Eventos
+import photoEvento from '../../../../assets/Capas/Eventos.jpeg';
+
+
+
 export function Event(){
+    // Photo desempenho
+    const photoMemorized = useMemo(()=> photoEvento,[]);
+
     return(
         <article className="bg-transparent flex flex-col justify-center items-center mb-64 h-96 mt-40 md:mt-10 md:mb-44">   
             {/* The Event */}
@@ -9,7 +20,9 @@ export function Event(){
                 {/* Photo Event */}
                 <div className='w-full h-max flex flex-col items-center transition-all md:w-1/2 hover:scale-105 hover:cursor-default'>
                     <a className='h-full' href="/adac/eventos">
-                        <img className="w-full h-full max-w-xl rounded-2xl" src="https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA" alt="Foto Evento" />
+                        <img className="w-full h-full max-w-xl rounded-2xl" 
+                        src={photoMemorized} 
+                        alt="Eventos" />
                     </a>
                 </div>
                 {/* Informations */}

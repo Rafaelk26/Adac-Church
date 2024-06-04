@@ -3,15 +3,15 @@ import { Button } from '../../../Button/Home/index';
 
 interface ministrationProps{
     link: string;
+    link_page: string;
 }
 
-export function Ministration({ link }: ministrationProps) {
+export function Ministration({ link,  link_page }: ministrationProps) {
   return (
     <>
         <main className='w-full h-max mt-20 bg-transparent
         md:mb-10 md:mt-16'>
-            <div className="w-full flex flex-col transition-all
-            hover:scale-95">
+            <div className="w-full flex flex-col">
                 <h1 className='text-5xl quicksand text-center
                 md:text-start'>Ministração</h1>
                 <h2 className='text-md inter font-medium mt-3 text-center
@@ -33,8 +33,8 @@ export function Ministration({ link }: ministrationProps) {
             md:mt-10'>
                 <Button
                 type='button'
-                name='Ver no YouTube'
-                path={link}
+                name='Ver Mais'
+                path={link_page}
                 />
             </div>
         </main>

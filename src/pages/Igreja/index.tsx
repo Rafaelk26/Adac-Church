@@ -1,4 +1,5 @@
 // Import for development
+import { useMemo } from 'react';
 
 
 // Components
@@ -7,10 +8,16 @@ import { ContainerMain } from '../../components/Container/Main';
 import { HeaderPages } from '../../components/Header/Pages';
 
 // Photos
-import imgTeste from '../../assets/leao.png';
-
+import image1 from '../../assets/Capas/Event6.jpeg';
+import image2 from '../../assets/Capas/Event5.jpeg';
+import image3 from '../../assets/Capas/Event3.jpeg';
 
 export function Igreja(){
+
+    const imageMemorized = useMemo(()=> image1, []);
+    const imageMemorized2 = useMemo(()=> image2, []);
+    const imageMemorized3 = useMemo(()=> image3, []);
+
     return(
         <>
             <ContainerHeader>
@@ -55,7 +62,7 @@ export function Igreja(){
                                 <img 
                                 className='w-full h-64 object-cover rounded-xl
                                 md:h-80'
-                                src={imgTeste} 
+                                src={imageMemorized} 
                                 alt="O Surgimento" />
                             </div>
                         </div>
@@ -75,7 +82,7 @@ export function Igreja(){
                             <div className='w-full md:w-5/6'>
                                 <img 
                                 className='w-full h-60 md:h-96 object-cover rounded-xl'
-                                src={imgTeste} 
+                                src={imageMemorized3} 
                                 alt="A Transformação" />
                             </div>
                         </div>
@@ -136,7 +143,7 @@ export function Igreja(){
                                 <img 
                                 className='w-full h-64 object-cover rounded-xl
                                 md:h-80'
-                                src={imgTeste} 
+                                src={imageMemorized2} 
                                 alt="O Surgimento" />
                             </div>
                         </div>

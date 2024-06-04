@@ -14,6 +14,8 @@ import { Celulas } from './pages/Células';
 import { DetalhesCelula } from './pages/Células/Detail';
 // Página da História da Igreja
 import { Igreja } from './pages/Igreja';
+// Página de Ministrações do YouTube
+import { Ministration } from './pages/Ministration';
 // Página de Login
 import { Login } from './pages/Login';
 // Página principal de Admin
@@ -75,6 +77,10 @@ export const router = createBrowserRouter([
             {
                 element: <Igreja />,
                 path: "/adac/igreja"
+            },
+            {
+                element: <Ministration />,
+                path: "/adac/ministracao"
             },
             {
                 element: <Login />,

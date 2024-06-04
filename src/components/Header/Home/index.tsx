@@ -107,7 +107,13 @@ export function HeaderHome() {
 
                             <Links
                                 to='/adac/igreja'
-                                nome_link='À Igreja' />
+                                nome_link='A Igreja' />
+
+
+                            <Links
+                            to='/adac/ministracao'
+                            nome_link='Ministrações' />
+
 
                             <Links
                                 className='bg-transparent border-2 border-solid mx-auto 
@@ -150,6 +156,13 @@ export function HeaderHome() {
                                 to='/adac/igreja'
                                 nome_link='À Igreja' />
 
+
+                            <Links
+                                className='bg-transparent quicksand text-xl transition-all
+                            hover:scale-110'
+                                to='/adac/ministracao'
+                                nome_link='Ministrações' />
+
                             <a
                                 href="/adac/login"
                                 className='bg-transparent'
@@ -182,8 +195,8 @@ export function HeaderHome() {
                 lg:w-1/2 lg:text-5xl lg:text-start"
                 >
                     ADAC Church<br />
-                    Lugar onde existem pessoas imperfeitas!<br />
-                    Menos uma...
+                    Amor é nossa razão,<br />
+                    Entrega é nossa resposta!
                     {/* Amor é nossa razão, Entrega é nossa resposta! */}
                 </h1>
                 <p

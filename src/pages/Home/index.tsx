@@ -4,6 +4,8 @@ import { ContainerMain } from '../../components/Container/Main';
 
 // Importando hooks do react
 import { useState, useEffect, useMemo } from 'react';
+// Library Axios
+import axios from 'axios';
 
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
@@ -21,28 +23,51 @@ import backgroundBanner from '../../assets/foto-banner.jpeg';
 // CSS
 import './index.css';
 
+
+// Interface para tipar o objeto de vídeo que retorna da API
+export interface videoProps{
+    title?: string;
+    description?: string;
+    thumbnail?: string;
+    videoId: string;
+}
+
 export function Home(){
 
     // useState são estados, ou melhor dizendo, variáveis que são ativadas e desativadas a qualquer momento
     // durante a execuçõa do noss o código, aqui criamos uma para armazenar 'true' ou 'false' para nossa função
     // Se a função retornar 'true' o estado(valor da váriavel) muda e assim por diante.
     const [exibirImagem, setExibirImagem] = useState<boolean>(false);
-
+    const [videosYouTube, setVideosYouTube] = useState<videoProps>();
+    
     // Usamos o useEffect assim que entramos na página e queremos que ele faça algo de imediato.
     useEffect(()=> {
+        async function fetchVideo(){
+            try{
+                const response = await axios.get('https://adac-church-api.vercel.app/api/videos/');
+                const data: videoProps = response.data[0];
+                setVideosYouTube(data);
+            }
+            catch(err){
+                console.error(`Não foi possível resgatar o vídeo: ${err}`);
+            }
+        }
+
+
         function handleResizing(){
             setExibirImagem(window.innerWidth >= 767);
         }
 
         window.addEventListener('resize', handleResizing);
         handleResizing();
+        fetchVideo();
 
         return () => {
             window.removeEventListener('resize', handleResizing);
         }
     },[])
 
-    const memorizedLogoAdac = useMemo(()=> backgroundLogo , [])
+    const memorizedLogoAdac = useMemo(()=> backgroundLogo , []);
 
     return(
         <>  
@@ -75,7 +100,8 @@ export function Home(){
             <ContainerMain>
                 <Church />
                 <Ministration
-                link='https://www.youtube.com/embed/xDPO3vZXf-k?si=9bVfMuZL3iZzacXc'
+                link_page='/adac/ministracao/'
+                link={`https://www.youtube.com/embed/${videosYouTube?.videoId}?si=9bVfMuZL3iZzacXc`}
                 />
                 <div 
                 className='flex justify-center flex-col items-center gap-4 mt-16

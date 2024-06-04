@@ -9,9 +9,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import './index.css';
 
 // Img Slider
-import imgSlider1 from '../../../../assets/leao.png';
-import imgSlider2 from '../../../../assets/Logo/logo-adac.png';
-import imgSlider3 from '../../../../assets/Perfil/IMG-20240120-WA0105 - Robson Soares floriano.jpg';
+import imgSlider1 from '../../../../assets/Capas/Event.jpeg';
+import imgSlider2 from '../../../../assets/Capas/Event2.jpeg';
+import imgSlider3 from '../../../../assets/Capas/Event4.jpeg';
 
 // Config Slider
 const settings = {
