@@ -28,8 +28,9 @@ export function Ministration() {
         const cache = cachedData ? JSON.parse(cachedData) : null;
 
         if (cache && (Date.now() - cache.timestamp) < CACHE_DURATION) {
-          setDataVideo(cache.data);
+          console.log('Usando dados do cache');
         } else {
+          console.log('Fazendo requisição à API');
           const response = await axios.get('https://adac-church-api.vercel.app/api/videos/');
           setDataVideo(response.data);
           localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: response.data }));
