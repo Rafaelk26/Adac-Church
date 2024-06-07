@@ -7,20 +7,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        sitemap: resolve(__dirname, 'sitemap.xml'),
-      },
-    },
+        main: resolve(__dirname, 'index.html')
+      }
+    }
   },
+  assetsInclude: ['**/*.xml'],
   server: {
-    // Configuração adicional para servir o sitemap.xml
-    middlewareMode: true,
-    watch: {
-      usePolling: true,
-      interval: 100,
-    },
     fs: {
       strict: false,
-    },
-  },
-})
+    }
+  }
+});
