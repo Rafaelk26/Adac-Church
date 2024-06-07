@@ -23,4 +23,4 @@ export default defineConfig({
       strict: false,
     },
   },
-});
+})
