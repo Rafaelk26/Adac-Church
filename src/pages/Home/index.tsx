@@ -4,8 +4,6 @@ import { ContainerMain } from '../../components/Container/Main';
 
 // Importando hooks do react
 import { useState, useEffect, useMemo } from 'react';
-// Library Axios
-import axios from 'axios';
 
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
@@ -20,10 +18,14 @@ import { Footer } from '../../components/Pages/Home/Footer';
 import backgroundLogo from '../../assets/Logo/logo-background.png';
 import backgroundBanner from '../../assets/foto-banner.jpeg';
 
+// Cache
+import videoData from '../../cache.json';
+
 // CSS
 import './index.css';
 
-// Interface para tipar o objeto de vídeo que retorna da API
+
+// Interface para tipar o objeto de vídeo que retorna
 export interface videoProps {
   title?: string;
   description?: string;
@@ -31,39 +33,14 @@ export interface videoProps {
   videoId: string;
 }
 
-const CACHE_KEY = 'videosYouTubeCache';
-const CACHE_DURATION = 60 * 60 * 1000 * 60; 
-
 export function Home() {
+
   const [exibirImagem, setExibirImagem] = useState<boolean>(false);
   const [videosYouTube, setVideosYouTube] = useState<videoProps>();
 
+
   useEffect(() => {
-    async function fetchVideo() {
-      const cachedData = localStorage.getItem(CACHE_KEY);
-      const cacheTime = localStorage.getItem(`${CACHE_KEY}_time`);
-
-      if (cachedData && cacheTime) {
-        const age = Date.now() - parseInt(cacheTime, 10);
-        if (age < CACHE_DURATION) {
-          setVideosYouTube(JSON.parse(cachedData));
-          console.log('Dados carregados do cache.');
-          return;
-        }
-      }
-
-      try {
-        const response = await axios.get('https://adac-church-api.vercel.app/api/videos/');
-        const data: videoProps = response.data[0];
-        setVideosYouTube(data);
-
-        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-        localStorage.setItem(`${CACHE_KEY}_time`, Date.now().toString());
-        console.log('Dados carregados da API e salvos no cache.');
-      } catch (err) {
-        console.error(`Não foi possível resgatar o vídeo: ${err}`);
-      }
-    }
+    setVideosYouTube(videoData[0]);
 
     function handleResizing() {
       setExibirImagem(window.innerWidth >= 767);
@@ -71,12 +48,11 @@ export function Home() {
 
     window.addEventListener('resize', handleResizing);
     handleResizing();
-    fetchVideo();
 
     return () => {
       window.removeEventListener('resize', handleResizing);
-    };
-  }, []);
+    }
+  }, [])
 
   const memorizedLogoAdac = useMemo(() => backgroundLogo, []);
 
@@ -86,19 +62,19 @@ export function Home() {
       <div className="relative z-20 inset-0">
         {/* Aplica o gradiente linear transparente para preto dentro da div da imagem */}
         <div className="absolute z-30 w-full h-full bg-transparent bg-gradient-to-b from-transparent via-transparent to-black"></div>
-        
+
         {/* Se o exibir mensagem estiver true, ou seja, ele estiver aqui, essa imagem da logo é renderizada */}
         {exibirImagem && (
-          <img 
+          <img
             className='absolute z-30 bg-transparent w-72 top-32 right-0 flex'
-            src={memorizedLogoAdac} 
+            src={memorizedLogoAdac}
             alt="ADAC Church" />
         )}
-        
+
         {/* Imagem de fundo da igreja */}
-        <img 
+        <img
           src={backgroundBanner}
-          id='imagem_capa' 
+          id='imagem_capa'
           className='relative w-full h-full object-cover bg-top opacity-65 md:opacity-50' />
       </div>
 
@@ -114,17 +90,17 @@ export function Home() {
           link_page='/adac/ministracao/'
           link={`https://www.youtube.com/embed/${videosYouTube?.videoId}?si=9bVfMuZL3iZzacXc`}
         />
-        <div 
+        <div
           className='flex justify-center flex-col items-center gap-4 mt-16
-          md:flex-row'>
+                md:flex-row'>
           <Cards nome='Jesus' />
           <Cards nome='Alegria' />
           <Cards nome='Fé' />
         </div>
         <Event />
         <Cell />
-      </ContainerMain>  
-      <Footer />  
+      </ContainerMain>
+      <Footer />
     </>
-  );
+  )
 }
