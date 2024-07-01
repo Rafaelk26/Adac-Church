@@ -44,6 +44,7 @@ export function DeleteCelulas(){
             });
             setIsUploading(false);
             setCells(cellsData);
+            console.log(cellsData);
         };
         fetchCells();
     }, []);

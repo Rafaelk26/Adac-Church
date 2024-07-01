@@ -21,6 +21,7 @@ interface CellData {
     name_cell: string;
     street: string;
     neighborhood: string;
+    age_group: string;
     day: string;
     hour: string;
     description: string;
@@ -165,6 +166,14 @@ export function DetalhesCelula() {
                                 <div className='w-full rounded-lg outline outline-1 outline-white px-3 py-2 flex gap-6'>
                                     <span className='inter font-medium text-xl'>
                                         {data?.street}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className='w-full flex flex-col mt-3'>
+                                <label className='font-semibold quicksand text-lg'>Faixa Etária</label>
+                                <div className='w-full rounded-lg outline outline-1 outline-white px-3 py-2 flex gap-6'>
+                                    <span className='inter font-medium text-xl'>
+                                        {data?.age_group}
                                     </span>
                                 </div>
                             </div>
