@@ -28,6 +28,7 @@ const schema = z.object({
     name_cell: z.string().nonempty('insira um nome'),
     street: z.string().nonempty('insira uma localização'),
     neighborhood: z.string().nonempty('insira uma data'),
+    age_group: z.string().nonempty('Insira uma faixa etária!'),
     number: z.string().nonempty('insira um horário'),
     day: z.string().nonempty('insira um dia').min(2),
     hour: z.string().nonempty(''),
@@ -170,7 +171,7 @@ export function EditCelulasId() {
                                         onChange={(e) => setFormData({ ...formData, name_cell: e.target.value })}
                                     />
                                     <div className='w-full flex flex-col md:flex-row md:mt-2'>
-                                        <div className='w-full md:w-1/2'>
+                                        <div className='w-full md:w-1/3'>
                                             {/* Street */}
                                             <Input
                                                 type='text'
@@ -182,7 +183,7 @@ export function EditCelulasId() {
                                                 onChange={(e) => setFormData({ ...formData, street: e.target.value })}
                                             />
                                         </div>
-                                        <div className='w-full md:w-1/2'>
+                                        <div className='w-full md:w-1/3'>
                                             {/* Neighborhood */}
                                             <Select
                                             type='text'
@@ -242,6 +243,23 @@ export function EditCelulasId() {
                                                 <option value="Tinga">Tinga</option>
                                                 <option value="Travessão">Travessão</option>
                                                 <option value="Vila Ponte Seca">Vila Ponte Seca</option>
+                                            </Select>
+                                        </div>
+                                        <div className='w-full md:w-1/3'>
+                                            {/* Age_group */}
+                                            <Select
+                                                name='age_group'
+                                                name_label='Faixa Etária'
+                                                register={register}
+                                                error={errors.age_group?.message}>
+                                                <option value=""></option>
+                                                <option value="2 a 7 anos">2 a 7 anos</option>
+                                                <option value="7 a 12 anos">7 a 12 anos</option>
+                                                <option value="12 a 18 anos">12 a 18 anos</option>
+                                                <option value="18 a 40 anos">18 a 40 anos</option>
+                                                <option value="40 a 60 anos">40 a 60 anos</option>
+                                                <option value="60 a 80 anos">60 a 80 anos</option>
+                                                <option value="85 +">85 +</option>
                                             </Select>
                                         </div>
                                     </div>

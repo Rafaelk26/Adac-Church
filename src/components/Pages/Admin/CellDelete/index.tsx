@@ -8,17 +8,19 @@ import { db } from '../../../../services/server';
 
 // Icons
 import { MdLocationPin } from "react-icons/md";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 export interface cellProps {
     id_cell?: string;
     name_cell: string;
     name_leader: string;
     neighborhood: string;
+    age_group: string;
     photo_cell?: string;
     photo_leader: string;
 }
 
-export function CellDelete({id_cell , name_cell, name_leader, neighborhood, photo_cell, photo_leader}:cellProps){
+export function CellDelete({id_cell , name_cell, name_leader, neighborhood, age_group, photo_cell, photo_leader}:cellProps){
     
     const nav = useNavigate();
 
@@ -40,7 +42,7 @@ export function CellDelete({id_cell , name_cell, name_leader, neighborhood, phot
             py-1 transition-all
             md:w-96">
                 {/* Foto */}
-                <div className="w-2/5 h-36 my-auto ms-3 bg-white">
+                <div className="w-2/5 h-44 my-auto ms-3 bg-white">
                     <img 
                     className="w-full h-full object-cover rounded-lg"
                     src={photo_cell} 
@@ -62,6 +64,13 @@ export function CellDelete({id_cell , name_cell, name_leader, neighborhood, phot
                         <p className='text-md font-bold inter text-black bg-white
                         sm:text-md
                         md:text-lg'>{neighborhood}</p>
+                    </div>
+                    {/* Age_group */}
+                    <div className='flex items-center bg-white'>
+                        <FaPeopleGroup className='bg-transparent ms-1' size={32} fill="#000" />
+                        <p className='text-sm font-bold inter text-black bg-white sm:text-sm md:text-lg'>
+                            {age_group}
+                        </p>
                     </div>
                     {/* Leader Cell */}
                     <div className='flex flex-col items-center gap-2 bg-white'>

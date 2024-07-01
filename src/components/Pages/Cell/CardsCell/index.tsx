@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdLocationPin } from "react-icons/md";
+import { FaPeopleGroup } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
@@ -8,12 +9,13 @@ export interface cellProps {
     id_cell?: string;
     name_cell: string;
     name_leader: string;
+    age_group: string;
     neighborhood: string;
     photo_cell?: string;
     photo_leader: string;
 }
 
-export const Cell = React.memo(({ id_cell, name_cell, name_leader, neighborhood, photo_cell, photo_leader }: cellProps) => {
+export const Cell = React.memo(({ id_cell, name_cell, name_leader, neighborhood, age_group, photo_cell, photo_leader }: cellProps) => {
     const imgRef = useRef<HTMLImageElement | null>(null);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ export const Cell = React.memo(({ id_cell, name_cell, name_leader, neighborhood,
 
     return (
         <Link className='m-0' to={`/adac/celulas/detalhes/${id_cell}`}>
-            <div className="w-96 h-36 bg-white rounded-xl flex gap-5 pe-3 transition-all hover:scale-105 md:w-96">
+            <div className="w-96 h-48 bg-white rounded-xl flex gap-5 pe-3 transition-all hover:scale-105 md:w-96">
                 {/* Foto */}
                 <div className="w-2/5 h-5/6 my-auto ms-3 bg-white">
                     <img
@@ -62,6 +64,12 @@ export const Cell = React.memo(({ id_cell, name_cell, name_leader, neighborhood,
                         <MdLocationPin className='bg-transparent' size={35} fill="#000" />
                         <p className='text-sm font-bold inter text-black bg-white sm:text-sm md:text-lg'>
                             {neighborhood}
+                        </p>
+                    </div>
+                    <div className='flex items-center bg-white'>
+                        <FaPeopleGroup className='bg-transparent ms-1' size={32} fill="#000" />
+                        <p className='text-sm font-bold inter text-black bg-white sm:text-sm md:text-lg'>
+                            {age_group}
                         </p>
                     </div>
                     {/* Leader Cell */}
