@@ -307,7 +307,7 @@ export function CriarCelulas(){
                                                 <option value="18 a 40 anos">18 a 40 anos</option>
                                                 <option value="40 a 60 anos">40 a 60 anos</option>
                                                 <option value="60 a 80 anos">60 a 80 anos</option>
-                                                <option value="85 +">85 +</option>
+                                                <option value="80 +">80 +</option>
                                             </Select>
                                         </div>
                                     </div>
