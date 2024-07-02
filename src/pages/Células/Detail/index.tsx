@@ -20,6 +20,7 @@ import './index.css'
 interface CellData {
     name_cell: string;
     street: string;
+    number: string;
     neighborhood: string;
     age_group: string;
     day: string;
@@ -165,7 +166,7 @@ export function DetalhesCelula() {
                                 <label className='font-semibold quicksand text-lg'>Endereço</label>
                                 <div className='w-full rounded-lg outline outline-1 outline-white px-3 py-2 flex gap-6'>
                                     <span className='inter font-medium text-xl'>
-                                        {data?.street}
+                                        {data?.street}, {data?.number}
                                     </span>
                                 </div>
                             </div>
