@@ -301,13 +301,10 @@ export function CriarCelulas(){
                                                 register={register}
                                                 error={errors.age_group?.message}>
                                                 <option value=""></option>
-                                                <option value="2 a 7 anos">2 a 7 anos</option>
-                                                <option value="7 a 12 anos">7 a 12 anos</option>
-                                                <option value="12 a 18 anos">12 a 18 anos</option>
-                                                <option value="18 a 40 anos">18 a 40 anos</option>
-                                                <option value="40 a 60 anos">40 a 60 anos</option>
-                                                <option value="60 a 80 anos">60 a 80 anos</option>
-                                                <option value="80 +">80 +</option>
+                                                <option value="03 à 12 anos">03 à 12 anos</option>
+                                                <option value="12 à 17 anos">12 à 17 anos</option>
+                                                <option value="18 à 40 anos">18 à 40 anos</option>
+                                                <option value="40 +">40 +</option>
                                             </Select>
                                         </div>
                                     </div>
@@ -476,6 +473,7 @@ export function CriarCelulas(){
                                                 <option value="Coordenador">Coordenador</option>
                                                 <option value="Supervisor">Supervisor</option>
                                                 <option value="Líder">Líder</option>
+                                                <option value="Pastor">Pastor</option>
                                             </Select>
                                         </div>
                                     </div>

@@ -26,7 +26,7 @@ export function HeaderHome() {
     useEffect(() => {
         // Função que checa se o tamanho da tela é menor que 450px
         function handleResize() {
-            setExibirMenu(window.innerWidth <= 450);
+            setExibirMenu(window.innerWidth <= 850);
             
             setNewDate(date.getFullYear());
         }
@@ -95,6 +95,11 @@ export function HeaderHome() {
 
                         <div className='bg-transparent flex flex-col gap-6 justify-center overflow-hidden'>
                             <Links
+                                to='/adac/ministerios'
+                                nome_link='Ministérios'
+                            />
+                            
+                            <Links
                                 to='/adac/eventos'
                                 nome_link='Eventos'
                             />
@@ -136,6 +141,13 @@ export function HeaderHome() {
                 {!activeMenu && !exibirMenu && (
                     <nav className='z-20 bg-transparent absolute top-10 right-0'>
                         <ul className='bg-transparent flex flex-row gap-8 justify-center items-center'>
+                            <Links
+                                className='bg-transparent quicksand text-xl transition-all
+                            hover:scale-110'
+                                to='/adac/ministerios'
+                                nome_link='Ministérios'
+                            />
+                            
                             <Links
                                 className='bg-transparent quicksand text-xl transition-all
                             hover:scale-110'

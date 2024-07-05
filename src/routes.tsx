@@ -16,6 +16,8 @@ import { DetalhesCelula } from './pages/Células/Detail';
 import { Igreja } from './pages/Igreja';
 // Página de Ministrações do YouTube
 import { Ministration } from './pages/Ministration';
+// Página de Ministérios da Igreja
+import { Ministerios } from './pages/Ministérios';
 // Página de Login
 import { Login } from './pages/Login';
 // Página principal de Admin
@@ -81,6 +83,10 @@ export const router = createBrowserRouter([
             {
                 element: <Ministration />,
                 path: "/adac/ministracao"
+            },
+            {
+                element: <Ministerios />,
+                path: "/adac/ministerios"
             },
             {
                 element: <Login />,

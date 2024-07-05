@@ -246,6 +246,7 @@ export function EditLideresId(){
                                         <option value="Líder">Líder</option>
                                         <option value="Coordenador">Coordenador</option>
                                         <option value="Supervisor">Supervisor</option>
+                                        <option value="Pastor">Pastor</option>
                                     </Select>
                                     <div 
                                     className='w-40 mt-8'>

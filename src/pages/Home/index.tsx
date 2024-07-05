@@ -10,6 +10,7 @@ import { HeaderHome } from '../../components/Header/Home';
 import { Church } from '../../components/Pages/Home/Church';
 import { Ministration } from '../../components/Pages/Home/Ministration';
 import { Event } from '../../components/Pages/Home/Event';
+import { CardSlide } from '../../components/Pages/Ministérios/CardSlide';
 import { Cards } from '../../components/Pages/Home/Cards';
 import { Cell } from '../../components/Pages/Home/Cell';
 import { Footer } from '../../components/Pages/Home/Footer';
@@ -97,6 +98,7 @@ export function Home() {
           <Cards nome='Alegria' />
           <Cards nome='Fé' />
         </div>
+        <CardSlide />
         <Event />
         <Cell />
       </ContainerMain>

@@ -29,7 +29,8 @@ export function Church(){
 
     return(
         <>
-            <main className="bg-transparent flex flex-col justify-center items-center mt-16">
+            <main className="bg-transparent flex flex-col justify-center items-center mt-32
+            sm:mt-20">
                 {/* Title A Igreja */}
                 <div className='w-1/2 flex flex-col items-center transition-all hover:scale-105 hover:cursor-default'>
                     <h1 className='quicksand text-5xl text-center text-white w-full'>A Igreja</h1>
