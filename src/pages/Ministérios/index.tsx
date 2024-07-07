@@ -38,7 +38,7 @@ export function Ministerios(){
             name: "Rede Alcance",
             nameDetail: "Rede Alcance",
             image:`${Rede_Alcance}`,
-            description: "O propósito da rede alcance é alcançar pessoas através do amor, cuidando de cada detalhe para que o culto aconteça com excelência, desde a entrada da igreja até o momento do apelo",
+            description: "O propósito da rede alcance é alcançar pessoas através do amor, cuidando de cada detalhe para que o culto aconteça com excelência, desde a entrada da igreja até o momento do apelo.",
             responsavelName: "Cleber Rodrigues",
             palavra: "",
             versiculo: ""
@@ -65,7 +65,7 @@ export function Ministerios(){
             name: "CFL",
             nameDetail: "Curso de Formação de Líderes (CFL)",
             image: `${CFL}`,
-            description: "O propósito do CFL é formar líderes, instruindo e ativando pessoas a entenderem seu real propósito aqui na terra, que é cumprir a ordem de Jesus a grande comissão.",
+            description: "O propósito do CFL é formar líderes, instruindo e ativando pessoas a entenderem seu real propósito aqui na terra, que é cumprir a ordem de Jesus: a grande comissão.",
             responsavelName: "Larissa Fortunato",
             palavra: "Então Jesus aproximou-se dos seus discípulos e disse: “Toda a autoridade no céu e na terra foi entregue a mim. Portanto, vão e façam discípulos de todas as nações, batizando-os no nome do Pai, do Filho e do Espírito Santo, e ensinando esses novos discípulos a obedecerem a todas as ordens que eu lhes dei. E tenham certeza disto: Eu estarei sempre com vocês, até o fim dos tempos”.",
             versiculo: "Mateus 28:18-20 NBV-P"
@@ -92,7 +92,7 @@ export function Ministerios(){
             name: "FlowFire",
             nameDetail: "FlowFire",
             image: `${Flow_Fire}`,
-            description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Em cada ajuntamento nos rasgamos com um único objetivo: buscar o fluir do Espírito e experimentar o derramar do novo de Deus a cada temporada, para que nós, como igreja, sejamos edificados, exortados, consolados e ativados para o Reino.",
+            description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Cada vez que nos reunimos, nos rasgamos por 6 horas com um único objetivo.",
             responsavelName: "",
             palavra: "",
             versiculo: ""
@@ -110,14 +110,14 @@ export function Ministerios(){
             name: "Grupo de Louvor",
             nameDetail: "Grupo de Louvor ADAC",
             image: `${Grupo_Louvor}`,
-            description: "Nosso grupo tem o propósito de servir a Deus de glorificar e de louvar o seu nome e Conduzir a Igreja nos momentos de louvor e adoração durante os cultos e eventos, com o melhor desempenho, qualidade e espiritualidade possíveis. E através dos louvores alcançar as pessoas de fora apresentando Deus a elas.",
+            description: "Nosso grupo tem o propósito de servir a Deus de glorificar e de louvar o seu nome e Conduzir a Igreja nos momentos de louvor e adoração durante os cultos e eventos, com o melhor desempenho, qualidade e espiritualidade possível. E através dos louvores alcançar as pessoas de fora apresentando Deus a elas.",
             responsavelName: "Beto Gibelli",
             palavra: "Venham todos, e louvemos a Deus, o Senhor! Cantemos com alegria à rocha que nos salva. Vamos comparecer diante dele com ações de graças, cantando alegres hinos de louvor. Pois o Senhor é Deus poderoso; é Rei poderoso acima de todos os deuses.",
             versiculo: "Salmos 95:1-3"
         },
         {
-            name: "MÍDIA ADAC",
-            nameDetail: "MÍDIA ADAC - Mix House",
+            name: "Mídia",
+            nameDetail: "Mídia - Mix House",
             image: `${Midia}`,
             description: "A mídia é uma parte atuante do corpo de Jesus em uma era de tecnologia e internet, a mídia é necessária para o avanço do Reino nesse tempo como nunca foi necessária até agora.",
             responsavelName: "Letícia Silveira",
@@ -146,7 +146,7 @@ export function Ministerios(){
             name: "Plenitude",
             nameDetail: "Ministério Plenitude",
             image: `${Plenitude}`,
-            description: "O propósito deste ministério é ganhar pessoas pro reino através da dança e uma forma de adoração a Cristo. E que através do mesmo, pessoas sejam tocadas e impactadas pela presença de Deus.",
+            description: "O propósito desse ministério é poder adorar a Deus através da dança enquanto pessoas sejam tocadas e impactadas sentindo a presença Sua presença em cada movimento.",
             responsavelName: "Jessica da Paixão",
             palavra: "",
             versiculo: ""
@@ -155,17 +155,17 @@ export function Ministerios(){
             name: "Power Pink",
             nameDetail: "Ministério Power Pink",
             image: `${Rede_Power_Pink}`,
-            description: "O propósito da rede é que todas as mulheres sejam alcançadas, que sejam curada, para curar. Transformada, para transformar. Influenciada, para influenciar. E que lembre em todo tempo que, por mais influente que você possa ser e por mais que o Senhor te leve a lugares de honra, o lugar mais alto que uma pessoa pode chegar, é aos pés do Salvador. Deus está levando uma geração de mulheres munidas com o seu poder, seremos reconhecidas como valentes, mas saberemos, no íntimo que não alcançamos nada sozinha.",
+            description: "O propósito da rede é que todas as mulheres sejam alcançadas. Curadas, para curar. Transformadas, para transformar. Influenciadas, para influenciar. E se lembre em todo tempo que, por mais influente que você possa ser e por mais que o Senhor te leve a lugares de honra, o lugar mais alto que uma você pode chegar, é aos pés do Salvador. Deus está levando uma geração de mulheres munidas com o seu poder, seremos reconhecidas como valentes, mas saberemos, no íntimo que não alcançamos nada sozinhas.",
             responsavelName: "Ana Paula Duarte",
             palavra: "",
             versiculo: ""
         },
         {
-            name: "Rede Kids",
-            nameDetail: "Ministério Rede Kids",
+            name: "Rede Kids e Teens",
+            nameDetail: "Ministério Rede Kids e Teens",
             image: `${Rede_Kids}`,
-            description: "A igreja ADAC CHURCH conta com o ministério ADAC KIDS_TEENS para evangelizar, discipular e pastorear os pequeninos de 3 a 10 anos e 12 a 15 anos de idade da nossa igreja. O ministério tem como missão ensinar as verdades bíblicas a geração de crianças levando- as a ter um relacionamento crescente com Deus, forjando em cada uma o caráter de Cristo, e auxiliar no desenvolvimento das suas habilidades e dons para que vivam em comunhão com a igreja, servindo e glorificando a Deus com sua própria vida.Com a visão de formar uma geração comprometida com o evangelho. A Adac Kids_Teens ensina os princípios de Deus de maneira contextualizada, criativa e prática para fazer as crianças crescerem amando e obedecendo ao Senhor e contribuindo para ser uma geração que dará continuidade ao propósito da igreja, que é contar as boas novas e conectar as pessoas a Jesus.",
-            responsavelName: "",
+            description: "O ministério ADAC KIDS TEENS tem o objetivo de evangelizar, discipular e pastorear os pequeninos de 3 a 10 anos e 12 a 15 anos de idade da nossa igreja.",
+            responsavelName: "Roberta Dantas",
             palavra: "",
             versiculo: ""
         },

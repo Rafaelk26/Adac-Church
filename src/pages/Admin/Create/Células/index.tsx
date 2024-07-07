@@ -301,9 +301,9 @@ export function CriarCelulas(){
                                                 register={register}
                                                 error={errors.age_group?.message}>
                                                 <option value=""></option>
-                                                <option value="03 à 12 anos">03 à 12 anos</option>
-                                                <option value="12 à 17 anos">12 à 17 anos</option>
-                                                <option value="18 à 40 anos">18 à 40 anos</option>
+                                                <option value="03 a 12 anos">03 a 12 anos</option>
+                                                <option value="12 a 17 anos">12 a 17 anos</option>
+                                                <option value="18 a 40 anos">18 a 40 anos</option>
                                                 <option value="40 +">40 +</option>
                                             </Select>
                                         </div>
