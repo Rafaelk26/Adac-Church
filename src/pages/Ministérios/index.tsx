@@ -26,18 +26,18 @@ import Plenitude from '../../assets/Ministerios/Plenitude.jpg'
 import Rede_Power_Pink from '../../assets/Ministerios/Rede Power Pink.jpg'
 import Rede_Kids from '../../assets/Ministerios/Rede_Kids.jpg'
 
-export function Ministerios(){
+export function Ministerios() {
 
-    useEffect(()=> {
+    useEffect(() => {
         setDataMinisterios(data);
-    },[])
+    }, [])
 
     // Json Ministérios
     const data = [
         {
             name: "Rede Alcance",
             nameDetail: "Rede Alcance",
-            image:`${Rede_Alcance}`,
+            image: `${Rede_Alcance}`,
             description: "O propósito da rede alcance é alcançar pessoas através do amor, cuidando de cada detalhe para que o culto aconteça com excelência, desde a entrada da igreja até o momento do apelo.",
             responsavelName: "Cleber Rodrigues",
             palavra: "",
@@ -92,7 +92,7 @@ export function Ministerios(){
             name: "FlowFire",
             nameDetail: "FlowFire",
             image: `${Flow_Fire}`,
-            description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Cada vez que nos reunimos, nos rasgamos por 6 horas com um único objetivo.",
+            description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Cada vez que nos reunimos, nos rasgamos por 6 horas com um único objetivo: buscar o fluir do Espírito e experimentar o derramar do novo de Deus a cada temporada, para que nós, como igreja, sejamos edificados, consolados e ativados para o Reino.",
             responsavelName: "",
             palavra: "",
             versiculo: ""
@@ -146,7 +146,7 @@ export function Ministerios(){
             name: "Plenitude",
             nameDetail: "Ministério Plenitude",
             image: `${Plenitude}`,
-            description: "O propósito desse ministério é poder adorar a Deus através da dança enquanto pessoas sejam tocadas e impactadas sentindo a presença Sua presença em cada movimento.",
+            description: "O propósito desse ministério é poder adorar a Deus através da dança enquanto pessoas sejam tocadas e impactadas sentindo a presença sua presença em cada movimento.",
             responsavelName: "Jessica da Paixão",
             palavra: "",
             versiculo: ""
@@ -164,22 +164,22 @@ export function Ministerios(){
             name: "Rede Kids e Teens",
             nameDetail: "Ministério Rede Kids e Teens",
             image: `${Rede_Kids}`,
-            description: "O ministério ADAC KIDS TEENS tem o objetivo de evangelizar, discipular e pastorear os pequeninos de 3 a 10 anos e 12 a 15 anos de idade da nossa igreja.",
+            description: "O ministério ADAC KIDS TEENS tem o objetivo de evangelizar, discipular e pastorear os pequeninos de 3 a 10 anos e 12 a 15 anos de idade da nossa igreja. Ensinamos os princípios de Deus de maneira contextualizada, criativa e prática para fazer as crianças crescerem amando e obedecendo ao Senhor e contribuindo para ser uma geração que dará continuidade ao propósito da igreja, que é contar as boas novas e conectar as pessoas a Jesus .",
             responsavelName: "Roberta Dantas",
             palavra: "",
             versiculo: ""
         },
     ]
 
-    
+
     const [dataMinisterios, setDataMinisterios] = useState<CardMinisterioProps[]>();
 
-    return(
+    return (
         <>
             <ContainerHeader>
-                <HeaderPages 
-                name='Ministérios'
-                path='/'
+                <HeaderPages
+                    name='Ministérios'
+                    path='/'
                 />
                 <div className='w-full mt-2 max-w-96 mx-auto
                 md:w-96 md:mt-2 md:mx-0'>
@@ -196,18 +196,18 @@ export function Ministerios(){
                 md:mt-44 md:grid md:grid-cols-3 md:justify-items-center md:max-w-4xl md:mx-auto'>
                     {dataMinisterios?.map(ministerio => (
                         <CardMinisterio
-                        name={ministerio.name}
-                        nameDetail={ministerio.nameDetail}
-                        image={ministerio.image}
-                        description={ministerio.description}
-                        responsavelName={ministerio?.responsavelName}
-                        responsavelFoto={ministerio?.responsavelFoto}
-                        palavra={ministerio?.palavra}
-                        versiculo={ministerio?.versiculo}
+                            name={ministerio.name}
+                            nameDetail={ministerio.nameDetail}
+                            image={ministerio.image}
+                            description={ministerio.description}
+                            responsavelName={ministerio?.responsavelName}
+                            responsavelFoto={ministerio?.responsavelFoto}
+                            palavra={ministerio?.palavra}
+                            versiculo={ministerio?.versiculo}
                         />
                     ))}
-                    
-                    
+
+
                 </main>
             </ContainerMain>
         </>
