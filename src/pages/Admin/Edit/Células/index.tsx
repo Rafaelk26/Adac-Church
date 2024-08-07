@@ -39,6 +39,7 @@ export function EditCelulas(){
                         name_leader: data.name_leader,
                         neighborhood: data.neighborhood,
                         age_group: data.age_group,
+                        photo_cell: data.photo_cell,
                         photo_leader: data.photo_leader
                     };
             });
@@ -112,6 +113,7 @@ export function EditCelulas(){
                             <option value="Jardim Olaria">Jardim Olaria</option>
                             <option value="Jardim Primavera">Jardim Primavera</option>
                             <option value="Jardim Rio Claro">Jardim Rio Claro</option>
+                            <option value="Jardim Rio Santos">Jardim Rio Santos</option>
                             <option value="Jardim Tarumãs">Jardim Tarumãs</option>
                             <option value="Jardim Terralão">Jardim Terralão</option>
                             <option value="Martim de Sá">Martim de Sá</option>
@@ -148,7 +150,7 @@ export function EditCelulas(){
                             name_leader={cell.name_leader} 
                             neighborhood={cell.neighborhood}
                             age_group={cell.age_group}
-                            photo_cell={imgCell}
+                            photo_cell={cell.photo_cell}
                             photo_leader={cell.photo_leader} />
                         ))
                     )}

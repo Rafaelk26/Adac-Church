@@ -93,7 +93,7 @@ export function Ministerios() {
             nameDetail: "FlowFire",
             image: `${Flow_Fire}`,
             description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Cada vez que nos reunimos, nos rasgamos por 6 horas com um único objetivo: buscar o fluir do Espírito e experimentar o derramar do novo de Deus a cada temporada, para que nós, como igreja, sejamos edificados, consolados e ativados para o Reino.",
-            responsavelName: "",
+            responsavelName: "Bianca Domingues",
             palavra: "",
             versiculo: ""
         },

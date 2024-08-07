@@ -39,6 +39,7 @@ export function DeleteCelulas(){
                         name_leader: data.name_leader,
                         neighborhood: data.neighborhood,
                         age_group: data.age_group,
+                        photo_cell: data.photo_cell,
                         photo_leader: data.photo_leader
                     };
             });
@@ -148,7 +149,7 @@ export function DeleteCelulas(){
                             name_cell={cell.name_cell}
                             name_leader={cell.name_leader} 
                             neighborhood={cell.neighborhood}
-                            photo_cell={imgCell}
+                            photo_cell={cell.photo_cell}
                             age_group={cell.age_group}
                             photo_leader={cell.photo_leader} />
                         ))
