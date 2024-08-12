@@ -12,8 +12,6 @@ import { CellDelete }  from '../../../../components/Pages/Admin/CellDelete';
 import { cellProps } from '../../../../components/Pages/Cell/CardsCell';
 // Connections
 import { db } from '../../../../services/server';
-// Background cell
-import imgCell from '../../../../assets/Logo/adac-logo-black.png';
 // Image loading 
 import logoLoading from '../../../../assets/Logo/logo-adac.png';
 
