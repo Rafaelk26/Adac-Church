@@ -93,7 +93,7 @@ export function Ministerios() {
             nameDetail: "FlowFire",
             image: `${Flow_Fire}`,
             description: "O Flowfire tem como propósito o aprofundamento espiritual coletivo. Cada vez que nos reunimos, nos rasgamos por 6 horas com um único objetivo: buscar o fluir do Espírito e experimentar o derramar do novo de Deus a cada temporada, para que nós, como igreja, sejamos edificados, consolados e ativados para o Reino.",
-            responsavelName: "Bianca Domingues",
+            responsavelName: "Bianca Breschi",
             palavra: "",
             versiculo: ""
         },
@@ -120,7 +120,7 @@ export function Ministerios() {
             nameDetail: "Mídia - Mix House",
             image: `${Midia}`,
             description: "A mídia é uma parte atuante do corpo de Jesus em uma era de tecnologia e internet, a mídia é necessária para o avanço do Reino nesse tempo como nunca foi necessária até agora.",
-            responsavelName: "Letícia Silveira",
+            responsavelName: "Camila Barcellos",
             palavra: "Deus deu a cada um de vocês algumas capacidades especiais; estejam certos de que as estão utilizando para se ajudarem mutuamente, transmitindo aos outros as muitas formas da graça de Deus.",
             versiculo: "1 Pedro 4:10"
         },
