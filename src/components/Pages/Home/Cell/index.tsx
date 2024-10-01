@@ -6,10 +6,10 @@ import { Button } from '../../../../components/Button/Home';
 import { CellCards } from '../CellCards';
 
 // Photos CardsCell
-import image1 from '../../../../assets/Capas/Célula Anjos do Rei.png';
-import image2 from '../../../../assets/Capas/Células Féminina.png';
-import image3 from '../../../../assets/Capas/Célula Elegidos.png';
-import image4 from '../../../../assets/Capas/Célula Fontes de Luz.png';
+import image1 from '../../../../assets/Capas/Anjos do Rei.jpeg';
+import image2 from '../../../../assets/Capas/Féminina.jpeg';
+import image3 from '../../../../assets/Capas/Elegidos.jpeg';
+import image4 from '../../../../assets/Capas/Fontes de Luz.jpeg';
 
 export function Cell(){
 
@@ -30,7 +30,7 @@ export function Cell(){
                     </p>
                 </div>
                 {/* Cards Cell */}
-                <section className='w-full flex justify-center gap-8 mt-5 flex-wrap grow'>
+                <section className='w-full flex justify-center gap-8 mt-5 flex-wrap grow col'>
                     <CellCards 
                     link='/adac/celulas/detalhes/8hSSiMi8pco7TxV15Pr5'
                     photo={memorizedImage1} />
