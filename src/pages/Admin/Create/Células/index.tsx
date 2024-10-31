@@ -141,6 +141,7 @@ export function CriarCelulas(){
             name_cell: data.name_cell,
             street: data.street,
             neighborhood: data.neighborhood,
+            number: data.number,
             age_group: data.age_group,
             day: data.day,
             hour: data.hour,

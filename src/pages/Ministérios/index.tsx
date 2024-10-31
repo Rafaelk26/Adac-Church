@@ -57,7 +57,7 @@ export function Ministerios() {
             nameDetail: "Rede Influence",
             image: `${Influence}`,
             description: "O propósito da rede influence é levar o amor de Deus para fora da igreja, apresentando ele a todos que estão perdidos e sem esperança, cumprindo aquilo que Cristo colocou em nossos corações, realizando a grande comissão com muita alegria e amor.",
-            responsavelName: "David de Souza",
+            responsavelName: "Cléber Rodrigues",
             palavra: "",
             versiculo: ""
         },
