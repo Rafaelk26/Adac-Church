@@ -16,7 +16,7 @@ import { Cell } from '../../components/Pages/Home/Cell';
 import { Footer } from '../../components/Pages/Home/Footer';
 
 // Photos
-import backgroundLogo from '../../assets/Logo/logo-background.png';
+import backgroundLogo from '../../assets/Logo/logo-adac-2025.png';
 import backgroundBanner from '../../assets/foto-banner.jpeg';
 
 // Cache
@@ -93,7 +93,7 @@ export function Home() {
         />
         <div
           className='flex justify-center flex-col items-center gap-4 mt-16
-                md:flex-row'>
+            md:flex-row'>
           <Cards nome='Jesus' />
           <Cards nome='Alegria' />
           <Cards nome='Fé' />
