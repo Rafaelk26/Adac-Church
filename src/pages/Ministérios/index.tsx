@@ -75,7 +75,7 @@ export function Ministerios() {
             nameDetail: "Rede Click (Fotografia)",
             image: `${Rede_Click}`,
             description: "O propósito da Rede Click é captar a emoção, a devoção e glorificar o nome de Deus através das imagens, onde vemos momentos muito especiais, através do que Deus está fazendo na vida de pessoas, e mostrando a evolução em nossa igreja. Com as imagens trazemos a recordação de momentos felizes na presença de Deus.",
-            responsavelName: "Nayara Pires",
+            responsavelName: "Geovana Matozo",
             palavra: "Eu quero lembrar aquilo que pode me dar esperança na vida.",
             versiculo: "Lamentações 3:21"
         },
