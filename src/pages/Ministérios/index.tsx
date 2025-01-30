@@ -25,6 +25,7 @@ import Aviva from '../../assets/Ministerios/Aviva.jpg'
 import Plenitude from '../../assets/Ministerios/Plenitude.jpg'
 import Rede_Power_Pink from '../../assets/Ministerios/Rede Power Pink.jpg'
 import Rede_Kids from '../../assets/Ministerios/Rede_Kids.jpg'
+import Forja_de_Teleios from '../../assets/Ministerios/Forja_de_Teleios.jpg'
 
 export function Ministerios() {
 
@@ -169,6 +170,15 @@ export function Ministerios() {
             palavra: "",
             versiculo: ""
         },
+        {
+            name: "Forja de Teleios",
+            nameDetail: "Ministério Forja de Teleios",
+            image: `${Forja_de_Teleios}`,
+            description: "Tem como missão fortalecer e capacitar homens  para exercer seu sacerdócio e liderança, dentro de casa, na igreja e na sociedade cumprindo a principal ordem deixada por Jesus:  Salvar Almas!",
+            responsavelName: "Jorge",
+            palavra: "Josué 1:9",
+            versiculo: "Digo e repito: Seja forte e corajoso! Nada de desânimo e não fique com medo! Lembre-se bem: O SENHOR, o seu Deus, estará com você, esteja onde estiver"
+        }
     ]
 
 
