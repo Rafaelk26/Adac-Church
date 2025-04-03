@@ -49,7 +49,7 @@ export function Ministerios() {
             nameDetail: "Ministério Teatral Convergir",
             image: `${Convergir}`,
             description: "O propósito do ministério é levar o evangelho através da arte, fazendo discípulos e ganhando almas de uma forma leve, porém intencional.",
-            responsavelName: "Stefani Weingartner",
+            responsavelName: "Ana Carolina Seripieri",
             palavra: "",
             versiculo: ""
         },
@@ -58,7 +58,7 @@ export function Ministerios() {
             nameDetail: "Rede Influence",
             image: `${Influence}`,
             description: "O propósito da rede influence é levar o amor de Deus para fora da igreja, apresentando ele a todos que estão perdidos e sem esperança, cumprindo aquilo que Cristo colocou em nossos corações, realizando a grande comissão com muita alegria e amor.",
-            responsavelName: "Cléber Rodrigues",
+            responsavelName: "Leandro Braga",
             palavra: "",
             versiculo: ""
         },
@@ -139,7 +139,7 @@ export function Ministerios() {
             nameDetail: "Ministério Aviva Jovem",
             image: `${Aviva}`,
             description: "O propósito do ministério é alcançar os adolescentes/jovens, fazer com que eles se sintam parte da grande comissão e assim eles vivam o avivamento não só em um evento mas em todos os seus dias. O Aviva quer ver os adolescentes/jovens se dedicando, se entregando por inteiro e sendo renovados pelo Pai.",
-            responsavelName: "Yasmin Vicente",
+            responsavelName: "Luiz Carlos",
             palavra: "Deus derramará do seu espírito sobre todos os povos!! Os jovens, eles terão visões!!",
             versiculo: "Joel 2:28-29"
         },
