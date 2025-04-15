@@ -21,9 +21,6 @@ import { Footer } from '../../components/Pages/Home/Footer';
 import backgroundLogo from '../../assets/Logo/logo-adac-2025.png';
 import backgroundBanner from '../../assets/foto-banner.jpeg';
 
-// Cache
-import videoData from '../../cache.json';
-
 // CSS
 import './index.css';
 
@@ -39,12 +36,10 @@ export interface videoProps {
 export function Home() {
 
   const [exibirImagem, setExibirImagem] = useState<boolean>(false);
-  const [videosYouTube, setVideosYouTube] = useState<videoProps>();
   const [linkVideoYoutube, setLinkVideoYoutube] = useState<string[]>([]);
 
 
   useEffect(() => {
-    setVideosYouTube(videoData[0]);
 
     function handleResizing() {
       setExibirImagem(window.innerWidth >= 767);
