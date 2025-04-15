@@ -4,6 +4,8 @@ import { ContainerMain } from '../../components/Container/Main';
 
 // Importando hooks do react
 import { useState, useEffect, useMemo } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../services/server';
 
 // Componentes
 import { HeaderHome } from '../../components/Header/Home';
@@ -38,6 +40,7 @@ export function Home() {
 
   const [exibirImagem, setExibirImagem] = useState<boolean>(false);
   const [videosYouTube, setVideosYouTube] = useState<videoProps>();
+  const [linkVideoYoutube, setLinkVideoYoutube] = useState<string[]>([]);
 
 
   useEffect(() => {
@@ -53,6 +56,25 @@ export function Home() {
     return () => {
       window.removeEventListener('resize', handleResizing);
     }
+  }, [])
+
+
+  useEffect(()=> {
+
+
+    async function getLinkYouTube(){
+      const docRef = doc(db, "Ministracao", "atual");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const { videoLink } = docSnap.data();
+        setLinkVideoYoutube([videoLink]);
+      }
+
+    }
+
+    getLinkYouTube()
+    console.log(linkVideoYoutube)
+
   }, [])
 
   const memorizedLogoAdac = useMemo(() => backgroundLogo, []);
@@ -89,7 +111,7 @@ export function Home() {
         <Church />
         <Ministration
           link_page='/adac/ministracao/'
-          link={`https://www.youtube.com/embed/${videosYouTube?.videoId}?si=9bVfMuZL3iZzacXc`}
+          link={`https://www.youtube.com/embed/${linkVideoYoutube}?si=9bVfMuZL3iZzacXc`}
         />
         <div
           className='flex justify-center flex-col items-center gap-4 mt-16

@@ -98,6 +98,30 @@ export function Administration(){
                                     />
                                 </div>
                             </div>
+
+                            {/* Líderes */}
+                            <div className='w-60 h-80 outline outline-white outline-2 rounded-lg px-4'>
+                                <div className='w-full flex justify-between items-center'>
+                                    <h2 className='pt-4 font-semibold quicksand text-3xl'>Ministração</h2>
+                                    <BiUser
+                                    className='mt-4'
+                                    fill='#fff' 
+                                    size={30} />
+                                </div>
+                                
+                                {/* Buttons */}
+                                <div className='mt-4 flex flex-col justify-center gap-4 h-56'>
+                                    <Links
+                                    className='bg-transparent border border-solid 
+                                    border-white rounded-lg w-full px-5 py-2 m-0 
+                                    flex justify-center items-center quicksand text-xl
+                                    transition-all
+                                    hover:bg-gray-800'
+                                    to='/adac/admin/criar/ministracao' 
+                                    nome_link='Inserir' 
+                                    />
+                                </div>
+                            </div>
                         </div>
                         {/* Logout Button */}
                         <div className='w-full my-10 flex justify-center'>

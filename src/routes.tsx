@@ -25,6 +25,7 @@ import { Administration } from './pages/Admin/Home/index';
 // Administrador - Criar
 import { CriarCelulas } from './pages/Admin/Create/Células/index';
 import { CriarEventos } from './pages/Admin/Create/Eventos/index';
+import { InserirMinistracao } from './pages/Admin/Create/Ministracao'
 // Administrador - Editar
 import { EditCelulas } from './pages/Admin/Edit/Células/index';
 import { EditCelulasId } from './pages/Admin/Edit/Células/Célula/index';
@@ -110,6 +111,12 @@ export const router = createBrowserRouter([
                         </Private>,
                 path: "/adac/admin/criar/eventos"
             }, 
+            {
+                element: <Private>
+                            <InserirMinistracao />
+                        </Private>,
+                path: "/adac/admin/criar/ministracao"
+            },
             {
                 element: <Private>
                             <DeleteCelulas />
