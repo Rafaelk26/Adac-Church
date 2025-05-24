@@ -82,8 +82,7 @@ export function EditCelulas(){
                         id="bairro_escolha"
                         onChange={handleNeighborhood}
                         value={selectedNeighborhood}>
-                            <option value="All">Filtre por bairro</option>
-                            <option value="All" selected>Todos os Bairros</option>
+                            <option value=""></option>
                             <option value="Barranco Alto">Barranco Alto</option>
                             <option value="Benfica">Benfica</option>
                             <option value="Cantagalo">Cantagalo</option>
@@ -117,6 +116,8 @@ export function EditCelulas(){
                             <option value="Martim de Sá">Martim de Sá</option>
                             <option value="Massaguaçu">Massaguaçu</option>
                             <option value="Morro do Algodão">Morro do Algodão</option>
+                            <option value="Nova Caraguá I">Nova Caraguá I</option>
+                            <option value="Nova Caraguá II">Nova Caraguá II</option>
                             <option value="Pegorelli">Pegorelli</option>
                             <option value="Perequê Mirim">Perequê Mirim</option>
                             <option value="Poiares">Poiares</option>

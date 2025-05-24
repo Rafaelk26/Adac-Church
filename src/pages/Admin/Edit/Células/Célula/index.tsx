@@ -229,6 +229,8 @@ export function EditCelulasId() {
                                                 <option value="Martim de Sá">Martim de Sá</option>
                                                 <option value="Massaguaçu">Massaguaçu</option>
                                                 <option value="Morro do Algodão">Morro do Algodão</option>
+                                                <option value="Nova Caraguá I">Nova Caraguá I</option>
+                                                <option value="Nova Caraguá II">Nova Caraguá II</option>
                                                 <option value="Pegorelli">Pegorelli</option>
                                                 <option value="Perequê Mirim">Perequê Mirim</option>
                                                 <option value="Poiares">Poiares</option>
