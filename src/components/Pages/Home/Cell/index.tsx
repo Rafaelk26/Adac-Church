@@ -6,10 +6,10 @@ import { Button } from '../../../../components/Button/Home';
 import { CellCards } from '../CellCards';
 
 // Photos CardsCell
-import image1 from '../../../../assets/Capas/Anjos do Rei.jpeg';
-import image2 from '../../../../assets/Capas/Féminina.jpeg';
-import image3 from '../../../../assets/Capas/Elegidos.jpeg';
-import image4 from '../../../../assets/Capas/Fontes de Luz.jpeg';
+import image1 from '../../../../assets/Capas/Lucas.jpg';
+import image2 from '../../../../assets/Capas/Nayara.jpg';
+import image3 from '../../../../assets/Capas/Imagem do WhatsApp de 2025-05-24 à(s) 14.07.42_94794cd6.jpg';
+import image4 from '../../../../assets/Capas/Victor.jpg';
 
 export function Cell(){
 
@@ -32,19 +32,19 @@ export function Cell(){
                 {/* Cards Cell */}
                 <section className='w-full flex justify-center gap-8 mt-5 flex-wrap grow col'>
                     <CellCards 
-                    link='/adac/celulas/detalhes/8hSSiMi8pco7TxV15Pr5'
+                    link='/adac/celulas/detalhes/eoZxwUe8PTnqdkE4gmg5'
                     photo={memorizedImage1} />
 
                     <CellCards 
-                    link='/adac/celulas/detalhes/SQJxuWnVJlVMijPL7xcH'
+                    link='/adac/celulas/detalhes/cu9zCQMYTP4R4FpNcTq7'
                     photo={memorizedImage2} />
                     
                     <CellCards 
-                    link='/adac/celulas/detalhes/D674TveVXM6XgokdUrjL'
+                    link='/adac/celulas/detalhes/8ouBJ05GUrNzSOwkbYs1'
                     photo={memorizedImage3} />
                     
                     <CellCards 
-                    link='/adac/celulas/detalhes/zwsNuTHPZhvIfQ402CHc'
+                    link='/adac/celulas/detalhes/12XwPDPAQHha7VANPMrd'
                     photo={memorizedImage4} />
                 </section>
                 {/* Button Cell */}
