@@ -25,7 +25,6 @@ import Aviva from '../../assets/Ministerios/Aviva.jpg'
 import Plenitude from '../../assets/Ministerios/Plenitude.jpg'
 import Rede_Power_Pink from '../../assets/Ministerios/Rede Power Pink.jpg'
 import Rede_Kids from '../../assets/Ministerios/Rede_Kids.jpg'
-import Forja_de_Teleios from '../../assets/Ministerios/Forja_de_Teleios.jpg'
 
 export function Ministerios() {
 
@@ -112,7 +111,7 @@ export function Ministerios() {
             nameDetail: "Grupo de Louvor ADAC",
             image: `${Grupo_Louvor}`,
             description: "Nosso grupo tem o propósito de servir a Deus de glorificar e de louvar o seu nome e Conduzir a Igreja nos momentos de louvor e adoração durante os cultos e eventos, com o melhor desempenho, qualidade e espiritualidade possível. E através dos louvores alcançar as pessoas de fora apresentando Deus a elas.",
-            responsavelName: "Beto Gibelli",
+            responsavelName: "Rebeca",
             palavra: "Venham todos, e louvemos a Deus, o Senhor! Cantemos com alegria à rocha que nos salva. Vamos comparecer diante dele com ações de graças, cantando alegres hinos de louvor. Pois o Senhor é Deus poderoso; é Rei poderoso acima de todos os deuses.",
             versiculo: "Salmos 95:1-3"
         },
@@ -169,15 +168,6 @@ export function Ministerios() {
             responsavelName: "Roberta Dantas",
             palavra: "",
             versiculo: ""
-        },
-        {
-            name: "Forja de Teleios",
-            nameDetail: "Ministério Forja de Teleios",
-            image: `${Forja_de_Teleios}`,
-            description: "Tem como missão fortalecer e capacitar homens  para exercer seu sacerdócio e liderança, dentro de casa, na igreja e na sociedade cumprindo a principal ordem deixada por Jesus:  Salvar Almas!",
-            responsavelName: "Jorge",
-            palavra: "Josué 1:9",
-            versiculo: "Digo e repito: Seja forte e corajoso! Nada de desânimo e não fique com medo! Lembre-se bem: O SENHOR, o seu Deus, estará com você, esteja onde estiver"
         }
     ]
 
