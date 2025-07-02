@@ -25,6 +25,7 @@ import Aviva from '../../assets/Ministerios/Aviva.jpg'
 import Plenitude from '../../assets/Ministerios/Plenitude.jpg'
 import Rede_Power_Pink from '../../assets/Ministerios/Rede Power Pink.jpg'
 import Rede_Kids from '../../assets/Ministerios/Rede_Kids.jpg'
+import Rede_Vision from '../../assets/Ministerios/Rede_Vision.jpg'
 
 export function Ministerios() {
 
@@ -166,6 +167,15 @@ export function Ministerios() {
             image: `${Rede_Kids}`,
             description: "O ministério ADAC KIDS TEENS tem o objetivo de evangelizar, discipular e pastorear os pequeninos de 3 a 10 anos e 12 a 15 anos de idade da nossa igreja. Ensinamos os princípios de Deus de maneira contextualizada, criativa e prática para fazer as crianças crescerem amando e obedecendo ao Senhor e contribuindo para ser uma geração que dará continuidade ao propósito da igreja, que é contar as boas novas e conectar as pessoas a Jesus .",
             responsavelName: "Roberta Dantas",
+            palavra: "",
+            versiculo: ""
+        },
+        {
+            name: "Rede Vision",
+            nameDetail: "Ministério Rede Vision",
+            image: `${Rede_Vision}`,
+            description: "",
+            responsavelName: "Isabella Fernandes",
             palavra: "",
             versiculo: ""
         }

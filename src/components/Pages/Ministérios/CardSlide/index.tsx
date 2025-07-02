@@ -18,6 +18,7 @@ import Aviva from '../../../../assets/Ministerios/Aviva.jpg';
 import Plenitude from '../../../../assets/Ministerios/Plenitude.jpg';
 import Rede_Power_Pink from '../../../../assets/Ministerios/Rede Power Pink.jpg';
 import Rede_Kids from '../../../../assets/Ministerios/Rede_Kids.jpg';
+import Rede_Vision from '../../../../assets/Ministerios/Rede_Vision.jpg';
 
 // CSS
 import './index.css';
@@ -39,6 +40,7 @@ export function CardSlide() {
         { foto: Plenitude, nameAlt: 'Plenitude' },
         { foto: Rede_Power_Pink, nameAlt: 'Rede Power Pink' },
         { foto: Rede_Kids, nameAlt: 'Rede Kids' },
+        { foto: Rede_Vision, nameAlt: 'Rede Vision' },
     ];
 
     return (
